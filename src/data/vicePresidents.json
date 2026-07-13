@@ -1,0 +1,33 @@
+[
+  {
+    "id": "vp_loyal",
+    "name": "KH. Ahmad Syafi'i",
+    "photo": "https://ik.imagekit.io/dntonfire/image_2026-05-29_085029639.png",
+    "desc": "Ulama kharismatik yang sangat setia. Selalu mendampingi presiden.",
+    "trait": "setia",
+    "will_betray": false,
+    "buffs": { "popularitas": 5, "kesejahteraan": 3, "keamanan": 30 },
+    "debuffs": {}
+  },
+  {
+    "id": "vp_ambisius",
+    "name": "Ir. Bambang Wicaksono",
+    "photo": "https://ik.imagekit.io/dntonfire/image_2026-05-29_084804714.png",
+    "desc": "Teknokrat brilian dengan ambisi besar. Diam-diam membangun pengaruh.",
+    "trait": "ambisius",
+    "will_betray": true,
+    "buffs": { "apbn": 20, "infrastruktur": 5 },
+    "debuffs": { "keamanan": -3 }
+  },
+  {
+    "id": "vp_pengkhianat",
+    "name": "Dra. Siti Rahmawati",
+    "photo": "https://ik.imagekit.io/dntonfire/image_2026-05-29_085929159.png",
+    "desc": "Akademisi lembut yang ternyata sudah diatur oleh kelompok oposisi.",
+    "trait": "pengkhianat",
+    "will_betray": true,
+    "buffs": { "apbn": 10, "keamanan": 10, "popularitas": 10, "kesejahteraan": 3 },
+    "debuffs": { "apbn": -5 },
+    "oposisiBonus": 5
+  }
+]

@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@theme {
+  --font-retro: 'VT323', monospace;
+  --color-retroRed: #961313;
+  --color-retroGreen: #1a5c1a;
+  --color-retroYellow: #b39c00;
+  --color-retroGray: #3a3a3a;
+  --color-retroLight: #dfdfcf;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #0a0a0a;
+  color: #dfdfcf;
+  font-family: 'VT323', monospace;
+  image-rendering: pixelated;
+  overflow-x: hidden;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+::selection {
+  background: #961313;
+  color: #dfdfcf;
+}
+
+.pixel-border {
+  box-shadow:
+    inset -4px -4px 0 0 #1a1a1a,
+    inset 4px 4px 0 0 #4a4a4a;
+}
+
+.pixel-border-light {
+  box-shadow:
+    inset -3px -3px 0 0 #3a3a3a,
+    inset 3px 3px 0 0 #6a6a6a;
+}
+
+.stat-bar {
+  height: 16px;
+  background: #1a1a1a;
+  border: 2px solid #3a3a3a;
+  position: relative;
+}
+
+.stat-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.glow-text {
+  text-shadow: 0 0 6px rgba(223, 223, 207, 0.4);
+}
+
+.blink {
+  animation: blink-anim 1s steps(2) infinite;
+}
+
+@keyframes blink-anim {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.shake {
+  animation: shake 0.15s ease-in-out 3;
+}
+
+.news-ticker {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.news-ticker-content {
+  display: inline-block;
+  animation: scroll-left 20s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Mobile responsive fixes */
+@media (max-width: 640px) {
+  body { font-size: 14px; }
+  .text-5xl { font-size: 2rem !important; }
+  .text-4xl { font-size: 1.5rem !important; }
+  .text-3xl { font-size: 1.25rem !important; }
+  .text-2xl { font-size: 1.1rem !important; }
+  .glow-text { text-shadow: 0 0 3px rgba(223, 223, 207, 0.3); }
+  .max-w-lg { max-width: 100%; }
+  .p-6 { padding: 1rem; }
+  .p-4 { padding: 0.75rem; }
+  .gap-4 { gap: 0.75rem; }
+  .gap-3 { gap: 0.5rem; }
+  #root { overflow-x: hidden; }
+  .break-words { word-break: break-word; }
+  img.pixelated { max-width: 100%; height: auto; }
+  .flex-col { width: 100%; }
+  input, button, select { font-size: 16px !important; }
+  .w-32 { width: 5rem; height: 5rem; }
+  .min-h-screen { min-height: 100dvh; }
+}
+
+@media (max-width: 380px) {
+  .text-5xl { font-size: 1.5rem !important; }
+  .tracking-widest { letter-spacing: 0.05em; }
+  .tracking-wider { letter-spacing: 0.03em; }
+  .px-4 { padding-left: 0.5rem; padding-right: 0.5rem; }
+}
+
+/* Desktop PC scaling — makes game UI bigger on large screens */
+@media (min-width: 1024px) {
+  .stat-bar { height: 20px; border: 3px solid #3a3a3a; }
+  .pixel-border {
+    box-shadow:
+      inset -6px -6px 0 0 #1a1a1a,
+      inset 6px 6px 0 0 #4a4a4a;
+  }
+  .pixel-border-light {
+    box-shadow:
+      inset -5px -5px 0 0 #3a3a3a,
+      inset 5px 5px 0 0 #6a6a6a;
+  }
+}
+
+/* Game wrapper centering */
+.game-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #0a0a0a;
+  overflow-x: hidden;
+}
+
+.game-content {
+  position: relative;
+}

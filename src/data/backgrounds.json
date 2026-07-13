@@ -1,0 +1,62 @@
+[
+  {
+    "id": "pengusaha",
+    "name": "Pengusaha Sukses",
+    "description": "Anda dikenal sebagai raja bisnis. Ekonomi kuat, tapi rakyat meragukan empati Anda.",
+    "icon": "💼",
+    "wealth": "kaya",
+    "wealth_desc": "Anda berasal dari keluarga konglomerat dengan aset triliunan rupiah. Banyak yang meragukan Anda bisa memahami rakyat kecil.",
+    "buffs": { "apbn": 10, "infrastruktur": 5 },
+    "debuffs": { "kesejahteraan": -5 }
+  },
+  {
+    "id": "akademisi",
+    "name": "Akademisi Cendekia",
+    "description": "Guru besar yang cerdas dan bijaksana. Rakyat percaya, tapi Anda kurang pengalaman birokrasi.",
+    "icon": "🎓",
+    "wealth": "cukupan",
+    "wealth_desc": "Anda hidup dari gaji dosen dan royalti buku. Hidup sederhana namun terhormat. Rakyat melihat Anda bersih dari korupsi.",
+    "buffs": { "popularitas": 5, "kesejahteraan": 5 },
+    "debuffs": { "apbn": -5 }
+  },
+  {
+    "id": "militer",
+    "name": "Militer TNI",
+    "description": "Jenderal purnawirawan yang tegas. Keamanan terjaga, tapi gaya otoriter mengancam popularitas.",
+    "icon": "⭐",
+    "wealth": "cukupan",
+    "wealth_desc": "Karir militer bertahun-tahun memberi Anda pensiun dan tunjangan yang layak. Hidup sederhana, disiplin, dekat dengan prajurit.",
+    "buffs": { "keamanan": 10, "infrastruktur": 3 },
+    "debuffs": { "popularitas": -5 }
+  },
+  {
+    "id": "politisi",
+    "name": "Politisi Karier",
+    "description": "Anda sudah puluhan tahun di DPR. Jaringan kuat, citra kurang bersih.",
+    "icon": "🎭",
+    "wealth": "kaya",
+    "wealth_desc": "Puluhan tahun di panggung politik membuat Anda mapan. Banyak yang bertanya dari mana harta Anda berasal.",
+    "buffs": { "popularitas": 8, "apbn": 3 },
+    "debuffs": { "keamanan": -3 }
+  },
+  {
+    "id": "selebriti",
+    "name": "Selebriti Papan Atas",
+    "description": "Artis dan influencer terkenal. Popularitas meledak, tapi kapasitas dipertanyakan.",
+    "icon": "🌟",
+    "wealth": "kaya",
+    "wealth_desc": "Dunia hiburan membuat Anda kaya raya. Rumah mewah, mobil mahal, tapi publik bertanya apakah Anda serius memimpin.",
+    "buffs": { "popularitas": 12, "kesejahteraan": 3 },
+    "debuffs": { "apbn": -8, "infrastruktur": -5 }
+  },
+  {
+    "id": "masyarakat_sipil",
+    "name": "Tokoh Masyarakat Sipil",
+    "description": "Pemimpin akar rumput dengan massa besar di daerah. Dekat rakyat, tapi minim jaringan nasional.",
+    "icon": "🤝",
+    "wealth": "miskin",
+    "wealth_desc": "Anda hidup sederhana bersama rakyat yang Anda perjuangkan. Tidak punya harta mewah, tapi hati Anda kaya dan dekat dengan konstituen.",
+    "buffs": { "kesejahteraan": 8, "keamanan": 5 },
+    "debuffs": { "apbn": -5, "infrastruktur": -3 }
+  }
+]

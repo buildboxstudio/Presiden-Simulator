@@ -1,0 +1,233 @@
+[
+  {
+    "id": 101,
+    "title": "Perang Dunia III Mengancam",
+    "description": "Ketegangan global memuncak! Negara adidaya saling ancam. Indonesia harus ambil sikap.",
+    "deddy_intro": "Lapor Presiden! Perang Dunia ganjal! Negara besar mau perang! Indonesia harus pilih pihak!",
+    "choices": [
+      { "label": "Netral Aktif, Mediasi Perdamaian Dunia", "effects": { "keamanan": 5, "popularitas": 8, "kesejahteraan": -5, "apbn": -8 } },
+      { "label": "Dukung Blok Barat (AS & NATO)", "effects": { "apbn": 10, "keamanan": -5, "popularitas": -10, "infrastruktur": 5 } },
+      { "label": "Dukung Blok Timur (China & Rusia)", "effects": { "apbn": 15, "keamanan": -8, "popularitas": -15, "kesejahteraan": -3 } }
+    ],
+    "vp_advice": { "advice": "Netral saja, Pak. Indonesia bukan punya musuh.", "recommends": 0 }
+  },
+  {
+    "id": 102,
+    "title": "Dukungan untuk Palestina Memanas",
+    "description": "Isu Palestina kembali memanas di PBB. Rakyat Indonesia terbelah antara dukung Palestina atau jaga hubungan dengan AS.",
+    "deddy_intro": "Lapor Presiden! Isu Palestina memanas di PBB! MUI dukung Palestina, tapi AS tekan kita!",
+    "choices": [
+      { "label": "Dukung Penuh Palestina di PBB", "effects": { "popularitas": 12, "kesejahteraan": -3, "apbn": -5 } },
+      { "label": "Abstain, Jaga Hubungan dengan Semua Pihak", "effects": { "popularitas": -3, "keamanan": 5, "apbn": 3 } },
+      { "label": "Dukung Solusi Dua Negara (Kompromi)", "effects": { "popularitas": 5, "infrastruktur": 3, "apbn": 2 } }
+    ],
+    "vp_advice": { "advice": "Rakyat Indonesia pro-Palestina, Pak. Jangan kecewakan mereka.", "recommends": 0 }
+  },
+  {
+    "id": 103,
+    "title": "Korea Wave Vs Budaya Lokal",
+    "description": "Generasi muda lebih hafal lagu K-Pop daripada lagu daerah. Tokoh agama protes, anak muda demo.",
+    "deddy_intro": "Lapor Presiden! Anak muda demam K-Pop! Tokoh agama protes! Dua kubu bentrok di medsos!",
+    "choices": [
+      { "label": "Angkat Budaya Lokal, Beri Insentif Seniman Tradisi", "effects": { "kesejahteraan": 5, "popularitas": 5, "apbn": -8 } },
+      { "label": "Bebaskan Kultur Asing, Biar Rakyat Pilih Sendiri", "effects": { "popularitas": 3, "apbn": 3, "keamanan": -5 } },
+      { "label": "Campurkan Budaya Lokal & Modern (Fusion)", "effects": { "popularitas": 8, "infrastruktur": 3, "kesejahteraan": 3, "apbn": -5 } }
+    ],
+    "vp_advice": { "advice": "Gabungan saja, Pak. Yang muda senang, yang tua juga.", "recommends": 2 }
+  },
+  {
+    "id": 104,
+    "title": "Hoax LGBT Merebak di Medsos",
+    "description": "Konten LGBT hoax viral di TikTok dan Twitter. Massa terprovokasi, ormas keagamaan siap demo besar.",
+    "deddy_intro": "Lapor Presiden! Isu LGBT hoax viral! Massa terprovokasi! Demo besar ancang-ancang!",
+    "choices": [
+      { "label": "Blokir Medsos Sementara, Redam Provokasi", "effects": { "keamanan": 10, "infrastruktur": -8, "popularitas": -5, "kesejahteraan": -3 } },
+      { "label": "Edukasi Publik dan Tangkap Penyebar Hoax", "effects": { "kesejahteraan": 3, "keamanan": 5, "popularitas": 5, "apbn": -5 } },
+      { "label": "Biarkan Saja, Nanti Reda Sendiri", "effects": { "apbn": 3, "keamanan": -12, "popularitas": -10 } }
+    ],
+    "vp_advice": { "advice": "Edukasi dan tangkap penyebar hoax, Pak. Jangan sampai timbul korban.", "recommends": 1 }
+  },
+  {
+    "id": 105,
+    "title": "Krisis Iklim Ekstrem",
+    "description": "Cuaca ekstrem melanda! Banjir di utara, kekeringan di selatan. Ribuan desa terisolasi.",
+    "deddy_intro": "Lapor Presiden! Bencana iklim! Utara banjir, selatan kering! Desa-desa terisolasi!",
+    "choices": [
+      { "label": "Dana Darurat Nasional dan Relokasi Warga", "effects": { "apbn": -15, "kesejahteraan": 10, "popularitas": 8, "infrastruktur": -5 } },
+      { "label": "Program Hijau: Reboisasi dan Energi Terbarukan", "effects": { "apbn": -10, "infrastruktur": -3, "popularitas": 5, "kesejahteraan": 3 } },
+      { "label": "Fokus Bangun Infrastruktur Anti-Bencana", "effects": { "apbn": -12, "infrastruktur": 15, "keamanan": 5, "kesejahteraan": 3 } }
+    ],
+    "vp_advice": { "advice": "Banjir dan kekeringan parah, Pak. Dana darurat dikirim sekarang!", "recommends": 0 }
+  },
+  {
+    "id": 106,
+    "title": "Kripto dan NFT Guncang Ekonomi",
+    "description": "Booming kripto dan NFT membuat generasi muda meninggalkan sektor riil. Bank Indonesia panik.",
+    "deddy_intro": "Lapor Presiden! Anak muda demam kripto! Uang beredar pindah ke aset digital! BI kebingungan!",
+    "choices": [
+      { "label": "Regulasi Ketat Kripto, Lindungi Investor", "effects": { "apbn": 5, "keamanan": 8, "popularitas": -3 } },
+      { "label": "Adopsi Kripto, Indonesia Jadi Hub Blockchain", "effects": { "apbn": 10, "infrastruktur": 10, "popularitas": 5, "keamanan": -8 } },
+      { "label": "Larang Kripto Total, Kembali ke Ekonomi Riil", "effects": { "apbn": -5, "kesejahteraan": -5, "popularitas": -8 } }
+    ],
+    "vp_advice": { "advice": "Kripto masa depan, Pak. Tapi hati-hati banyak scamming.", "recommends": 1 }
+  },
+  {
+    "id": 107,
+    "title": "Gerakan Papua Merdeka Versi 2.0",
+    "description": "Gerakan separatis Papua bangkit lagi dengan taktik baru: diplomasi internasional dan lobby PBB.",
+    "deddy_intro": "Lapor Presiden! Gerakan Papua Merdeka angkat kepala lagi! Mereka lobby PBB! Dunia mulai dengar!",
+    "choices": [
+      { "label": "Operasi Intelijen dan Pendekatan Budaya", "effects": { "keamanan": 8, "kesejahteraan": 5, "popularitas": 3, "apbn": -8 } },
+      { "label": "Berikan Otonomi Khusus Super", "effects": { "popularitas": 3, "kesejahteraan": 8, "apbn": -10, "keamanan": -3 } },
+      { "label": "Tindak Tegas, Kirim Pasukan Tambahan", "effects": { "keamanan": 12, "popularitas": -10, "apbn": -12, "kesejahteraan": -5 } }
+    ],
+    "vp_advice": { "advice": "Pendekatan diplomasi dan budaya, Pak. Jangan full militer.", "recommends": 0 }
+  },
+  {
+    "id": 108,
+    "title": "Influencer Jadi Menteri?",
+    "description": "Selebriti TikTok dengan 50 juta follower menawarkan diri jadi menteri. Generasi Z heboh!",
+    "deddy_intro": "Lapor Presiden! Influencer TikTok mau jadi menteri! Anak muda dukung, orang tua pada geleng-geleng!",
+    "choices": [
+      { "label": "Terima, Biar Anak Muda Terwakili", "effects": { "popularitas": 10, "kesejahteraan": -3, "apbn": -5, "infrastruktur": -3 } },
+      { "label": "Tolak, Jabatan Menteri Bukan Konten", "effects": { "popularitas": -5, "keamanan": 5, "kesejahteraan": 3 } },
+      { "label": "Beri Jabatan Staf Khusus, Bukan Menteri", "effects": { "popularitas": 5, "apbn": -2, "infrastruktur": 2 } }
+    ],
+    "vp_advice": { "advice": "Jangan menteri, Pak. Staf khusus saja. Kalau gagal ga bikin malu.", "recommends": 2 }
+  },
+  {
+    "id": 109,
+    "title": "Invasi Asing ke Natuna",
+    "description": "Kapal asing melanggar batas ZEE Natuna. TNI AL siaga. Situasi genting.",
+    "deddy_intro": "Lapor Presiden! Kapal asing di Natuna! TNI AL sudah siaga! Ini provokasi!",
+    "choices": [
+      { "label": "Diplomasi Tegas, Panggil Dubes", "effects": { "keamanan": 5, "popularitas": 8, "apbn": -3 } },
+      { "label": "Tembak Peringatan, Usir Paksa", "effects": { "keamanan": 10, "popularitas": 5, "apbn": -8, "infrastruktur": -3 } },
+      { "label": "Bawa ke Mahkamah Internasional", "effects": { "popularitas": -3, "apbn": -10, "keamanan": 3 } }
+    ],
+    "vp_advice": { "advice": "Diplomasi tegas, Pak. Jangan perang dulu.", "recommends": 0 }
+  },
+  {
+    "id": 110,
+    "title": "Ancaman Resesi Global 2.0",
+    "description": "Ekonomi global kolaps! Inflasi 500%! Dunia resesi besar. Indonesia butuh jurus jitu.",
+    "deddy_intro": "Lapor Presiden! Resesi global parah! Inflasi gila-gilaan! Ekonomi kita terancam!",
+    "choices": [
+      { "label": "Suntik Likuiditas, Selamatkan UMKM & Bank", "effects": { "apbn": -20, "kesejahteraan": 10, "popularitas": 8, "keamanan": 3 } },
+      { "label": "Pinjam Dana Darurat IMF & ADB", "effects": { "apbn": 15, "popularitas": -12, "kesejahteraan": -5, "infrastruktur": -3 } },
+      { "label": "Isolasi Ekonomi, Berdikari Ala Soekarno", "effects": { "apbn": -5, "popularitas": 3, "kesejahteraan": -8, "infrastruktur": -5 } }
+    ],
+    "vp_advice": { "advice": "Selamatkan UMKM dulu, Pak. Ekonomi rakyat paling penting!", "recommends": 0 }
+  },
+  {
+    "id": 111,
+    "title": "Mega Proyek IKN Bermasalah",
+    "description": "Proyek Ibu Kota Nusantara mangkrak! Kontraktor kabur, anggaran membengkak 300%!",
+    "deddy_intro": "Lapor Presiden! IKN mangkrak! Kontraktor kabur bawa uang! Anggaran bengkak 300%!",
+    "choices": [
+      { "label": "Evaluasi Total, Ganti Kontraktor", "effects": { "infrastruktur": 8, "apbn": -10, "popularitas": 5 } },
+      { "label": "Lanjutkan Proyek, Tambah Anggaran", "effects": { "apbn": -15, "infrastruktur": 10, "popularitas": -8, "kesejahteraan": -3 } },
+      { "label": "Hentikan IKN, Kembalikan ke Jakarta", "effects": { "apbn": 10, "popularitas": 10, "infrastruktur": -10, "keamanan": -3 } }
+    ],
+    "vp_advice": { "advice": "Evaluasi total, Pak! Ganti kontraktor nakal! Jangan tambah anggaran!", "recommends": 0 }
+  },
+  {
+    "id": 112,
+    "title": "Densus 88 Tangkap Teroris Jaringan Internasional",
+    "description": "Densus 88 menggagalkan serangan teroris di 5 kota. Jaringan internasional terlibat.",
+    "deddy_intro": "Lapor Presiden! Densus 88 gagalkan serangan teroris di 5 kota! Jaringan internasional!",
+    "scenario": "konflik",
+    "choices": [
+      { "label": "Berikan Medali ke Densus 88, Tingkatkan Anggaran Intelijen", "effects": { "keamanan": 15, "apbn": -8, "popularitas": 10 } },
+      { "label": "Manfaatkan untuk Kampanye Keamanan Nasional", "effects": { "popularitas": 12, "keamanan": 8, "apbn": -3 } },
+      { "label": "Redam Berita, Jangan Picu Kepanikan", "effects": { "popularitas": -5, "keamanan": -5, "kesejahteraan": -3 } }
+    ],
+    "vp_advice": { "advice": "Berikan medali, Pak! Densus 88 pahlawan! Tunjukkan negara tegas!", "recommends": 0 }
+  },
+  {
+    "id": 113,
+    "title": "Krisis Devisa Akibat Impor Migas",
+    "description": "Impor migas membengkak. Cadangan devisa menipis. Rupiah terancam kolaps.",
+    "deddy_intro": "Lapor Presiden! Devisa menipis! Impor migas bengkak! Rupiah terancam anjlok!",
+    "scenario": "krisis_ekonomi",
+    "choices": [
+      { "label": "Genjot Ekspor Migas & Non-Migas", "effects": { "apbn": 12, "infrastruktur": 5, "popularitas": 3, "kesejahteraan": -3 } },
+      { "label": "Pinjam ke IMF dengan Bunga Rendah", "effects": { "apbn": 10, "popularitas": -10, "keamanan": -3, "kesejahteraan": -3 } },
+      { "label": "Hemat Devisa, Kurangi Impor Barang Mewah", "effects": { "apbn": 5, "popularitas": 5, "kesejahteraan": 3 } }
+    ],
+    "vp_advice": { "advice": "Genjot ekspor, Pak! Jangan bergantung utang luar negeri!", "recommends": 0 }
+  },
+  {
+    "id": 114,
+    "title": "Gunung Merapi Akan Meletus",
+    "description": "Status Merapi naik ke level siaga. 500 ribu warga di lereng harus dievakuasi.",
+    "deddy_intro": "Lapor Presiden! Merapi level siaga! 500 ribu warga harus dievakuasi! Waktunya mepet!",
+    "scenario": "bencana",
+    "choices": [
+      { "label": "Evakuasi Massal, Siapkan Pos Pengungsian", "effects": { "apbn": -12, "kesejahteraan": 8, "popularitas": 10, "infrastruktur": -3 } },
+      { "label": "Pasang Sensor Pemantau, Tunggu Letusan", "effects": { "apbn": -5, "kesejahteraan": -5, "popularitas": -8 } },
+      { "label": "Mitigasi Struktural: Bangun Sabo Dam & Terowongan Lava", "effects": { "apbn": -15, "infrastruktur": 15, "kesejahteraan": 5, "popularitas": 5 } }
+    ],
+    "vp_advice": { "advice": "Evakuasi massal sekarang, Pak! Nyawa rakyat lebih penting!", "recommends": 0 }
+  },
+  {
+    "id": 115,
+    "title": "Krisis Kabinet Mental Bocor",
+    "description": "Bocoran chat grup WhatsApp kabinet tersebar ke media. Isinya hinaan ke rakyat dan lembaga negara.",
+    "deddy_intro": "Lapor Presiden! Chat WA kabinet bocor ke media! Menteri hina rakyat di grup! Kacau!",
+    "choices": [
+      { "label": "Pecat Menteri yang Terlibat, Bersihkan Kabinet", "effects": { "popularitas": 10, "keamanan": 8, "apbn": -3, "kesejahteraan": 3 } },
+      { "label": "Bantah Bocoran, Itu Hoax dan Rekayasa", "effects": { "popularitas": -8, "keamanan": -5, "apbn": -3 } },
+      { "label": "Reshuffle Total Kabinet, Awal Baru", "effects": { "popularitas": 5, "keamanan": 10, "apbn": -8, "infrastruktur": -3 } }
+    ],
+    "vp_advice": { "advice": "Pecat yang terlibat, Pak! Jangan ditutup-tutupi! Rakyat sudah tahu semua!", "recommends": 0 }
+  },
+  {
+    "id": 116,
+    "title": "Krisis Nilai Tukar Rupiah",
+    "description": "Pasar keuangan sempat mengalami gejolak hebat saat nilai tukar rupiah menembus angka Rp 18.000 per dolar AS dan IHSG melemah signifikan.",
+    "deddy_intro": "Lapor Presiden! Rupiah jeblok Rp 18.000 per dolar! IHSG ambruk! Pasar panik!",
+    "choices": [
+      { "label": "Intervensi BI dan Bank Sentral Suntik Dolar", "effects": { "apbn": -12, "keamanan": 5, "popularitas": 3, "kesejahteraan": -3 } },
+      { "label": "Genjot Ekspor dan Larang Impor Barang Mewah", "effects": { "apbn": 8, "kesejahteraan": -5, "popularitas": 5, "infrastruktur": -3 } },
+      { "label": "Biar Saja, Pasar Akan Stabil Sendiri", "effects": { "apbn": 3, "popularitas": -15, "kesejahteraan": -8, "keamanan": -5 } }
+    ],
+    "vp_advice": { "advice": "Intervensi BI, Pak! Suntik dolar sekarang sebelum makin parah!", "recommends": 0 }
+  },
+  {
+    "id": 117,
+    "title": "Kenaikan BBM Pertamax",
+    "description": "Harga BBM Pertamax naik signifikan. Rakyat protes, biaya transportasi dan logistik melonjak.",
+    "deddy_intro": "Lapor Presiden! BBM Pertamax naik! Rakyat demo di SPBU! Biaya logistik ikut naik!",
+    "choices": [
+      { "label": "Subsidi BBM Agar Harga Kembali Normal", "effects": { "apbn": -15, "kesejahteraan": 8, "popularitas": 10 } },
+      { "label": "Pertahankan Kenaikan, Alihkan Subsidi ke Bantuan Langsung", "effects": { "apbn": 5, "kesejahteraan": 3, "popularitas": -8 } },
+      { "label": "Biarkan Harga Pasar, Rakyat Akan Beradaptasi", "effects": { "apbn": 10, "kesejahteraan": -10, "popularitas": -15, "keamanan": -5 } }
+    ],
+    "vp_advice": { "advice": "Subsidi BBM, Pak! Rakyat belum siap dengan harga segini!", "recommends": 0 }
+  },
+  {
+    "id": 118,
+    "title": "Program MBG Rp 335 Triliun Disorot",
+    "description": "Dengan alokasi anggaran jumbo sebesar Rp 335 triliun dari APBN, program Makan Bergizi Gratis mendapat pengawasan ketat dari masyarakat sipil. Koalisi sipil seperti MBG Watch menuntut transparansi penuh.",
+    "deddy_intro": "Lapor Presiden! Anggaran Rp 335 triliun untuk MBG! MBG Watch minta transparansi! Publik awas!",
+    "choices": [
+      { "label": "Audit Terbuka, Libatkan MBG Watch dalam Pengawasan", "effects": { "popularitas": 12, "kesejahteraan": 5, "apbn": -3, "keamanan": 8 } },
+      { "label": "Jalankan Program, Bantah Tuduhan Kurang Transparan", "effects": { "popularitas": -5, "kesejahteraan": 5, "apbn": -8, "keamanan": -3 } },
+      { "label": "Evaluasi Anggaran, Potong Pemborosan", "effects": { "apbn": 8, "popularitas": 5, "kesejahteraan": -3, "infrastruktur": 3 } }
+    ],
+    "vp_advice": { "advice": "Audit terbuka, Pak! Biar rakyat lihat kita tidak takut diawasi!", "recommends": 0 }
+  },
+  {
+    "id": 119,
+    "title": "Gelombang Demo Mahasiswa Meningkat",
+    "description": "Gelombang aksi unjuk rasa mahasiswa kembali meningkat sebagai respons langsung terhadap situasi ekonomi dan politik nasional yang dinilai sedang tidak stabil.",
+    "deddy_intro": "Lapor Presiden! Mahasiswa dari 50 kota turun ke jalan! Ekonomi dan politik tidak stabil kata mereka!",
+    "choices": [
+      { "label": "Temui Pimpinan BEM, Dengarkan Tuntutan", "effects": { "popularitas": 10, "keamanan": 5, "kesejahteraan": 3 } },
+      { "label": "Bubarkan dengan Aparat, Jaga Ketertiban", "effects": { "keamanan": 8, "popularitas": -12, "kesejahteraan": -5 } },
+      { "label": "Keluar Kebijakan Populis untuk Redam Kemarahan", "effects": { "popularitas": 5, "apbn": -8, "kesejahteraan": 5, "keamanan": 3 } }
+    ],
+    "vp_advice": { "advice": "Temui mahasiswa, Pak! Biarkan mereka bersuara! Daripada rusuh!", "recommends": 0 }
+  }
+]

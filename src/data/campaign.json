@@ -1,0 +1,69 @@
+[
+  {
+    "id": "ekonomi_kerakyatan",
+    "title": "Ekonomi Kerakyatan",
+    "desc": "Memperkuat UMKM dan koperasi di seluruh Indonesia.",
+    "requires": [
+      { "stat": "kesejahteraan", "min": 35 }
+    ]
+  },
+  {
+    "id": "infrastruktur_digital",
+    "title": "Infrastruktur Digital",
+    "desc": "Internet cepat merata ke seluruh pelosok negeri.",
+    "requires": [
+      { "stat": "infrastruktur", "min": 40 }
+    ]
+  },
+  {
+    "id": "pertahanan_kuat",
+    "title": "Pertahanan Nasional Kuat",
+    "desc": "Modernisasi alutsista TNI dan kesejahteraan prajurit.",
+    "requires": [
+      { "stat": "keamanan", "min": 40 }
+    ]
+  },
+  {
+    "id": "kesehatan_gratis",
+    "title": "Kesehatan Gratis Total",
+    "desc": "Layanan kesehatan gratis untuk seluruh warga negara.",
+    "requires": [
+      { "stat": "apbn", "min": 40 },
+      { "stat": "kesejahteraan", "min": 30 }
+    ]
+  },
+  {
+    "id": "pendidikan_merdeka",
+    "title": "Pendidikan Merdeka",
+    "desc": "Beasiswa penuh dan perbaikan kualitas guru nasional.",
+    "requires": [
+      { "stat": "kesejahteraan", "min": 30 },
+      { "stat": "apbn", "min": 30 }
+    ]
+  },
+  {
+    "id": "pangan_berdaulat",
+    "title": "Kedaulatan Pangan",
+    "desc": "Indonesia swasembada beras dan pangan pokok.",
+    "requires": [
+      { "stat": "infrastruktur", "min": 25 },
+      { "stat": "kesejahteraan", "min": 25 }
+    ]
+  },
+  {
+    "id": "pajak_adil",
+    "title": "Reformasi Pajak",
+    "desc": "Menaikkan penerimaan negara tanpa membebani rakyat kecil.",
+    "requires": [
+      { "stat": "apbn", "min": 35 }
+    ]
+  },
+  {
+    "id": "pemberantasan_korupsi",
+    "title": "Pemberantasan Korupsi",
+    "desc": "Memberantas korupsi dari akar hingga pejabat tinggi.",
+    "requires": [
+      { "stat": "keamanan", "min": 30 }
+    ]
+  }
+]

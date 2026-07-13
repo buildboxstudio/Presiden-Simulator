@@ -1,0 +1,32 @@
+[
+  {
+    "id": "nasionalis",
+    "name": "Partai Garuda Perkasa",
+    "logo": "https://ik.imagekit.io/dntonfire/image_2026-05-29_084230787.png",
+    "ideology": "Nasionalis",
+    "desc": "Mengutamakan kepentingan bangsa dan keutuhan NKRI di atas segalanya.",
+    "color": "#961313",
+    "buffs": { "keamanan": 5, "infrastruktur": 5 },
+    "debuffs": { "kesejahteraan": -3 }
+  },
+  {
+    "id": "agamis",
+    "name": "Partai Nurani Bangsa",
+    "logo": "https://ik.imagekit.io/dntonfire/image_2026-05-29_085914562.png",
+    "ideology": "Agamis",
+    "desc": "Berdasarkan nilai-nilai keagamaan dan moral dalam setiap kebijakan.",
+    "color": "#1a7a1a",
+    "buffs": { "kesejahteraan": 5, "popularitas": 5 },
+    "debuffs": { "apbn": -3 }
+  },
+  {
+    "id": "demokrat",
+    "name": "Partai Reformasi Rakyat",
+    "logo": "https://ik.imagekit.io/dntonfire/image_2026-05-29_084542658.png",
+    "ideology": "Demokrat",
+    "desc": "Menjunjung tinggi demokrasi, HAM, dan kebebasan berpendapat.",
+    "color": "#2a6a9a",
+    "buffs": { "popularitas": 8, "apbn": 3 },
+    "debuffs": { "keamanan": -3 }
+  }
+]
