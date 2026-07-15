@@ -147,13 +147,13 @@ body {
   }
 }
 
-/* Game wrapper centering */
+/* Game wrapper centering — fills the viewport, stage is centered by JS */
 .game-wrapper {
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   background: #0a0a0a;
   overflow-x: hidden;
 }

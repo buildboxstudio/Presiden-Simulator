@@ -7,34 +7,48 @@ import ResultScreen from './components/ResultScreen'
 import PolicySetup from './components/PolicySetup'
 import Period2Setup from './components/Period2Setup'
 
-const DESIGN_WIDTH = 768 // px — base design width used for scale calc
+// 16:9 widescreen design canvas
+const DESIGN_W = 1280
+const DESIGN_H = 720
 
 export default function App() {
   const { phase } = useGame()
   const gameRef = useRef(null)
   const wrapperRef = useRef(null)
 
-  // Auto-scale game UI on desktop so pixel-art text and graphics look bigger
+  // Fit a true 16:9 (1280x720) stage into the viewport on landscape/PC.
+  // On portrait/mobile, fall back to the natural full-width layout.
   useEffect(() => {
     const handleResize = () => {
       if (!gameRef.current || !wrapperRef.current) return
       const vw = window.innerWidth
+      const vh = window.innerHeight
 
-      // Only scale on desktop (tablet/laptop widths top)
-      let scale = 1
-      if (vw > 768) {
-        scale = Math.min(1.6, Math.max(1, vw / DESIGN_WIDTH))
+      if (vw >= vh) {
+        // Landscape / PC: scale the 16:9 stage to fill the screen
+        const scale = Math.min(vw / DESIGN_W, vh / DESIGN_H)
+        gameRef.current.style.width = `${DESIGN_W}px`
+        gameRef.current.style.height = `${DESIGN_H}px`
+        gameRef.current.style.minHeight = 'auto'
+        gameRef.current.style.transform = `scale(${scale})`
+        gameRef.current.style.transformOrigin = 'center center'
+
+        wrapperRef.current.style.height = `${vh}px`
+        wrapperRef.current.style.minHeight = '100vh'
+        wrapperRef.current.style.alignItems = 'center'
+        wrapperRef.current.style.overflow = 'hidden'
+      } else {
+        // Portrait / mobile: natural full-width layout
+        gameRef.current.style.width = ''
+        gameRef.current.style.height = ''
+        gameRef.current.style.minHeight = '100vh'
+        gameRef.current.style.transform = 'none'
+
+        wrapperRef.current.style.height = ''
+        wrapperRef.current.style.minHeight = '100vh'
+        wrapperRef.current.style.alignItems = 'flex-start'
+        wrapperRef.current.style.overflow = ''
       }
-
-      gameRef.current.style.transform = `scale(${scale})`
-      gameRef.current.style.transformOrigin = 'top center'
-      gameRef.current.style.width = `${DESIGN_WIDTH}px`
-      gameRef.current.style.maxWidth = '100%'
-
-      // Compensate wrapper height so scaled content isn't clipped
-      const layoutHeight = gameRef.current.scrollHeight
-      wrapperRef.current.style.height = `${layoutHeight * scale}px`
-      wrapperRef.current.style.minHeight = '100vh'
     }
 
     // Run after layout paint
@@ -48,7 +62,7 @@ export default function App() {
 
   return (
     <div ref={wrapperRef} className="game-wrapper">
-      <div ref={gameRef} className="game-content flex flex-col min-h-screen bg-black font-retro">
+      <div ref={gameRef} className="game-content flex flex-col bg-black font-retro">
         <div className="flex-1 flex flex-col">
           {phase === 'menu' && <TitleScreen />}
           {phase === 'setup' && <PolicySetup />}
