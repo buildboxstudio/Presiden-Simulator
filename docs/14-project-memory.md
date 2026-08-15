@@ -11,7 +11,7 @@ Dokumen ini adalah **ingatan jangka panjang** proyek: fakta, keputusan, insiden,
 - **Repo:** https://github.com/buildboxstudio/Presiden-Simulator (public)
 - **Live:** https://buildboxstudio.github.io/Presiden-Simulator/
 - **Stack:** React 19 · Vite 8 · Tailwind 4 · JS/JSX · html2canvas · GitHub Pages
-- **Versi aktif:** `v3.0.2` (`package.json` & `APP_VERSION` di TitleScreen)
+- **Versi aktif:** `v3.1.0` (`package.json` & `APP_VERSION` di TitleScreen)
 - **Konsep:** Simulasi Presiden Indonesia, 2 periode × 20 kuartal, satir politik, estetika retro pixel (VT323).
 
 ## 2. Keputusan Penting (log)

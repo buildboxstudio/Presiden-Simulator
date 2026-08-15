@@ -38,7 +38,7 @@ Contoh nyata (audit 14 Agustus 2026):
 
 ## 4. Catatan Rilis (layar ABOUT)
 
-`TitleScreen.jsx` menampilkan `APP_VERSION = 'v3.0.2'` dan blok "Pembaruan terakhir" yang berisi daftar fitur. Saat rilis baru:
+`TitleScreen.jsx` menampilkan `APP_VERSION = 'v3.1.0'` dan blok "Pembaruan terakhir" yang berisi daftar fitur. Saat rilis baru:
 1. Naikkan `APP_VERSION` di `TitleScreen.jsx`.
 2. Naikkan `version` di `package.json`.
 3. Perbarui deskripsi pembaruan di layar ABOUT.

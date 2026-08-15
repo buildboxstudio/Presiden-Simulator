@@ -40,7 +40,7 @@ build: { sourcemap: false, cssMinify: true }
 2. Repo di-set GitHub Pages → branch `gh-pages` (root) — sudah aktif.
 3. Verifikasi: `git log origin/gh-pages -1` menunjukkan commit baru; buka URL live.
 
-**Insiden terdokumentasi:** branch `gh-pages` sempat tertinggal 2 commit dari `main` (`6f785d3` Save v3.0.2 + `62cce8a` Fix PC layout) — **situs live belum memuat fix PC layout**. Penyebab: deploy terakhir dilakukan sebelum commit terbaru di main. Solusi: jalankan `npm run deploy`.
+**Insiden terdokumentasi:** branch `gh-pages` sempat tertinggal 2 commit dari `main` (`6f785d3` Save v3.0.2 + `62cce8a` Fix PC layout) — **situs live belum memuat fix PC layout**. Penyebab: deploy terakhir dilakukan sebelum commit terbaru di main. Solusi: jalankan `npm run deploy`. *(Status: sudah ter-deploy ulang 15 Agu 2026 — `71ec2d2` v3.1.0.)*
 
 ## 6. Branch & Lingkungan
 
