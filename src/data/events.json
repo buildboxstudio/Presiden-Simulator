@@ -4,8 +4,15 @@
     "title": "Subsidi BBM Membebani APBN",
     "description": "Harga minyak dunia naik 20%! Subsidi BBM menguras kas negara. Rakyat mulai resah.",
     "deddy_intro": "Lapor Presiden! Harga minyak dunia meroket! BBM subsidi jebol! APBN kita bocor besar!",
-    "choices": [
-      { "label": "Cairkan Subsidi, Biarkan APBN Terkuras", "effects": { "apbn": -20, "kesejahteraan": 5, "popularitas": 3 } },
+    "choices": [  {
+   "label": "Cairkan Subsidi, Biarkan APBN Terkuras",
+   "effects": {
+    "apbn": -20,
+    "kesejahteraan": 5,
+    "popularitas": 3
+   },
+   "followUp": { "eventId": 26, "delay": 2 }
+  },
       { "label": "Kurangi Subsidi Secara Bertahap", "effects": { "apbn": 10, "kesejahteraan": -5, "popularitas": -8 } },
       { "label": "Hapus Subsidi Total! Rakyat Kuat!", "effects": { "apbn": 25, "kesejahteraan": -15, "popularitas": -20, "keamanan": -5 } }
     ],
@@ -17,8 +24,15 @@
     "description": "Media menemukan mark-up anggaran bantuan sosial di daerah. Nama menterimu tercoreng.",
     "deddy_intro": "Lapor Presiden! Media ramai memberitakan mark-up bansos! Nama kita tercoreng!",
     "choices": [
-      { "label": "Bekukan Menteri dan Usut Tuntas", "effects": { "popularitas": 10, "keamanan": 5, "apbn": 5 } },
-      { "label": "Tutup Mulut Media, Diamkan Kasus", "effects": { "popularitas": -10, "keamanan": -10, "kesejahteraan": -5 } },
+      { "label": "Bekukan Menteri dan Usut Tuntas", "effects": { "popularitas": 10, "keamanan": 5, "apbn": 5 } },  {
+   "label": "Tutup Mulut Media, Diamkan Kasus",
+   "effects": {
+    "popularitas": -10,
+    "keamanan": -10,
+    "kesejahteraan": -5
+   },
+   "followUp": { "eventId": 25, "delay": 2 }
+  },
       { "label": "Bersihkan Seluruh Kabinet!", "effects": { "popularitas": 5, "keamanan": 10, "infrastruktur": -5 } }
     ],
     "vp_advice": { "advice": "Kita harus bertindak tegas. Usut tuntas dan bekukan menteri, Pak.", "recommends": 0 }
@@ -41,8 +55,15 @@
     "description": "Mahasiswa dari seluruh Indonesia turun ke jalan menuntut perubahan sistem politik.",
     "deddy_intro": "Lapor Presiden! Mahasiswa dari 30 kota demo! Mereka minta bertemu!",
     "choices": [
-      { "label": "Temui Perwakilan Mahasiswa, Dengarkan Aspirasi", "effects": { "popularitas": 8, "keamanan": 5, "kesejahteraan": 3 } },
-      { "label": "Kirim Aparat untuk Membubarkan Demo", "effects": { "keamanan": -10, "popularitas": -15, "kesejahteraan": -5 } },
+      { "label": "Temui Perwakilan Mahasiswa, Dengarkan Aspirasi", "effects": { "popularitas": 8, "keamanan": 5, "kesejahteraan": 3 } },  {
+   "label": "Kirim Aparat untuk Membubarkan Demo",
+   "effects": {
+    "keamanan": -10,
+    "popularitas": -15,
+    "kesejahteraan": -5
+   },
+   "followUp": { "eventId": 29, "delay": 2 }
+  },
       { "label": "Beri Mereka Jabatan di Pemerintahan", "effects": { "popularitas": 5, "apbn": -5, "keamanan": 8 } }
     ],
     "vp_advice": { "advice": "Temui saja, Pak. Mahasiswa hanya ingin didengar. Daripada rusuh.", "recommends": 0 }
@@ -286,8 +307,16 @@
     "description": "Bank swasta besar gagal bayar. Ribuan nasabah panik. Ancaman bank run menyebar.",
     "deddy_intro": "Lapor Presiden! HI-Bank gagal bayar! Nasabah narik uang besar-besaran! Sistem perbankan terancam!",
     "scenario": "krisis_ekonomi",
-    "choices": [
-      { "label": "Bailout HI-Bank dengan APBN", "effects": { "apbn": -20, "keamanan": 10, "kesejahteraan": 5, "popularitas": 5 } },
+    "choices": [  {
+   "label": "Bailout HI-Bank dengan APBN",
+   "effects": {
+    "apbn": -20,
+    "keamanan": 10,
+    "kesejahteraan": 5,
+    "popularitas": 5
+   },
+   "followUp": { "eventId": 26, "delay": 3 }
+  },
       { "label": "Biarkan Bangkrut, Lindungi Nasabah Kecil", "effects": { "apbn": 5, "popularitas": -10, "keamanan": -5, "kesejahteraan": -8 } },
       { "label": "Nasionalisasi HI-Bank, Jadikan BUMN", "effects": { "apbn": -10, "infrastruktur": 5, "popularitas": 3, "keamanan": 8 } }
     ],

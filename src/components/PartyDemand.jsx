@@ -8,7 +8,7 @@ export default function PartyDemand() {
 
   useEffect(() => {
     if (partyDemand) sfx.notif()
-  }, [partyDemand])
+  }, [partyDemand, sfx])
 
   if (!partyDemand || !party) return null
 

@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect } from 'react'
+import { useRef, useCallback, useEffect, useMemo } from 'react'
 
 export default function useBackgroundMusic() {
   const audioRef = useRef(null)
@@ -14,7 +14,7 @@ export default function useBackgroundMusic() {
       audio.volume = 0.3
       audio.play().catch(() => { playingRef.current = false })
       audioRef.current = audio
-    } catch (e) {
+    } catch {
       playingRef.current = false
     }
   }, [])
@@ -39,5 +39,5 @@ export default function useBackgroundMusic() {
     return () => stopMusic()
   }, [stopMusic])
 
-  return { startMusic, stopMusic, toggleMusic, isPlaying: () => playingRef.current }
+  return useMemo(() => ({ startMusic, stopMusic, toggleMusic, isPlaying: () => playingRef.current }), [startMusic, stopMusic, toggleMusic])
 }

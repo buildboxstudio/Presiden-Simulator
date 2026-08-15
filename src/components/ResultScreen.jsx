@@ -64,7 +64,7 @@ const ENDING_MESSAGES = {
 }
 
 export default function ResultScreen() {
-  const { ending, indicators, playerName, period, goToPeriod2Setup, background, party, vicePresident, ministers, resetGame, retryGame, retryCount, propores, dubiArry, reshuffleCount, delegateCount, oposisiScore, achievements, updateCareerStats, unlockScenario, scenario, quarter } = useGame()
+  const { ending, indicators, playerName, goToPeriod2Setup, vicePresident, resetGame, retryGame, retryCount, propores, reshuffleCount, delegateCount, oposisiScore, achievements, updateCareerStats, unlockScenario, scenario, quarter } = useGame()
   const msg = ENDING_MESSAGES[ending] || ENDING_MESSAGES.impeachment
   const sfx = useSound()
   const resultRef = useRef(null)
@@ -87,8 +87,6 @@ export default function ResultScreen() {
 
   // Analisis tipe presiden
   const avgIndicators = Object.values(indicators).reduce((a, b) => a + b, 0) / 5
-  const highestStat = Object.entries(indicators).sort((a, b) => b[1] - a[1])[0]
-  const lowestStat = Object.entries(indicators).sort((a, b) => a[1] - b[1])[0]
   const isCorrupt = (reshuffleCount || 0) >= 4
   const isDelegator = (delegateCount || 0) >= 5
 
@@ -109,10 +107,14 @@ export default function ResultScreen() {
 
   const primaryType = presidenTypes[0]
 
-  setTimeout(() => {
-    if (ending === 'menang_pemilu' || ending === 'lulus') sfx.victory()
-    else sfx.gameover()
-  }, 100)
+  // Play result sound once on mount (not during render)
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (ending === 'menang_pemilu' || ending === 'lulus') sfx.victory()
+      else sfx.gameover()
+    }, 100)
+    return () => clearTimeout(t)
+  }, [ending, sfx])
 
   // Update career stats + unlock scenario on mount
   const hasUpdated = useRef(false)
@@ -131,7 +133,7 @@ export default function ResultScreen() {
       const toUnlock = unlockMap[scenario]
       if (toUnlock) unlockScenario(toUnlock)
     }
-  }, [])
+  }, [ending, quarter, scenario, unlockScenario, updateCareerStats])
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto">

@@ -60,7 +60,6 @@ const DEBATE_QUESTIONS = [
 ]
 
 const MENANG_IMG = 'https://ik.imagekit.io/dntonfire/image_2026-05-29_174230980.png'
-const LULUS_IMG = 'https://ik.imagekit.io/dntonfire/image_2026-05-29_150123216.png?updatedAt=1780041687679'
 
 const TEAM_OPTIONS = [
   { id: 'juru_bicara', name: 'Juru Bicara Handal', icon: '🎙', desc: 'Menguasai retorika dan komunikasi publik.', cost: { apbn: -3 }, trustBonus: 3, debatBonus: true },
@@ -79,7 +78,7 @@ const WEALTH_STYLES = {
 }
 
 export default function DebatRoom() {
-  const { playerName, background, party, vicePresident, vpFired, indicators, electionStage, electionTrust, setElectionStage, setElectionTrust, electionResult, fireVP, setVicePresident, dubiArry, qaStage } = useGame()
+  const { playerName, background, party, vicePresident, vpFired, indicators, electionStage, electionTrust, setElectionStage, setElectionTrust, electionResult, fireVP, setVicePresident, setForeignControl, dubiArry, qaStage } = useGame()
   const [selectedPrograms, setSelectedPrograms] = useState([])
   const [showIntro, setShowIntro] = useState(true)
   const [debateStep, setDebateStep] = useState(0)
@@ -118,7 +117,8 @@ export default function DebatRoom() {
   const [campaignFunding, setCampaignFunding] = useState(null)
   const [campaignLocation, setCampaignLocation] = useState(null)
   const [campaignMethod, setCampaignMethod] = useState(null)
-  const [foreignControl, setForeignControl] = useState(false)
+  const [foreignSelected, setForeignSelected] = useState(false)
+  const [firedVpId, setFiredVpId] = useState(null)
 
   // Campaign team state
   const [showWealthProfile, setShowWealthProfile] = useState(false)
@@ -159,7 +159,8 @@ export default function DebatRoom() {
   }
   const sfx = useSound()
 
-  // QA skip: jump to specific stage
+  // QA skip: jump to specific stage (dev-only helper — sinkronisasi state disengaja)
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (qaStage === 'pemilu') {
       setShowIntro(false)
@@ -173,6 +174,12 @@ export default function DebatRoom() {
       setShowTeamSelect(true)
     }
   }, [qaStage])
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  // Play intro notification once when intro shows (not during render)
+  useEffect(() => {
+    if (showIntro) sfx.notif()
+  }, [showIntro, sfx])
 
   const vpBetrays = vicePresident && vicePresident.will_betray && !vpFired
 
@@ -208,27 +215,24 @@ export default function DebatRoom() {
       newVotes[winner] = (newVotes[winner] || 0) + 1
       setVotes(newVotes)
       setVoteCount(voteCount + 1)
+      if (voteCount + 1 >= 100) setShowResults(true)
       if ((voteCount + 1) % 5 === 0) sfx.click()
     }, 80)
 
     return () => clearTimeout(timer)
-  }, [voting, votePhase, voteCount, votes, electionTrust, vpBetrays])
+  }, [voting, votePhase, voteCount, votes, electionTrust, vpBetrays, sfx])
 
   // Election result after voting ends
   useEffect(() => {
     if (!voting || !votePhase || voteCount < 100) return
-    setShowResults(true)
     sfx.notif()
     const timeout = setTimeout(() => {
-      const maxVotes = Math.max(...Object.values(votes))
-      const winner = Object.keys(votes).find(k => votes[k] === maxVotes)
       electionResult()
     }, 3500)
     return () => clearTimeout(timeout)
-  }, [voteCount, voting, votePhase])
+  }, [voteCount, voting, votePhase, sfx, electionResult])
 
   if (showIntro) {
-    sfx.notif()
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-4 text-center">
         <div className="max-w-lg fade-in">
@@ -308,7 +312,7 @@ export default function DebatRoom() {
               className="flex-1 py-3 border-2 border-retroGreen bg-retroGreen/20 hover:bg-retroGreen/40 text-retroLight transition-colors text-sm">
               ► PERTAHANKAN ◄
             </button>
-            <button onClick={() => { sfx.click(); fireVP(); setVpDecision('fired'); setShowTeamSelect(true) }}
+            <button onClick={() => { sfx.click(); setFiredVpId(vicePresident?.id || null); fireVP(); setVpDecision('fired'); setShowNewVPSelect(true) }}
               className="flex-1 py-3 border-2 border-red-500 bg-red-900/20 hover:bg-red-900/40 text-red-300 transition-colors text-sm">
               ✕ PECAT
             </button>
@@ -318,7 +322,7 @@ export default function DebatRoom() {
     )
   }
 
-  if (false && showNewVPSelect) {
+  if (showNewVPSelect) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-4">
         <div className="max-w-lg w-full fade-in text-center">
@@ -327,7 +331,7 @@ export default function DebatRoom() {
             Anda telah memecat wakil presiden. Pilih calon baru untuk mendampingi di pemilu.
           </div>
           <div className="space-y-3 mb-6">
-            {vpData.filter((v) => v.id !== vicePresident?.id).map((vp) => (
+            {vpData.filter((v) => v.id !== firedVpId).map((vp) => (
               <button key={vp.id}
                 onClick={() => { sfx.select(); setVicePresident(vp); setShowNewVPSelect(false); setVpDecision('fired'); setShowTeamSelect(true) }}
                 className="w-full text-left p-4 border-2 border-retroGray bg-black/40 hover:border-retroYellow/50 transition-colors">
@@ -580,7 +584,13 @@ export default function DebatRoom() {
         sfx.select()
         if (campaignStep === 0) {
           setCampaignFunding(opt)
-          if (opt.triggersForeignControl) setForeignControl(true)
+          if (opt.triggersForeignControl) {
+            setForeignSelected(true)
+            setForeignControl(25)
+          } else {
+            setForeignSelected(false)
+            setForeignControl(0)
+          }
         } else if (campaignStep === 1) {
           setCampaignLocation(opt)
         } else {
@@ -609,7 +619,7 @@ export default function DebatRoom() {
               <div className="text-sm text-retroLight/60">Langkah {campaignStep + 1} dari 3 — {currentLabel}</div>
               <div className="mt-2 w-full bg-retroGray h-2"><div className="bg-retroYellow h-2" style={{ width: `${Math.max(0, electionTrust)}%` }} /></div>
               <div className="text-xs text-retroLight/50 mt-1">Trust Score: {electionTrust}%</div>
-              {foreignControl && (
+              {foreignSelected && (
                 <div className="mt-2 text-xs text-red-400 animate-pulse">⚠ Dana asing terdeteksi! Kontrol asing meningkat!</div>
               )}
             </div>

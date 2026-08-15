@@ -16,18 +16,31 @@ const IDEOLOGY_COLORS = {
   Nasionalis: '#961313', Agamis: '#1a7a1a', Demokrat: '#2a6a9a',
 }
 const MAX_ACTIVITIES = 2
+const DIFF_LABELS = { mudah: '🟢 MUDAH', normal: '⚪ NORMAL', sulit: '🔴 SULIT' }
+const TREND_STATS = [
+  { key: 'apbn', label: 'APBN', color: '#b39c00' },
+  { key: 'keamanan', label: 'Keamanan', color: '#961313' },
+  { key: 'kesejahteraan', label: 'Kesejahteraan', color: '#1a7a1a' },
+  { key: 'infrastruktur', label: 'Infrastruktur', color: '#2a6a9a' },
+  { key: 'popularitas', label: 'Popularitas', color: '#8a4a9a' },
+]
 
 export default function Dashboard() {
-  const { quarter, period, indicators, playerName, background, party, vicePresident, ministers, policies, updatePolicy, endQuarter, currentEvent, reshuffle, showQuarterReport, quarterReportText, dispatchHideReport, partyDemand, dubiProposal, saveGame, oposisiScore, historyIndicators, ministerProposal } = useGame()
+  const { quarter, period, indicators, playerName, background, party, vicePresident, ministers, policies, updatePolicy, endQuarter, currentEvent, reshuffle, showQuarterReport, quarterReportText, dispatchHideReport, partyDemand, dubiProposal, saveGame, oposisiScore, historyIndicators, ministerProposal, difficulty } = useGame()
   const [activeTab, setActiveTab] = useState('ringkasan')
   const [reshuffleMode, setReshuffleMode] = useState(false)
   const [reshufflingPos, setReshufflingPos] = useState(null)
-  const [showActivity, setShowActivity] = useState(false)
   const [pendingActivity, setPendingActivity] = useState(false)
   const [activitiesDone, setActivitiesDone] = useState(0)
   const sfx = useSound()
   const music = useBackgroundMusic()
   const [musicOn, setMusicOn] = useState(true)
+  const saveGameRef = useRef(saveGame)
+
+  // Jaga ref selalu ke saveGame terbaru
+  useEffect(() => {
+    saveGameRef.current = saveGame
+  })
 
   useEffect(() => {
     music.startMusic()
@@ -39,12 +52,12 @@ export default function Dashboard() {
       document.removeEventListener('click', handler)
       music.stopMusic()
     }
-  }, [])
+  }, [music])
 
   // Autosave setiap kali laporan kuartal muncul
   useEffect(() => {
     if (showQuarterReport) {
-      saveGame()
+      saveGameRef.current()
     }
   }, [showQuarterReport])
 
@@ -52,14 +65,6 @@ export default function Dashboard() {
     music.toggleMusic()
     setMusicOn(!musicOn)
   }
-
-  // When report is dismissed and no event, trigger activity
-  useEffect(() => {
-    if (pendingActivity && !currentEvent) {
-      setShowActivity(true)
-      setPendingActivity(false)
-    }
-  }, [pendingActivity, currentEvent])
 
   const handleHideReport = () => {
     sfx.click()
@@ -69,7 +74,7 @@ export default function Dashboard() {
   }
 
   const handleActivityClose = () => {
-    setShowActivity(false)
+    setPendingActivity(false)
     const next = activitiesDone + 1
     setActivitiesDone(next)
     if (next < MAX_ACTIVITIES) {
@@ -78,7 +83,7 @@ export default function Dashboard() {
   }
 
   const year = Math.floor((quarter - 1) / 4) + 1
-  const quarterInYear = ((quarter - 1) % 4) + 1
+  const showActivity = pendingActivity && !currentEvent
   const maxQuarter = 20
   const partyColor = party ? IDEOLOGY_COLORS[party.ideology] || '#b39c00' : '#b39c00'
 
@@ -111,6 +116,9 @@ export default function Dashboard() {
           <span>P{period}</span>
           <span>•</span>
           <span>T{year} K{quarter}/{maxQuarter}</span>
+          <span className={difficulty === 'sulit' ? 'text-red-400' : difficulty === 'mudah' ? 'text-retroGreen' : 'text-retroLight/50'}>
+            {DIFF_LABELS[difficulty] || '⚪ NORMAL'}
+          </span>
           <button onClick={() => { sfx.click(); saveGame() }}
             className="text-[10px] md:text-xs text-retroLight/40 hover:text-retroYellow border border-retroGray/40 px-1.5 md:px-2 py-0.5 transition-colors"
           >💾 SIMPAN</button>
@@ -181,31 +189,28 @@ export default function Dashboard() {
               {oposisiScore >= 70 && <div className="text-xs text-red-400 mt-1 blink">⚠ Bahaya! Oposisi bisa menang telak!</div>}
             </div>
 
-            {/* History Mini Chart */}
+            {/* History Trend Chart */}
             {historyIndicators.length > 0 && (
               <div className="mb-4 bg-black/40 border-2 border-retroGray p-3">
-                <div className="text-xs text-retroLight/60 mb-2">📈 Tren 10 Kuartal Terakhir</div>
-                <div className="flex items-end gap-0.5" style={{ height: '80px' }}>
-                  {historyIndicators.map((h, i) => (
-                    <div key={i} className="flex-1 flex flex-col justify-end relative" style={{ height: '100%' }}>
-                      <div className="flex gap-px" style={{ height: '100%' }}>
-                        <div style={{ height: `${h.popularitas || 0}%`, background: '#8a4a9a', width: '25%', minHeight: '2px' }} title={`Pop: ${Math.round(h.popularitas)}%`} />
-                        <div style={{ height: `${h.apbn || 0}%`, background: '#b39c00', width: '25%', minHeight: '2px' }} title={`APBN: ${Math.round(h.apbn)}%`} />
-                        <div style={{ height: `${h.kesejahteraan || 0}%`, background: '#1a7a1a', width: '25%', minHeight: '2px' }} title={`Kes: ${Math.round(h.kesejahteraan)}%`} />
-                        <div style={{ height: `${h.infrastruktur || 0}%`, background: '#2a6a9a', width: '25%', minHeight: '2px' }} title={`Inf: ${Math.round(h.infrastruktur)}%`} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <div className="text-xs text-retroLight/60 mb-2">📈 Tren Indikator (periode berjalan)</div>
+                <svg viewBox="0 0 100 60" preserveAspectRatio="none" className="w-full" style={{ height: '110px' }}>
+                  {TREND_STATS.map((s) => {
+                    const points = historyIndicators.map((h, i) => {
+                      const x = historyIndicators.length > 1 ? (i / (historyIndicators.length - 1)) * 100 : 50
+                      const y = 58 - (Math.max(0, Math.min(100, h[s.key] || 0)) / 100) * 54
+                      return `${x},${y}`
+                    }).join(' ')
+                    return <polyline key={s.key} points={points} fill="none" stroke={s.color} strokeWidth="1.5" strokeLinejoin="round" />
+                  })}
+                </svg>
                 <div className="flex justify-between text-[10px] text-retroLight/30 mt-1">
                   <span>Q{Math.max(1, quarter - historyIndicators.length + 1)}</span>
                   <span>Q{quarter}</span>
                 </div>
-                <div className="flex gap-3 text-[10px] text-retroLight/30 mt-1 justify-center">
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 inline-block" style={{ background: '#8a4a9a' }} /> Pop</span>
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 inline-block" style={{ background: '#b39c00' }} /> APBN</span>
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 inline-block" style={{ background: '#1a7a1a' }} /> Kes</span>
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 inline-block" style={{ background: '#2a6a9a' }} /> Inf</span>
+                <div className="flex gap-3 text-[10px] text-retroLight/30 mt-1 justify-center flex-wrap">
+                  {TREND_STATS.map((s) => (
+                    <span key={s.key} className="flex items-center gap-1"><span className="w-2 h-2 inline-block" style={{ background: s.color }} /> {s.label}</span>
+                  ))}
                 </div>
               </div>
             )}

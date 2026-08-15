@@ -60,6 +60,16 @@ const activities = [
     effects: { kesejahteraan: 35, popularitas: -10, infrastruktur: 25, apbn: -15 },
     detail: '+35 kesejahteraan, +25 infrastruktur, -10 popularitas, -15 APBN',
   },
+  {
+    id: 'nasionalisasi',
+    label: 'Nasionalisasi Aset Asing',
+    icon: '🏛️',
+    desc: 'Beli kembali saham & aset yang dikuasai asing. Kurangi kontrol asing, tapi menguras APBN.',
+    effects: { apbn: -8, popularitas: 3, keamanan: 2 },
+    detail: '-8 APBN, +3 popularitas, +2 keamanan, -20 kontrol asing',
+    period2Only: true,
+    foreignReduce: 20,
+  },
 ]
 
 const badActivities = [
@@ -82,19 +92,19 @@ const badActivities = [
 ]
 
 export default function ActivityCard({ onClose, activityNum, maxActivities }) {
-  const { doActivity } = useGame()
+  const { doActivity, period, foreignControl, setForeignControl } = useGame()
+  const visibleActivities = activities.filter((a) => !(a.period2Only && period !== 2))
   const [selected, setSelected] = useState(null)
   const [showResult, setShowResult] = useState(false)
-  const [badEvent, setBadEvent] = useState(null)
+  const [badEvent] = useState(() => {
+    if (Math.random() < 0.2) return badActivities[Math.floor(Math.random() * badActivities.length)]
+    return null
+  })
   const sfx = useSound()
 
   useEffect(() => {
     sfx.notif()
-    const roll = Math.random()
-    if (roll < 0.2) {
-      setBadEvent(badActivities[Math.floor(Math.random() * badActivities.length)])
-    }
-  }, [])
+  }, [sfx])
 
   const handleSelect = (act) => {
     sfx.select()
@@ -105,6 +115,7 @@ export default function ActivityCard({ onClose, activityNum, maxActivities }) {
     sfx.click()
     setShowResult(true)
     if (selected) doActivity(selected.label, selected.effects, selected.oposisiEffect || 0)
+    if (selected?.foreignReduce) setForeignControl(Math.max(0, (foreignControl || 0) - selected.foreignReduce))
     if (badEvent) doActivity(badEvent.label, badEvent.effects, 0)
     setTimeout(() => {
       onClose()
@@ -149,7 +160,7 @@ export default function ActivityCard({ onClose, activityNum, maxActivities }) {
           </div>
         )}
         <div className="space-y-2 mb-4 sm:mb-6 max-h-[50vh] overflow-y-auto pr-1">
-          {activities.map((act) => (
+          {visibleActivities.map((act) => (
             <button key={act.id} onClick={() => handleSelect(act)}
               className={`w-full text-left p-2 sm:p-3 border-2 transition-colors ${
                 selected?.id === act.id

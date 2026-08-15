@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 
 export default function useSound() {
   const ctxRef = useRef(null)
@@ -23,10 +23,10 @@ export default function useSound() {
       gain.connect(ctx.destination)
       osc.start(ctx.currentTime)
       osc.stop(ctx.currentTime + duration)
-    } catch (e) {}
+    } catch { /* AudioContext tidak tersedia */ }
   }, [getCtx])
 
-  const sfx = useCallback({
+  const sfx = useMemo(() => ({
     select: () => playNote(600, 0.08, 'square', 0.06),
     click: () => playNote(300, 0.05, 'square', 0.04),
     success: () => {
@@ -60,7 +60,7 @@ export default function useSound() {
       setTimeout(() => playNote(784, 0.15, 'square', 0.06), 300)
       setTimeout(() => playNote(1047, 0.3, 'square', 0.06), 450)
     },
-  }, [playNote])
+  }), [playNote])
 
   return sfx
 }

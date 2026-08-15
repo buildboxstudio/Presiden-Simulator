@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useGame } from '../context/GameContext'
 import backgrounds from '../data/backgrounds.json'
 import PartySelect from './PartySelect'
@@ -17,6 +17,12 @@ const SCENARIOS = [
   { id: 'bumi_hangus', name: '🌋 Bumi Hangus', desc: 'Bencana alam bertubi-tubi. Infrastruktur hancur total!', icon: '🔥', unlockRequirement: 'Selesaikan skenario Bencana' },
 ]
 
+const DIFFICULTIES = [
+  { id: 'mudah', name: 'MUDAH', icon: '🟢', desc: 'Krisis jarang, timer 30 detik, oposisi lambat.' },
+  { id: 'normal', name: 'NORMAL', icon: '⚪', desc: 'Keseimbangan standar. Timer 20 detik.' },
+  { id: 'sulit', name: 'SULIT', icon: '🔴', desc: 'Krisis & skandal sering, timer 15 detik, oposisi cepat.' },
+]
+
 const faqData = [
   { q: 'Apa itu PRESIDEN SIMULATOR?', a: 'Game simulasi dimana Anda menjadi Presiden Indonesia selama 2 periode. Atur kebijakan, hadapi krisis, dan menangkan pemilu!' },
   { q: 'Berapa lama satu permainan?', a: 'Satu periode penuh sekitar 20-30 menit. Ada 20 kuartal per periode.' },
@@ -28,13 +34,14 @@ const faqData = [
 ]
 
 export default function TitleScreen() {
-  const { startGame, loadGame, hasSavedGame, deleteSave, qaSkip, getCareerStats, getUnlockedScenarios } = useGame()
+  const { startGame, loadGame, hasSavedGame, qaSkip, getCareerStats, getUnlockedScenarios } = useGame()
   const [playerName, setPlayerName] = useState('')
   const [selectedBg, setSelectedBg] = useState(null)
   const [selectedParty, setSelectedParty] = useState(null)
   const [selectedVP, setSelectedVP] = useState(null)
-  const [selectedMinisters, setSelectedMinisters] = useState(null)
+  const [, setSelectedMinisters] = useState(null)
   const [selectedScenario, setSelectedScenario] = useState(null)
+  const [selectedDifficulty, setSelectedDifficulty] = useState('normal')
   const [step, setStep] = useState('title')
   const [showFaq, setShowFaq] = useState(false)
   const [showAbout, setShowAbout] = useState(false)
@@ -204,7 +211,7 @@ export default function TitleScreen() {
             />
           </div>
 
-          {playerName.toLowerCase() === 'hidupjokowi' && (
+          {import.meta.env.DEV && playerName.toLowerCase() === 'hidupjokowi' && (
             <div className="mb-6 p-3 border-2 border-red-500 bg-red-900/10">
               <div className="text-xs text-red-400 font-bold mb-2">☣ QA TEST MODE ☣</div>
               <div className="grid grid-cols-2 gap-2">
@@ -227,6 +234,19 @@ export default function TitleScreen() {
               </div>
             </div>
           )}
+
+          <div className="mb-8">
+            <label className="block text-sm text-retroLight/60 mb-3">Tingkat Kesulitan:</label>
+            <div className="grid grid-cols-3 gap-2">
+              {DIFFICULTIES.map((d) => (
+                <button key={d.id} onClick={() => setSelectedDifficulty(d.id)}
+                  className={`p-3 border-2 text-left transition-colors ${selectedDifficulty === d.id ? 'border-retroYellow bg-retroYellow/20' : 'border-retroGray bg-black/40 hover:border-retroLight/40'}`}>
+                  <div className="text-sm text-retroLight">{d.icon} {d.name}</div>
+                  <div className="text-[10px] text-retroLight/50 mt-1 leading-tight">{d.desc}</div>
+                </button>
+              ))}
+            </div>
+          </div>
 
           <div className="mb-8">
             <label className="block text-sm text-retroLight/60 mb-3">Latar Belakang:</label>
@@ -326,7 +346,7 @@ export default function TitleScreen() {
       <MinisterSelect
         onSelect={(ministers) => {
           setSelectedMinisters(ministers)
-          startGame(playerName.trim(), selectedBg, selectedParty, selectedVP, ministers, 1, selectedScenario?.id)
+          startGame(playerName.trim(), selectedBg, selectedParty, selectedVP, ministers, 1, selectedScenario?.id, selectedDifficulty)
         }}
         onBack={() => setStep('vp')}
       />

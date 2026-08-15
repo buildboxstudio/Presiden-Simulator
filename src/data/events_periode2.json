@@ -6,8 +6,16 @@
     "deddy_intro": "Lapor Presiden! Perang Dunia ganjal! Negara besar mau perang! Indonesia harus pilih pihak!",
     "choices": [
       { "label": "Netral Aktif, Mediasi Perdamaian Dunia", "effects": { "keamanan": 5, "popularitas": 8, "kesejahteraan": -5, "apbn": -8 } },
-      { "label": "Dukung Blok Barat (AS & NATO)", "effects": { "apbn": 10, "keamanan": -5, "popularitas": -10, "infrastruktur": 5 } },
-      { "label": "Dukung Blok Timur (China & Rusia)", "effects": { "apbn": 15, "keamanan": -8, "popularitas": -15, "kesejahteraan": -3 } }
+      { "label": "Dukung Blok Barat (AS & NATO)", "effects": { "apbn": 10, "keamanan": -5, "popularitas": -10, "infrastruktur": 5 } },  {
+   "label": "Dukung Blok Timur (China & Rusia)",
+   "effects": {
+    "apbn": 15,
+    "keamanan": -8,
+    "popularitas": -15,
+    "kesejahteraan": -3
+   },
+   "followUp": { "eventId": 109, "delay": 3 }
+  }
     ],
     "vp_advice": { "advice": "Netral saja, Pak. Indonesia bukan punya musuh.", "recommends": 0 }
   },
@@ -65,8 +73,16 @@
     "description": "Booming kripto dan NFT membuat generasi muda meninggalkan sektor riil. Bank Indonesia panik.",
     "deddy_intro": "Lapor Presiden! Anak muda demam kripto! Uang beredar pindah ke aset digital! BI kebingungan!",
     "choices": [
-      { "label": "Regulasi Ketat Kripto, Lindungi Investor", "effects": { "apbn": 5, "keamanan": 8, "popularitas": -3 } },
-      { "label": "Adopsi Kripto, Indonesia Jadi Hub Blockchain", "effects": { "apbn": 10, "infrastruktur": 10, "popularitas": 5, "keamanan": -8 } },
+      { "label": "Regulasi Ketat Kripto, Lindungi Investor", "effects": { "apbn": 5, "keamanan": 8, "popularitas": -3 } },  {
+   "label": "Adopsi Kripto, Indonesia Jadi Hub Blockchain",
+   "effects": {
+    "apbn": 10,
+    "infrastruktur": 10,
+    "popularitas": 5,
+    "keamanan": -8
+   },
+   "followUp": { "eventId": 116, "delay": 2 }
+  },
       { "label": "Larang Kripto Total, Kembali ke Ekonomi Riil", "effects": { "apbn": -5, "kesejahteraan": -5, "popularitas": -8 } }
     ],
     "vp_advice": { "advice": "Kripto masa depan, Pak. Tapi hati-hati banyak scamming.", "recommends": 1 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useGame } from '../context/GameContext'
 import ministerData from '../data/ministerCandidates.json'
 import useSound from '../hooks/useSound'
@@ -38,6 +38,12 @@ export default function Period2Setup() {
   const [selected, setSelected] = useState({})
   const [vpStep, setVpStep] = useState(false)
   const [vpSelected, setVpSelected] = useState(null)
+  // Fallback tahun pengalaman yang stabil (hindari Math.random saat render)
+  const expFallback = useMemo(() => {
+    const map = {}
+    Object.values(newMinisters || {}).forEach((candidates) => (candidates || []).forEach((c) => { map[c.name] = Math.floor(Math.random() * 10 + 5) }))
+    return map
+  }, [newMinisters])
   const sfx = useSound()
 
   if (!vpStep) {
@@ -162,7 +168,7 @@ export default function Period2Setup() {
                 <div className="flex items-center gap-3">
                   <div className="flex-1">
                     <div className="text-sm text-retroLight">{c.name}</div>
-                    <div className="text-xs text-retroLight/50">{c.desc || `${Math.floor(Math.random() * 10 + 5)} tahun pengalaman`}</div>
+                    <div className="text-xs text-retroLight/50">{c.desc || `${expFallback[c.name] ?? 7} tahun pengalaman`}</div>
                   </div>
                   <div className="text-xs text-right">
                     <div className="text-retroGreen">Skill: {c.skill}</div>

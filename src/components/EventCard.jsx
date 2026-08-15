@@ -3,7 +3,6 @@ import { useGame } from '../context/GameContext'
 import useSound from '../hooks/useSound'
 
 const DEDDY_IMG = 'https://ik.imagekit.io/dntonfire/image_2026-05-29_083324899.png'
-const DEADLINE_SECONDS = 20
 
 function shuffle(arr) {
   const a = [...arr]
@@ -15,7 +14,8 @@ function shuffle(arr) {
 }
 
 export default function EventCard() {
-  const { currentEvent, vicePresident, ministers, resolveEvent, dubiArry } = useGame()
+  const { currentEvent, vicePresident, ministers, resolveEvent, dubiArry, difficulty } = useGame()
+  const deadlineSeconds = { mudah: 30, normal: 20, sulit: 15 }[difficulty] || 20
   const [showChoices, setShowChoices] = useState(false)
   const [imgError, setImgError] = useState(false)
   const [timeLeft, setTimeLeft] = useState(null)
@@ -46,10 +46,23 @@ export default function EventCard() {
     return ministers[posisi] || null
   }, [currentEvent, ministers, shuffledChoices])
 
+  // Saran menteri: kualitas tergantung loyalitas & skill
+  const ministerAdvice = useMemo(() => {
+    if (!relevantMinister || !shuffledChoices || shuffledChoices.length === 0) return null
+    const scored = [...shuffledChoices].map((c) => ({
+      choice: c,
+      net: Object.entries(c.effects || {}).reduce((s, [, v]) => s + v, 0),
+    })).sort((a, b) => b.net - a.net)
+    const loyalty = relevantMinister.loyalty || 50
+    const skill = relevantMinister.skill || 50
+    if (loyalty < 40) return { pick: scored[scored.length - 1].choice, trustworthy: false, note: '⚠ Loyalitas rendah — sarannya mencurigakan!' }
+    if (skill < 60) return { pick: scored[0].choice, trustworthy: false, note: '⚠ Menteri ini ragu-ragu — sarannya kurang pasti.' }
+    return { pick: scored[0].choice, trustworthy: true, note: null }
+  }, [relevantMinister, shuffledChoices])
+
   // Deadline timer
   useEffect(() => {
     if (!showChoices || deadlinePassed) return
-    setTimeLeft(DEADLINE_SECONDS)
     timerRef.current = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -72,14 +85,18 @@ export default function EventCard() {
     const choice = shuffledChoices[randomIdx]
     setTimeout(() => {
       hasResolved.current = true
-      resolveEvent(choice.effects, false)
+      resolveEvent(choice.effects, false, choice.followUp)
     }, 1500)
   }, [deadlinePassed, autoSelected, shuffledChoices, sfx, resolveEvent])
+
+  // Play event sound once when it appears (not during render)
+  useEffect(() => {
+    if (!showChoices && currentEvent) sfx.event()
+  }, [showChoices, currentEvent, sfx])
 
   if (!currentEvent) return null
 
   if (!showChoices) {
-    sfx.event()
     return (
       <div className="fade-in fixed inset-0 flex items-start justify-center bg-black/90 z-50 p-4 pt-8 overflow-y-auto">
         <div className="bg-retroGray border-4 border-retroLight max-w-lg w-full p-6 pixel-border text-center my-auto">
@@ -96,7 +113,7 @@ export default function EventCard() {
           </div>
           <div className="text-xs text-retroLight/40 mb-4">— Deddy, Sekretaris Kabinet —</div>
           <button
-            onClick={() => { sfx.click(); setShowChoices(true) }}
+            onClick={() => { sfx.click(); setShowChoices(true); setTimeLeft(deadlineSeconds) }}
             className="px-8 py-3 border-2 border-retroYellow bg-retroYellow/20 hover:bg-retroYellow/40 text-retroLight transition-colors animate-pulse"
           >► LAPORAN DITERIMA ◄</button>
         </div>
@@ -146,6 +163,14 @@ export default function EventCard() {
             <div className="text-xs text-retroLight/60">
               Skill: {relevantMinister.skill} | Loyalitas: {relevantMinister.loyalty}
             </div>
+            {ministerAdvice && (
+              <div className="mt-2 text-xs text-retroLight/70 italic">
+                "Saya menyarankan: <span className={ministerAdvice.trustworthy ? 'text-retroGreen' : 'text-red-400'}>{ministerAdvice.pick.label}</span>"
+              </div>
+            )}
+            {ministerAdvice?.note && (
+              <div className="mt-1 text-[10px] text-red-400/80">{ministerAdvice.note}</div>
+            )}
           </div>
         )}
 
@@ -159,7 +184,7 @@ export default function EventCard() {
                 hasResolved.current = true
                 clearInterval(timerRef.current)
                 sfx.select()
-                resolveEvent(choice.effects, false)
+                resolveEvent(choice.effects, false, choice.followUp)
               }}
               className={`w-full text-left px-4 py-3 border-2 ${
                 deadlinePassed
@@ -200,7 +225,7 @@ export default function EventCard() {
                     pick = scored[Math.random() < 0.5 ? 0 : 1].choice
                   }
 
-                  resolveEvent(pick.effects, true)
+                  resolveEvent(pick.effects, true, null)
                 }}
                 className="w-full text-left px-4 py-3 border-2 border-blue-500/50 bg-blue-900/20 hover:bg-blue-900/40 hover:border-blue-400 transition-colors text-sm"
               >

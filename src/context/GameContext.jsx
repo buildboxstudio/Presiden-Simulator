@@ -46,6 +46,8 @@ const initialState = {
   foreignControl: 0,
   midTermDone: false,
   disasterActive: false,
+  difficulty: 'normal',
+  pendingEvents: [],
   retryCount: 0,
   checkpoint: null,
   ministerProposal: null,
@@ -131,7 +133,8 @@ function gameReducer(state, action) {
         quarterReportText: '',
         oposisiScore: vp?.oposisiBonus || 0,
         historyIndicators: [],
-        foreignControl: 0,
+        foreignControl: period === 2 ? (state.foreignControl || 0) : 0,
+        difficulty: action.difficulty || state.difficulty || 'normal',
         midTermDone: false,
         disasterActive: false,
         scenario: scenario,
@@ -249,6 +252,10 @@ function gameReducer(state, action) {
       let nextEvent = state.currentEvent
       const isPeriod2 = state.period === 2
       const brutalMulti = isPeriod2 ? 1.5 : 1
+      // Tingkat kesulitan: mudah = lebih santai, sulit = lebih brutal
+      const difficulty = state.difficulty || 'normal'
+      const diffEvent = { mudah: 0.7, normal: 1, sulit: 1.5 }[difficulty] || 1
+      const diffOposisi = { mudah: 0.35, normal: 0.5, sulit: 0.65 }[difficulty] || 0.5
 
       policiesData.forEach((policy) => {
         const val = state.policies[policy.id]
@@ -286,7 +293,7 @@ function gameReducer(state, action) {
             }
 
             // Period 2: minister conflict — ministers with low loyalty undermine each other
-            if (isPeriod2 && m.loyalty < 50 && Math.random() < 0.25) {
+            if (isPeriod2 && m.loyalty < 50 && Math.random() < 0.25 * diffEvent) {
               const conflictStat = stat === 'apbn' ? 'infrastruktur' : stat === 'infrastruktur' ? 'apbn' : stat === 'keamanan' ? 'kesejahteraan' : 'keamanan'
               newIndicators[conflictStat] = (newIndicators[conflictStat] || 0) - 4
               newIndicators.popularitas = (newIndicators.popularitas || 0) - 3
@@ -298,7 +305,7 @@ function gameReducer(state, action) {
 
       // Bencana alam — random disaster event (15% chance)
       let disasterNews = []
-      if (!nextEvent && Math.random() < (isPeriod2 ? 0.2 : 0.15)) {
+      if (!nextEvent && Math.random() < (isPeriod2 ? 0.2 : 0.15) * diffEvent) {
         const disasters = [
           { name: 'Gempa Bumi', stat: 'infrastruktur', damage: 20, secondary: 'kesejahteraan', secDamage: 10 },
           { name: 'Banjir Bandang', stat: 'infrastruktur', damage: 15, secondary: 'kesejahteraan', secDamage: 8 },
@@ -316,7 +323,7 @@ function gameReducer(state, action) {
 
       // Ijazah scandal — period 1 quarters 1-8
       let scandalNews = []
-      if (state.period === 1 && newQuarter >= 1 && newQuarter <= 8 && Math.random() < 0.35) {
+      if (state.period === 1 && newQuarter >= 1 && newQuarter <= 8 && Math.random() < 0.35 * diffEvent) {
         const media = ['TV Nasional', 'Radio Kampus', 'Media Sosial', 'Koran Umum', 'YouTube']
         const med = media[Math.floor(Math.random() * media.length)]
         newIndicators.popularitas = Math.max(0, (newIndicators.popularitas || 0) - 3)
@@ -327,20 +334,20 @@ function gameReducer(state, action) {
       const popDrop = Math.max(0, (state.indicators.popularitas || 50) - (newIndicators.popularitas || 50))
       let newOposisiScore = state.oposisiScore || 0
       if (popDrop > 0) {
-        newOposisiScore = Math.min(100, newOposisiScore + Math.floor(popDrop * 0.5))
+        newOposisiScore = Math.min(100, newOposisiScore + Math.floor(popDrop * diffOposisi))
       }
 
       // Party-specific events
       let partyNews = []
       if (state.period === 1 && state.party) {
-        if (state.party.id === 'nurani_bangsa' && newQuarter >= 6 && newQuarter <= 14 && !nextEvent && Math.random() < 0.15) {
+        if (state.party.id === 'nurani_bangsa' && newQuarter >= 6 && newQuarter <= 14 && !nextEvent && Math.random() < 0.15 * diffEvent) {
           newIndicators.popularitas = Math.max(0, (newIndicators.popularitas || 0) - 8)
           newIndicators.apbn = Math.max(0, (newIndicators.apbn || 0) - 10)
           partyNews.push(`SKANDAL! Menteri Agama dari ${state.party.name} korupsi dana haji Rp 2T! Popularitas dan APBN turun drastis!`)
         }
       }
       if (isPeriod2 && state.party) {
-        if (state.party.id === 'reformasi_rakyat' && !nextEvent && Math.random() < 0.22) {
+        if (state.party.id === 'reformasi_rakyat' && !nextEvent && Math.random() < 0.22 * diffEvent) {
           const pressure = [
             { news: `${state.party.name} desak Anda dukung resolusi PBB pro-Israel.`, effects: { popularitas: -5, keamanan: -3 } },
             { news: `${state.party.name} desak Anda buka investasi perusahaan LGBT asing.`, effects: { popularitas: -8, apbn: 5 } },
@@ -354,7 +361,7 @@ function gameReducer(state, action) {
           })
           partyNews.push(p.news)
         }
-        if (state.party.id === 'nurani_bangsa' && !nextEvent && Math.random() < 0.2) {
+        if (state.party.id === 'nurani_bangsa' && !nextEvent && Math.random() < 0.2 * diffEvent) {
           newIndicators.kesejahteraan = Math.max(0, (newIndicators.kesejahteraan || 0) - 5)
           newIndicators.popularitas = Math.max(0, (newIndicators.popularitas || 0) - 4)
           partyNews.push(`${state.party.name} desak penegakan syariat — Kesejahteraan dan Popularitas turun!`)
@@ -363,7 +370,7 @@ function gameReducer(state, action) {
 
       // Desakan timses
       let timsesNews = []
-      const timsesChance = isPeriod2 ? 0.3 : 0.2
+      const timsesChance = (isPeriod2 ? 0.3 : 0.2) * diffEvent
       if (newQuarter >= 3 && !nextEvent && Math.random() < timsesChance) {
         newIndicators.popularitas = Math.max(0, (newIndicators.popularitas || 0) - 3)
         timsesNews.push('Tim sukses Anda mendesak diberi jabatan menteri — Popularitas turun 3%!')
@@ -377,10 +384,21 @@ function gameReducer(state, action) {
         propresNews.push('LOYALIS PRESIDEN terbentuk! APBN +20%, Keamanan +10%! BUDEE ARIE bergabung ke tim sukses!')
       }
 
-      // Foreign control — slowly increases
-      let newForeignControl = state.foreignControl || 0
+      // Foreign control — slowly increases (P2) + drain effects when high
+      const prevForeignControl = state.foreignControl || 0
+      let newForeignControl = prevForeignControl
+      let foreignNews = []
       if (isPeriod2 && newForeignControl > 0) {
         newForeignControl = Math.min(100, newForeignControl + 1)
+      }
+      if (isPeriod2 && newForeignControl >= 40) {
+        newIndicators.kesejahteraan = Math.max(0, (newIndicators.kesejahteraan || 0) - 1)
+        newIndicators.popularitas = Math.max(0, (newIndicators.popularitas || 0) - 1)
+        if (newForeignControl !== prevForeignControl) {
+          foreignNews.push(`⚠ Kontrol asing ${Math.round(newForeignControl)}% menggerogoti Kesejahteraan & Popularitas!`)
+        }
+      } else if (isPeriod2 && newForeignControl > 0 && newForeignControl !== prevForeignControl && newForeignControl % 10 === 0) {
+        foreignNews.push(`⚠ Kontrol asing terhadap ekonomi: ${Math.round(newForeignControl)}%`)
       }
 
       // Dubi Proposal trap
@@ -394,7 +412,6 @@ function gameReducer(state, action) {
       }
 
       // Mid-term evaluation at quarter 10
-      let midTermEval = null
       if (newQuarter === 10 && !state.midTermDone) {
         const avgPop = state.historyIndicators.length > 0
           ? state.historyIndicators.reduce((s, h) => s + (h.popularitas || 0), 0) / state.historyIndicators.length
@@ -413,7 +430,7 @@ function gameReducer(state, action) {
       // History tracking — keep last 10 quarters
       const newHistory = [...(state.historyIndicators || [])]
       newHistory.push({ ...newIndicators })
-      if (newHistory.length > 10) newHistory.shift()
+      if (newHistory.length > 20) newHistory.shift()
 
       // Achievements
       const newAchievements = [...(state.achievements || [])]
@@ -452,6 +469,20 @@ function gameReducer(state, action) {
         return { ...state, phase: 'pemilu', quarter: maxQuarter, indicators: newIndicators, currentEvent: null, electionStage: 0, electionTrust: Math.round(newIndicators.popularitas), oposisiScore: newOposisiScore, historyIndicators: newHistory }
       }
 
+      // Event chain — konsekuensi terjadwal dari keputusan sebelumnya
+      let pendingEvents = state.pendingEvents || []
+      if (!nextEvent && pendingEvents.length > 0) {
+        const dueIdx = pendingEvents.findIndex((p) => p.atQuarter <= newQuarter)
+        if (dueIdx !== -1) {
+          const pend = pendingEvents[dueIdx]
+          const evObj = [...eventsData, ...eventsPeriode2].find((e) => e.id === pend.eventId)
+          if (evObj) {
+            nextEvent = { ...evObj }
+            pendingEvents = pendingEvents.filter((_, i) => i !== dueIdx)
+          }
+        }
+      }
+
       const eventsPool = isPeriod2 ? eventsPeriode2 : eventsData
       let available = eventsPool.filter((e) => !state.usedEvents.includes(e.id))
       // Jika event habis, gunakan ulang event yang sudah dipakai
@@ -470,7 +501,7 @@ function gameReducer(state, action) {
 
       // Party demands in period 2
       let partyDemand = null
-      if (isPeriod2 && !nextEvent && !dubiProposal && state.party && Math.random() < 0.4) {
+      if (isPeriod2 && !nextEvent && !dubiProposal && state.party && Math.random() < 0.4 * diffEvent) {
         const demands = [
           {
             id: 'proyek_kader',
@@ -563,7 +594,7 @@ function gameReducer(state, action) {
       ]
       const reportPrefix = variasiLaporan[Math.floor(Math.random() * variasiLaporan.length)].replace('%s', newQuarter)
 
-      let reportText = ''
+      let reportText
       const allScandalNews = [...scandalNews, ...partyNews, ...timsesNews, ...propresNews, ...disasterNews]
       const allMinisterNews = [...ministerNews, ...allScandalNews]
 
@@ -572,7 +603,7 @@ function gameReducer(state, action) {
         const avgPop = state.historyIndicators.length > 0
           ? state.historyIndicators.reduce((s, h) => s + (h.popularitas || 0), 0) / state.historyIndicators.length
           : newIndicators.popularitas
-        let evalMsg = ''
+        let evalMsg
         if (avgPop >= 60) {
           evalMsg = 'EVALUASI TENGAH PERIODE: Kinerja Anda baik! Bonus APBN +5%, Popularitas +5%!'
         } else if (avgPop >= 40) {
@@ -589,10 +620,14 @@ function gameReducer(state, action) {
         reportText = `${reportPrefix} ${allMinisterNews.slice(0, 3).join(' | ')}`
       } else if (nextEvent) {
         reportText = `${reportPrefix} Ada laporan masuk untuk Presiden!`
-      } else if (reportDiffs) {
+      } else if (reportDiffs.length > 0) {
         reportText = `${reportPrefix} ${reportDiffs}`
       } else {
         reportText = `${reportPrefix} Tidak ada perubahan signifikan.`
+      }
+
+      if (foreignNews.length > 0) {
+        reportText += ` | ${foreignNews[foreignNews.length - 1]}`
       }
 
       // Oposisi warning
@@ -607,6 +642,7 @@ function gameReducer(state, action) {
       if (partyNews.length > 0) partyNews.forEach(n => allNews.push(n))
       if (timsesNews.length > 0) timsesNews.forEach(n => allNews.push(n))
       if (propresNews.length > 0) propresNews.forEach(n => allNews.push(n))
+      if (foreignNews.length > 0) foreignNews.forEach(n => allNews.push(n))
       allNews.push(reportText)
 
       return {
@@ -625,6 +661,7 @@ function gameReducer(state, action) {
         oposisiScore: newOposisiScore,
         historyIndicators: newHistory,
         foreignControl: newForeignControl,
+        pendingEvents: pendingEvents,
         midTermDone: state.midTermDone || newQuarter === 10,
         achievements: newAchievements,
         ministerProposal: ministerProposal,
@@ -642,6 +679,8 @@ function gameReducer(state, action) {
           propores: state.propores || propresNews.length > 0,
           dubiArry: state.dubiArry || propresNews.length > 0,
           foreignControl: newForeignControl,
+          pendingEvents: [...pendingEvents],
+          difficulty: state.difficulty,
           period: state.period,
           playerName: state.playerName,
           background: state.background,
@@ -658,11 +697,15 @@ function gameReducer(state, action) {
     }
 
     case 'SET_VICE_PRESIDENT': {
-      return { ...state, vicePresident: action.vp, newsFeed: [...state.newsFeed, `${action.vp.name} ditunjuk sebagai wakil presiden.`] }
+      return { ...state, vicePresident: action.vp, vpFired: false, newsFeed: [...state.newsFeed, `${action.vp.name} ditunjuk sebagai wakil presiden.`] }
+    }
+
+    case 'SET_FOREIGN_CONTROL': {
+      return { ...state, foreignControl: Math.max(0, Math.min(100, action.value || 0)) }
     }
 
     case 'RESOLVE_EVENT': {
-      const { effects, delegated } = action
+      const { effects, delegated, followUp } = action
       let newIndicators = { ...state.indicators }
       Object.keys(effects).forEach((stat) => {
         if (newIndicators[stat] !== undefined) {
@@ -678,6 +721,12 @@ function gameReducer(state, action) {
         newIndicators.popularitas = Math.max(0, newIndicators.popularitas - popPenalty)
         newsExtra.push(`Delegasi ke-${delegateCount}: Popularitas turun ${popPenalty}% — rakyat menilai Anda lemah!`)
       }
+      // Event chain: jadwalkan konsekuensi dari keputusan ini
+      let pendingEvents = state.pendingEvents || []
+      if (followUp && followUp.eventId && !pendingEvents.some((p) => p.eventId === followUp.eventId)) {
+        pendingEvents = [...pendingEvents, { eventId: followUp.eventId, atQuarter: state.quarter + (followUp.delay || 1) }]
+        newsExtra.push('⚖️ Keputusan ini akan berbuah konsekuensi di kuartal mendatang...')
+      }
       const isGameOver = checkGameOver(newIndicators)
       if (isGameOver) {
         return { ...state, phase: 'result', indicators: newIndicators, ending: isGameOver }
@@ -688,6 +737,7 @@ function gameReducer(state, action) {
         delegateCount,
         currentEvent: null,
         newsFeed: [...state.newsFeed, ...newsExtra],
+        pendingEvents,
       }
     }
 
@@ -794,7 +844,7 @@ export function GameProvider({ children }) {
   }, [])
 
   const endQuarter = useCallback(() => dispatch({ type: 'END_QUARTER' }), [])
-  const resolveEvent = useCallback((effects, delegated) => dispatch({ type: 'RESOLVE_EVENT', effects, delegated }), [])
+  const resolveEvent = useCallback((effects, delegated, followUp) => dispatch({ type: 'RESOLVE_EVENT', effects, delegated, followUp }), [])
   const updatePolicy = useCallback((pid, val) => dispatch({ type: 'UPDATE_POLICY', policyId: pid, value: val }), [])
   const reshuffle = useCallback((pos, cand) => dispatch({ type: 'RESHUFFLE', posisi: pos, candidate: cand }), [])
   const setElectionStage = useCallback((s) => dispatch({ type: 'SET_ELECTION_STAGE', stage: s }), [])
@@ -802,6 +852,7 @@ export function GameProvider({ children }) {
   const electionResult = useCallback(() => dispatch({ type: 'ELECTION_RESULT' }), [])
   const fireVP = useCallback(() => dispatch({ type: 'FIRE_VP' }), [])
   const setVicePresident = useCallback((vp) => dispatch({ type: 'SET_VICE_PRESIDENT', vp }), [])
+  const setForeignControl = useCallback((value) => dispatch({ type: 'SET_FOREIGN_CONTROL', value }), [])
   const dispatchShowReport = useCallback((t) => dispatch({ type: 'SHOW_QUARTER_REPORT', text: t }), [])
   const dispatchHideReport = useCallback(() => dispatch({ type: 'HIDE_QUARTER_REPORT' }), [])
   const confirmSetup = useCallback(() => dispatch({ type: 'CONFIRM_SETUP' }), [])
@@ -829,7 +880,7 @@ export function GameProvider({ children }) {
       const savedState = JSON.parse(raw)
       dispatch({ type: 'LOAD_GAME', savedState })
       return true
-    } catch (e) {
+    } catch {
       return false
     }
   }, [])
@@ -880,7 +931,7 @@ export function GameProvider({ children }) {
     <GameContext.Provider value={{
       ...state,
       startGame, endQuarter, resolveEvent, updatePolicy, reshuffle,
-      setElectionStage, setElectionTrust, electionResult, fireVP, setVicePresident,       doActivity, respondPartyDemand, respondDubiProposal, respondMinisterProposal, resetGame, retryGame,
+      setElectionStage, setElectionTrust, electionResult, fireVP, setVicePresident, setForeignControl,       doActivity, respondPartyDemand, respondDubiProposal, respondMinisterProposal, resetGame, retryGame,
       saveGame, loadGame, hasSavedGame, deleteSave,
       getCareerStats, updateCareerStats, getUnlockedScenarios, unlockScenario,
       dispatchShowReport, dispatchHideReport, confirmSetup, qaSkip, goToPeriod2Setup,
@@ -890,6 +941,7 @@ export function GameProvider({ children }) {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useGame() {
   const ctx = useContext(GameContext)
   if (!ctx) throw new Error('useGame must be used within GameProvider')
