@@ -25,18 +25,24 @@ export default function App() {
       const vh = window.innerHeight
 
       if (vw >= vh) {
-        // Landscape / PC: scale the 16:9 stage to fill the screen
+        // Landscape / PC: scale the 16:9 stage to fill the screen.
+        // The stage takes its natural content height (min 720) and the
+        // wrapper is sized to the *scaled* height, so screens taller than
+        // the viewport get a normal page scroll instead of clipping.
         const scale = Math.min(vw / DESIGN_W, vh / DESIGN_H)
         gameRef.current.style.width = `${DESIGN_W}px`
-        gameRef.current.style.height = `${DESIGN_H}px`
-        gameRef.current.style.minHeight = 'auto'
+        gameRef.current.style.height = 'auto'
+        gameRef.current.style.minHeight = `${DESIGN_H}px`
         gameRef.current.style.transform = `scale(${scale})`
         gameRef.current.style.transformOrigin = 'center center'
 
-        wrapperRef.current.style.height = `${vh}px`
+        // Natural (unscaled) content height, incl. the footer.
+        const naturalH = gameRef.current.scrollHeight
+        const visualH = naturalH * scale
+        wrapperRef.current.style.height = `${Math.max(vh, visualH)}px`
         wrapperRef.current.style.minHeight = '100vh'
         wrapperRef.current.style.alignItems = 'center'
-        wrapperRef.current.style.overflow = 'hidden'
+        wrapperRef.current.style.overflow = 'auto'
       } else {
         // Portrait / mobile: natural full-width layout
         gameRef.current.style.width = ''
@@ -51,14 +57,18 @@ export default function App() {
       }
     }
 
-    // Run after layout paint
-    requestAnimationFrame(() => {
-      handleResize()
-    })
+    // Re-measure whenever the stage size changes (phase switch, content
+    // growth, window resize) so tall screens always stay scrollable.
+    const observer = new ResizeObserver(handleResize)
+    if (gameRef.current) observer.observe(gameRef.current)
+    handleResize()
 
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [phase])
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   return (
     <div ref={wrapperRef} className="game-wrapper">
