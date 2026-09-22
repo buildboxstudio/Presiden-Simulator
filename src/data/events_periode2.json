@@ -137,9 +137,9 @@
   },
   {
     "id": 111,
-    "title": "Mega Proyek IKN Bermasalah",
-    "description": "Proyek Ibu Kota Nusantara mangkrak! Kontraktor kabur, anggaran membengkak 300%!",
-    "deddy_intro": "Lapor Presiden! IKN mangkrak! Kontraktor kabur bawa uang! Anggaran bengkak 300%!",
+    "title": "IKN Mangkrak: Ultimatum Istana",
+    "description": "Memasuki tahun politik, proyek IKN mangkrak jadi amunisi oposisi: kontraktor kabur, realisasi fisik di bawah 15%, anggaran membengkak 300%. Istana memberi ultimatum 90 hari atau proyek dievaluasi total.",
+    "deddy_intro": "Lapor Presiden! IKN mangkrak! Kontraktor kabur bawa uang! Anggaran bengkak 300%! Ultimatum 90 hari!",
     "choices": [
       { "label": "Evaluasi Total, Ganti Kontraktor", "effects": { "infrastruktur": 8, "apbn": -10, "popularitas": 5 } },
       { "label": "Lanjutkan Proyek, Tambah Anggaran", "effects": { "apbn": -15, "infrastruktur": 10, "popularitas": -8, "kesejahteraan": -3 } },
@@ -188,9 +188,9 @@
   },
   {
     "id": 115,
-    "title": "Krisis Kabinet Mental Bocor",
-    "description": "Bocoran chat grup WhatsApp kabinet tersebar ke media. Isinya hinaan ke rakyat dan lembaga negara.",
-    "deddy_intro": "Lapor Presiden! Chat WA kabinet bocor ke media! Menteri hina rakyat di grup! Kacau!",
+    "title": "Krisis Kabinet: Reshuffle Keenam?",
+    "description": "Bocoran chat grup WhatsApp kabinet tersebar ke media. Isinya hinaan ke rakyat dan lembaga negara. Istana baru saja reshuffle keenam dan publik menuntut bukti: pecat, bantah, atau reshuffle total?",
+    "deddy_intro": "Lapor Presiden! Chat WA kabinet bocor ke media! Menteri hina rakyat di grup! Publik menuntut reshuffle keenam!",
     "choices": [
       { "label": "Pecat Menteri yang Terlibat, Bersihkan Kabinet", "effects": { "popularitas": 10, "keamanan": 8, "apbn": -3, "kesejahteraan": 3 } },
       { "label": "Bantah Bocoran, Itu Hoax dan Rekayasa", "effects": { "popularitas": -8, "keamanan": -5, "apbn": -3 } },

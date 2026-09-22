@@ -2,8 +2,8 @@
   {
     "id": 1,
     "title": "Subsidi BBM Membebani APBN",
-    "description": "Harga minyak dunia naik 20%! Subsidi BBM menguras kas negara. Rakyat mulai resah.",
-    "deddy_intro": "Lapor Presiden! Harga minyak dunia meroket! BBM subsidi jebol! APBN kita bocor besar!",
+    "description": "Harga minyak dunia naik 20% dan kuota Pertalite jebol! Barcode MyPertamina membatasi beli 15 liter/bulan per kendaraan. SPBU antre panjang, sopir ojol protes.",
+    "deddy_intro": "Lapor Presiden! Kuota Pertalite 15 liter/bulan ketahuan! SPBU antre! Sopir ojol demo!",
     "choices": [  {
    "label": "Cairkan Subsidi, Biarkan APBN Terkuras",
    "effects": {
@@ -44,8 +44,8 @@
   {
     "id": 4,
     "title": "Demonstrasi Mahasiswa Meluas",
-    "description": "Mahasiswa dari seluruh Indonesia turun ke jalan menuntut perubahan sistem politik.",
-    "deddy_intro": "Lapor Presiden! Mahasiswa dari 30 kota demo! Mereka minta bertemu!",
+    "description": "Mahasiswa 50+ kota turun ke jalan dengan poster biru 'Peringatan Darurat'. Mereka menuntut pembatalan RUU Pilkada kilat, menolak dinasti politik, dan mencopot menteri rangkap jabatan BUMN. Guillotine replika dibawa ke depan DPR.",
+    "deddy_intro": "Lapor Presiden! Mahasiswa dari 50 kota demo! Poster biru 'Peringatan Darurat' viral! Mereka minta bertemu!",
     "choices": [
       { "label": "Temui Perwakilan Mahasiswa, Dengarkan Aspirasi", "effects": { "popularitas": 8, "keamanan": 5, "kesejahteraan": 3 } },  {
    "label": "Kirim Aparat untuk Membubarkan Demo",
@@ -63,8 +63,8 @@
   {
     "id": 5,
     "title": "Investor Asing Ingin Masuk",
-    "description": "Perusahaan tambang asing menawarkan investasi besar untuk nikel di Sulawesi. Ada syarat: keringanan pajak 10 tahun.",
-    "deddy_intro": "Lapor Presiden! Perusahaan asing mau investasi nikel. Tapi minta potongan pajak 10 tahun!",
+    "description": "Konsorsium asing menawarkan smelter tembaga, bauksit, dan timah senilai puluhan triliun rupiah. Syaratnya: kuota ekspor mentah tetap jalan dan tax holiday 10 tahun. Di sisi lain, UE protes standar hijau dan warga pesisir takut tailing ke laut.",
+    "deddy_intro": "Lapor Presiden! Konsorsium asing mau bangun smelter tembaga-bauksit-timah! Tapi minta kuota ekspor mentah dan tax holiday 10 tahun!",
     "choices": [
       { "label": "Terima Investasi, Ekonomi Bergerak", "effects": { "apbn": 15, "infrastruktur": 10, "kesejahteraan": -5 } },
       { "label": "Tolak! Sumber Daya Alam untuk Rakyat", "effects": { "apbn": -5, "infrastruktur": -3, "popularitas": 8 } },
@@ -74,9 +74,9 @@
   },
   {
     "id": 6,
-    "title": "Krisis Pangan Mendekat",
-    "description": "El Nino menyebabkan gagal panen di Jawa. Harga beras melonjak, rakyat mulai kelaparan.",
-    "deddy_intro": "Lapor Presiden! Gagal panen di Jawa! Harga beras naik 40%! Rakyat resah!",
+    "title": "Krisis Pangan: La Nina Ganda",
+    "description": "La Nina ganda: banjir merendam lumbung di utara sementara kekeringan menghantam sentra padi selatan. Harga beras melonjak, rakyat mulai kelaparan.",
+    "deddy_intro": "Lapor Presiden! Utara banjir, selatan kering! Harga beras naik 40%! Rakyat resah!",
     "choices": [
       { "label": "Impor Beras Besar-besaran dari Vietnam", "effects": { "apbn": -10, "kesejahteraan": 8, "popularitas": 5 } },
       { "label": "Bagikan Bantuan Pangan Langsung ke Masyarakat", "effects": { "apbn": -15, "kesejahteraan": 12, "popularitas": 10 } },
@@ -86,9 +86,9 @@
   },
   {
     "id": 7,
-    "title": "Serangan Siber ke Data Negara",
-    "description": "Pusat data nasional diretas! Data kependudukan terancam bocor. Menteri Komunikasi panik.",
-    "deddy_intro": "Lapor Presiden! Pusat data kita diretas! Data 200 juta jiwa terancam bocor!",
+    "title": "Ransomware Lumpuhkan PDN",
+    "description": "Pusat Data Nasional diserang ransomware LockBit 3.0! Layanan publik lumpuh dan data 200+ juta jiwa terancam bocor. Pelaku minta tebusan 10 juta dolar. Menteri Komunikasi panik.",
+    "deddy_intro": "Lapor Presiden! PDN kena ransomware! Layanan lumpuh! Data 200 juta jiwa terancam bocor!",
     "choices": [
       { "label": "Bayar Tebusan agar Data Tidak Bocor", "effects": { "apbn": -10, "keamanan": -5, "popularitas": -3 } },
       { "label": "Kerahkan Tim Cyber Nasional, Lacak Hacker", "effects": { "keamanan": 10, "infrastruktur": 5, "apbn": -5 } },
@@ -110,9 +110,9 @@
   },
   {
     "id": 9,
-    "title": "Wacana Pemindahan Ibu Kota",
-    "description": "Jakarta semakin tenggelam dan macet. Wacana pindah ibu kota ke Kalimantan kembali mencuat.",
-    "deddy_intro": "Lapor Presiden! Wacana pindah ibu kota ke Kaltim kembali ramai diperbincangkan.",
+    "title": "Proyek IKN Mangkrak",
+    "description": "Pembangunan Istana Garuda dan kawasan ASN tersendat: kontraktor kabur, realisasi fisik di bawah 15%, anggaran membengkak sampai 300%. Oposisi menuntut proyek dihentikan dan dikembalikan ke Jakarta.",
+    "deddy_intro": "Lapor Presiden! IKN mangkrak! Kontraktor kabur! Anggaran bengkak 300%! Realisasi di bawah 15%!",
     "choices": [
       { "label": "Lanjutkan Proyek IKN, Masa Depan Bangsa", "effects": { "apbn": -20, "infrastruktur": 20, "popularitas": -5 } },
       { "label": "Batalkan IKN, Perbaiki Jakarta Saja", "effects": { "apbn": 10, "infrastruktur": 5, "popularitas": 8 } },
@@ -170,9 +170,9 @@
   },
   {
     "id": 15,
-    "title": "Resesi Global Mengancam",
-    "description": "Ekonomi dunia goyah. Ekspor RI turun drastis. Pengusaha mulai PHK massal.",
-    "deddy_intro": "Lapor Presiden! Resesi global! Ekspor kita turun 30%! PHK di mana-mana!",
+    "title": "Resesi Global Realisasi",
+    "description": "Tarif dagang AS 10% menekan ekspor RI dan rupiah. Ekspor turun drastis, pabrik mulai PHK massal. IMF memperingatkan risiko resesi global.",
+    "deddy_intro": "Lapor Presiden! Tarif AS 10%! Ekspor kita turun 30%! PHK di mana-mana! IMF warning resesi!",
     "choices": [
       { "label": "Suntik Stimulus Ekonomi ke UMKM", "effects": { "apbn": -15, "kesejahteraan": 10, "popularitas": 8 } },
       { "label": "Pinjam Utang Luar Negeri ke IMF", "effects": { "apbn": 15, "popularitas": -10, "kesejahteraan": -3 } },
