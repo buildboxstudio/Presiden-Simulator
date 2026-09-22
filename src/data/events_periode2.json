@@ -209,5 +209,77 @@
       { "label": "Biar Saja, Pasar Akan Stabil Sendiri", "effects": { "apbn": 3, "popularitas": -15, "kesejahteraan": -8, "keamanan": -5 } }
     ],
     "vp_advice": { "advice": "Intervensi BI, Pak! Suntik dolar sekarang sebelum makin parah!", "recommends": 0 }
+  },
+  {
+    "id": 120,
+    "title": "Reshuffle Jilid Enam",
+    "description": "Menjelang dua tahun berkuasa, Presiden merombak kabinet untuk keenam kalinya. Menkeu diganti wakilnya sendiri, dua kursi wamen kosong. Koalisi gemuk menuntut jatah, pasar menuntut kompetensi. Salah langkah bisa bikin approval anjlok.",
+    "deddy_intro": "Lapor Presiden! Reshuffle keenam! Menkeu diganti wakilnya! Koalisi ribut minta jatah!",
+    "choices": [
+      { "label": "Reshuffle Berbasis Kinerja, Abaikan Tekanan Partai", "effects": { "popularitas": 10, "keamanan": 5, "apbn": 5 } },
+      { "label": "Bagi Kursi ke Koalisi, Amankan Dukungan DPR", "effects": { "keamanan": 8, "popularitas": -8, "kesejahteraan": -5 } },
+      { "label": "Tunda Reshuffle, Evaluasi Diam-Diam", "effects": { "apbn": 0, "popularitas": -5, "keamanan": -3 } }
+    ],
+    "vp_advice": { "advice": "Enam kali reshuffle bikin pasar gelisah, Pak. Kalau reshuffle, pastikan berbasis kinerja.", "recommends": 0 }
+  },
+  {
+    "id": 121,
+    "title": "Approval Anjlok ke 51%",
+    "description": "Survei terbaru: kepuasan publik anjlok dari 81% ke 51%! Pemicunya MBG bermasalah, rupiah jebol, dan reshuffle terus-menerus. Oposisi menyerukan mosi tidak percaya, media asing menyorot pelemahan demokrasi.",
+    "deddy_intro": "Lapor Presiden! Approval anjlok 81 ke 51 persen! Oposisi serukan mosi tidak percaya!",
+    "choices": [
+      { "label": "Pidato Kenegaraan, Akui Masalah dan Janji Perbaikan", "effects": { "popularitas": 8, "keamanan": 3, "kesejahteraan": 3 } },
+      { "label": "Serang Balik Survei, Sebut Pesanan Asing", "effects": { "popularitas": -10, "keamanan": -5, "apbn": 3 } },
+      { "label": "Gelontorkan Bansos Darurat Dongkrak Citra", "effects": { "apbn": -12, "popularitas": 10, "kesejahteraan": 5 } }
+    ],
+    "vp_advice": { "advice": "Angka tidak bohong, Pak. Akui, perbaiki, jangan serang balik.", "recommends": 0 }
+  },
+  {
+    "id": 122,
+    "title": "Revisi UU Pemilu Mandek",
+    "description": "Revisi UU Pemilu mandek: MK sudah membatalkan threshold pencalonan, tapi DPR tarik-ulur soal ambang parlemen 5% vs 7%. Partai kecil terancam punah, partai besar berebut kursi. Tanpa revisi, pemilu 2029 terancam pakai aturan lama yang inkonstitusional.",
+    "deddy_intro": "Lapor Presiden! Revisi UU Pemilu mandek! Threshold 5 lawan 7 persen! Pemilu 2029 terancam!",
+    "choices": [
+      { "label": "Dorong Threshold 4%, Selamatkan Partai Kecil", "effects": { "popularitas": 8, "keamanan": -3, "apbn": -3 } },
+      { "label": "Dukung 7%, Sederhanakan Partai", "effects": { "keamanan": 8, "popularitas": -8, "kesejahteraan": -3 } },
+      { "label": "Serahkan ke DPR, Presiden Netral", "effects": { "apbn": 0, "popularitas": -5, "keamanan": 3 } }
+    ],
+    "vp_advice": { "advice": "Aturan main pemilu menentukan nasib kita 2029, Pak. Jangan netral-netral amat.", "recommends": 0 }
+  },
+  {
+    "id": 123,
+    "title": "Skandal ATR/BPN Meledak",
+    "description": "Skandal 16.000 hektare tanah reforma agraria macet setahun terbongkar! Mafia tanah bermain dengan oknum ATR/BPN, sertifikat ganda marak, warga adat terusir. RUU Agraria dikebut target 22 September, tapi aktivis menuntut restitusi bukan sekadar redistribusi.",
+    "deddy_intro": "Lapor Presiden! 16.000 hektare reforma agraria macet! Mafia tanah main dengan oknum ATR/BPN!",
+    "choices": [
+      { "label": "Bersihkan ATR/BPN, Kebut Restitusi Adat", "effects": { "popularitas": 10, "keamanan": 5, "kesejahteraan": 5 } },
+      { "label": "Kebut RUU Agraria Apa Adanya", "effects": { "apbn": -5, "popularitas": -5, "keamanan": 3 } },
+      { "label": "Redam Berita, Selesaikan Diam-Diam", "effects": { "popularitas": -8, "keamanan": -8, "kesejahteraan": -5 } }
+    ],
+    "vp_advice": { "advice": "Tanah itu nyawa rakyat, Pak. Bersihkan mafia, kembalikan hak adat.", "recommends": 0 }
+  },
+  {
+    "id": 124,
+    "title": "Karhutla Membara Lagi",
+    "description": "Kebakaran hutan dan lahan membara di Sumatera dan Kalimantan! Asap sampai ke Malaysia-Singapura, protes diplomatik masuk. Anggaran pemadaman jebol, TNI dikerahkan. LSM menuduh korporasi sengaja bakar untuk ekspansi sawit.",
+    "deddy_intro": "Lapor Presiden! Karhutla membara! Asap sampai Malaysia! Korporasi dituduh sengaja bakar!",
+    "choices": [
+      { "label": "Darurat Nasional, Kerahkan Semua Sumber Daya", "effects": { "apbn": -12, "kesejahteraan": 8, "popularitas": 5 } },
+      { "label": "Pidana Korporasi Pembakar, Cabut Izin", "effects": { "keamanan": 10, "popularitas": 8, "apbn": 3 } },
+      { "label": "Minta Maaf Diplomatik, Janji Atasi", "effects": { "popularitas": -5, "keamanan": -3, "kesejahteraan": -5 } }
+    ],
+    "vp_advice": { "advice": "Asap lintas batas itu aib diplomasi, Pak. Tindak korporasi, padamkan total.", "recommends": 1 }
+  },
+  {
+    "id": 125,
+    "title": "Koalisi Gemuk Retak",
+    "description": "Koalisi gemuk 7-8 partai mulai retak: Golkar, Demokrat, dan PAN saling sikut jatah menteri pasca-reshuffle keenam. PDIP satu-satunya oposisi memanas-manasi dari luar. Jika koalisi pecah, agenda legislasi macet total.",
+    "deddy_intro": "Lapor Presiden! Koalisi gemuk retak! Golkar vs Demokrat vs PAN rebutan jatah! PDIP manas-manasi!",
+    "choices": [
+      { "label": "Rangkul Semua, Tambah Kursi Wamen", "effects": { "apbn": -8, "keamanan": 8, "popularitas": -5 } },
+      { "label": "Pilih Loyal, Tendang yang Berisik", "effects": { "keamanan": 5, "popularitas": -10, "kesejahteraan": -3 } },
+      { "label": "Mediasi Tertutup di Hambalang", "effects": { "popularitas": 5, "keamanan": 5, "apbn": -3 } }
+    ],
+    "vp_advice": { "advice": "Koalisi gemuk itu pedang bermata dua, Pak. Rangkul boleh, tapi jangan disandera.", "recommends": 2 }
   }
 ]

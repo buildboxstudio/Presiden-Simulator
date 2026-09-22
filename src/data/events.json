@@ -349,5 +349,77 @@
       { "label": "Keluar Kebijakan Populis untuk Redam Kemarahan", "effects": { "popularitas": 5, "apbn": -8, "kesejahteraan": 5, "keamanan": 3 } }
     ],
     "vp_advice": { "advice": "Temui mahasiswa, Pak! Biarkan mereka bersuara! Daripada rusuh!", "recommends": 0 }
+  },
+  {
+    "id": 30,
+    "title": "Krisis Konstitusi: DPR vs MK",
+    "description": "Baleg DPR menyusun RUU Pilkada kilat untuk membalikkan dua putusan MK: ambang pencalonan dan batas usia. Tujuannya mengamankan kroni dan memblokir oposisi. Poster biru 'Peringatan Darurat' viral, mahasiswa demo di 50+ kota.",
+    "deddy_intro": "Lapor Presiden! DPR mau balikkan putusan MK! Poster biru viral! Mahasiswa demo 50 kota!",
+    "choices": [
+      { "label": "Bela MK, Tolak RUU Kilat", "effects": { "popularitas": 12, "keamanan": -5, "kesejahteraan": 3 } },
+      { "label": "Dukung DPR, Demi Stabilitas Koalisi", "effects": { "keamanan": 8, "popularitas": -15, "kesejahteraan": -5 } },
+      { "label": "Bentuk Tim Kajian Independen", "effects": { "apbn": -5, "popularitas": 5, "keamanan": 5 } }
+    ],
+    "vp_advice": { "advice": "Putusan MK itu final, Pak. Kalau dibalik lewat RUU kilat, legitimasi kita runtuh.", "recommends": 0 }
+  },
+  {
+    "id": 31,
+    "title": "Skandal Keracunan MBG",
+    "description": "Ribuan penerima program Makan Bergizi Gratis keracunan di beberapa daerah! Investigasi menemukan dapur bermasalah dan rantai pasok tidak higienis. Kepala BGN terancam dicopot dan oposisi menuntut pembekuan program Rp335 triliun.",
+    "deddy_intro": "Lapor Presiden! Ribuan keracunan MBG! Dapur kotor! Kepala BGN terancam dicopot!",
+    "choices": [
+      { "label": "Copot Kepala BGN, Audit Semua Dapur", "effects": { "popularitas": 10, "kesejahteraan": 5, "apbn": -8 } },
+      { "label": "Bela Program, Salahkan Oknum Daerah", "effects": { "popularitas": -8, "kesejahteraan": -5, "keamanan": -3 } },
+      { "label": "Bekukan Sementara Sambil Perbaiki SOP", "effects": { "apbn": 5, "kesejahteraan": -8, "popularitas": -5 } }
+    ],
+    "vp_advice": { "advice": "Nyawa anak taruhannya, Pak. Copot yang lalai, audit total, baru jalan lagi.", "recommends": 0 }
+  },
+  {
+    "id": 32,
+    "title": "Rupiah Jebol Rp18.000",
+    "description": "Rupiah menembus Rp18.000 per dolar AS, level terendah sepanjang sejarah! IHSG anjlok, investor asing kabur. Gubernur BI terancam mundur dan pasar menuntut intervensi besar-besaran.",
+    "deddy_intro": "Lapor Presiden! Rupiah Rp18.000! Terendah sepanjang sejarah! IHSG anjlok!",
+    "choices": [
+      { "label": "Intervensi Agresif, Pertahankan Rupiah", "effects": { "apbn": -15, "keamanan": 5, "popularitas": 5 } },
+      { "label": "Naikkan Suku Bunga, Korbankan Pertumbuhan", "effects": { "apbn": 5, "kesejahteraan": -8, "popularitas": -10 } },
+      { "label": "Biarkan Mengambang, Fokus Ekspor", "effects": { "apbn": 8, "popularitas": -12, "kesejahteraan": -5 } }
+    ],
+    "vp_advice": { "advice": "Pasar panik, Pak. Intervensi sekarang atau kepercayaan runtuh total.", "recommends": 0 }
+  },
+  {
+    "id": 33,
+    "title": "Isu Dinasti: Anak & Kerabat Berkuasa",
+    "description": "Media menyorot gurita keluarga: anak presiden, menantu, dan kerabat menduduki jabatan strategis dari BUMN sampai kepala daerah. Tagar dinasti trending, mahasiswa menuntut UU anti-nepotisme.",
+    "deddy_intro": "Lapor Presiden! Tagar dinasti trending! Keluarga Presiden kuasai BUMN dan daerah!",
+    "choices": [
+      { "label": "Dorong RUU Anti-Nepotisme", "effects": { "popularitas": 12, "keamanan": 5, "apbn": -3 } },
+      { "label": "Bela Keluarga, Sebut Fitnah Oposisi", "effects": { "popularitas": -12, "keamanan": -5, "kesejahteraan": -3 } },
+      { "label": "Evaluasi Diam-Diam, Rotasi Bertahap", "effects": { "popularitas": 3, "keamanan": 3, "apbn": 0 } }
+    ],
+    "vp_advice": { "advice": "Isu ini racun elektoral, Pak. Bersihkan sekarang sebelum meledak di pemilu.", "recommends": 0 }
+  },
+  {
+    "id": 34,
+    "title": "Tarif AS 10% Hantam Ekspor",
+    "description": "Amerika memberlakukan tarif 10% untuk produk Indonesia dengan dalih forced labor di rantai pasok. Eksportir tekstil, alas kaki, dan sawit panik. Rupiah makin tertekan dan PHK mengancam.",
+    "deddy_intro": "Lapor Presiden! AS kenakan tarif 10%! Tuduh forced labor! Eksportir panik!",
+    "choices": [
+      { "label": "Lobi Washington, Perbaiki Standar Buruh", "effects": { "apbn": -5, "kesejahteraan": 5, "popularitas": 5 } },
+      { "label": "Balas dengan Tarif Balasan", "effects": { "keamanan": -5, "apbn": 5, "popularitas": -8 } },
+      { "label": "Alihkan Ekspor ke Pasar Non-AS", "effects": { "apbn": 3, "infrastruktur": 3, "kesejahteraan": -3 } }
+    ],
+    "vp_advice": { "advice": "Perang dagang tidak ada yang menang, Pak. Diplomasi dulu, diversifikasi pasar.", "recommends": 0 }
+  },
+  {
+    "id": 35,
+    "title": "Gubernur BI Mengundurkan Diri",
+    "description": "Gubernur Bank Indonesia mengundurkan diri dengan alasan pribadi di tengah tekanan rupiah dan kritik pasar. Kursi kosong memicu spekulasi: pasar goyah, IHSG merah, dan DPR mendesak fit-and-proper dipercepat.",
+    "deddy_intro": "Lapor Presiden! Gubernur BI mundur! Pasar goyah! DPR desak pengganti cepat!",
+    "choices": [
+      { "label": "Tunjuk Deputi Senior sebagai Pj, Stabilkan Pasar", "effects": { "apbn": -5, "keamanan": 8, "popularitas": 3 } },
+      { "label": "Percepat Fit-and-Proper, Cari Tokoh Pasar", "effects": { "popularitas": 5, "apbn": -3, "kesejahteraan": -3 } },
+      { "label": "Biarkan Kosong Sementara, Fokus Fiskal", "effects": { "apbn": 3, "popularitas": -8, "keamanan": -5 } }
+    ],
+    "vp_advice": { "advice": "Kekosongan BI bikin pasar liar, Pak. Isi cepat dengan figur kredibel.", "recommends": 1 }
   }
 ]
