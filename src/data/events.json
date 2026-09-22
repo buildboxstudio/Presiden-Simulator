@@ -421,5 +421,41 @@
       { "label": "Biarkan Kosong Sementara, Fokus Fiskal", "effects": { "apbn": 3, "popularitas": -8, "keamanan": -5 } }
     ],
     "vp_advice": { "advice": "Kekosongan BI bikin pasar liar, Pak. Isi cepat dengan figur kredibel.", "recommends": 1 }
+  },
+  {
+    "id": 36,
+    "title": "Danantara Kelola BUMN Raksasa",
+    "description": "Superholding Danantara resmi kelola 7 BUMN sistemik (Pertamina, PLN, Mandiri, BRI, BNI, Telkom, MIND ID) dengan aset 900 miliar dolar! DPR menuntut dividen transparan, pasar khawatir injeksi modal negara di luar APBN bikin defisit semu jebol 4,5%.",
+    "deddy_intro": "Lapor Presiden! Danantara kelola 7 BUMN raksasa! Aset 900 miliar dolar! DPR curiga defisit semu!",
+    "choices": [
+      { "label": "Buka Dividen & Audit Publik Tiap Kuartal", "effects": { "popularitas": 10, "apbn": 8, "keamanan": 3 } },
+      { "label": "Gas Investasi Strategis, Tutup Rapat Data", "effects": { "apbn": -8, "infrastruktur": 10, "popularitas": -8 } },
+      { "label": "Batasi Suntikan Modal, Jaga Defisit 3%", "effects": { "apbn": 5, "popularitas": 3, "kesejahteraan": -3 } }
+    ],
+    "vp_advice": { "advice": "Uang segede itu tanpa transparansi bikin rating anjlok, Pak. Buka audit publik.", "recommends": 0 }
+  },
+  {
+    "id": 37,
+    "title": "Paket Stimulus 8+4+5",
+    "description": "Pemerintah luncurkan paket 8+4+5: 8 program dorong konsumsi, 4 insentif investasi, 5 reformasi birokrasi. Target pertumbuhan 5,4%, tapi ekonom meragukan: informal 58%, PHK marak, daya beli lesu. DPR minta bukti, bukan janji.",
+    "deddy_intro": "Lapor Presiden! Paket 8+4+5 diluncurkan! Target tumbuh 5,4 persen! Ekonom ragu daya beli!",
+    "choices": [
+      { "label": "Fokus Bansos Tunai Dongkrak Daya Beli", "effects": { "apbn": -12, "kesejahteraan": 10, "popularitas": 8 } },
+      { "label": "Fokus Insentif Pabrik & Lapangan Kerja Formal", "effects": { "apbn": -8, "infrastruktur": 8, "popularitas": 3 } },
+      { "label": "Pangkas Subsidi, Alihkan ke Investasi", "effects": { "apbn": 10, "kesejahteraan": -8, "popularitas": -10 } }
+    ],
+    "vp_advice": { "advice": "Rakyat butuh uang belanja sekarang, Pak. Bansos tunai dulu, reformasi jalan paralel.", "recommends": 0 }
+  },
+  {
+    "id": 38,
+    "title": "MSCI Bekukan Saham RI",
+    "description": "MSCI bekukan rebalancing saham Indonesia karena isu investabilitas! IHSG anjlok, trading sempat dihentikan. Fitch revisi outlook ke negatif sambil pertahankan rating. Regulator diminta benahi free float dan keterbukaan pemilik saham.",
+    "deddy_intro": "Lapor Presiden! MSCI bekukan saham RI! IHSG anjlok! Fitch kasih outlook negatif!",
+    "choices": [
+      { "label": "Reformasi Pasar Modal Kilat, Naikkan Free Float", "effects": { "apbn": 5, "keamanan": 5, "popularitas": -3 } },
+      { "label": "Suntik Dana Stabilisasi Lewat Danantara", "effects": { "apbn": -10, "popularitas": 5, "keamanan": 3 } },
+      { "label": "Biarkan Pasar Koreksi Sendiri", "effects": { "apbn": 3, "popularitas": -10, "kesejahteraan": -5 } }
+    ],
+    "vp_advice": { "advice": "Kepercayaan pasar sekali hilang susah balik, Pak. Reformasi disclosure sekarang.", "recommends": 0 }
   }
 ]

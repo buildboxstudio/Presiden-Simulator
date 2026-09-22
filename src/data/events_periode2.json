@@ -281,5 +281,41 @@
       { "label": "Mediasi Tertutup di Hambalang", "effects": { "popularitas": 5, "keamanan": 5, "apbn": -3 } }
     ],
     "vp_advice": { "advice": "Koalisi gemuk itu pedang bermata dua, Pak. Rangkul boleh, tapi jangan disandera.", "recommends": 2 }
+  },
+  {
+    "id": 126,
+    "title": "Kopdes Merah Putih Mangkrak",
+    "description": "Program Koperasi Desa Merah Putih di 800 titik mangkrak: gudang kosong, pengurus titipan partai, dana bergulir macet. BPK menemukan mark-up pengadaan, kepala desa demo menuntut pencairan. Oposisi sebut program pencitraan.",
+    "deddy_intro": "Lapor Presiden! Kopdes Merah Putih mangkrak! Gudang kosong! Dana macet! Kades demo!",
+    "choices": [
+      { "label": "Audit Total, Pidana Mark-up Pengadaan", "effects": { "popularitas": 8, "keamanan": 8, "apbn": -5 } },
+      { "label": "Suntik Dana Talangan, Selamatkan Program", "effects": { "apbn": -10, "kesejahteraan": 5, "popularitas": 3 } },
+      { "label": "Bekukan Program, Evaluasi Ulang", "effects": { "apbn": 5, "kesejahteraan": -8, "popularitas": -8 } }
+    ],
+    "vp_advice": { "advice": "Program desa itu wajah kita di akar rumput, Pak. Bersihkan mafia pengadaan.", "recommends": 0 }
+  },
+  {
+    "id": 127,
+    "title": "KMP Tenggelam di Selayar",
+    "description": "Kapal penumpang tenggelam di Selayar akibat mesin mati: 1 tewas, puluhan hilang! Investigasi menemukan sertifikat laik laut kedaluwarsa dan overload penumpang. Keluarga korban menuntut tanggung jawab menteri perhubungan.",
+    "deddy_intro": "Lapor Presiden! Kapal tenggelam di Selayar! 1 tewas, puluhan hilang! Sertifikat mati!",
+    "choices": [
+      { "label": "Copot Pejabat Syahbandar, Audit Semua Kapal", "effects": { "popularitas": 8, "keamanan": 8, "apbn": -5 } },
+      { "label": "Santunan Besar, Tutup Isu Cepat", "effects": { "apbn": -8, "popularitas": 5, "kesejahteraan": 3 } },
+      { "label": "Salahkan Cuaca, Minta Maaf Saja", "effects": { "popularitas": -10, "keamanan": -5, "kesejahteraan": -5 } }
+    ],
+    "vp_advice": { "advice": "Nyawa melayang karena sertifikat mati, Pak. Copot yang lalai, audit total.", "recommends": 0 }
+  },
+  {
+    "id": 128,
+    "title": "Gudang Amunisi Meledak",
+    "description": "Ledakan di gudang amunisi TNI saat perawatan rutin: 1 prajurit tewas, 6 luka! Investigasi awal menunjuk SOP kedaluwarsa dan anggaran perawatan dipotong. DPR menuntut audit persenjataan, publik mempertanyakan kesiapan tempur.",
+    "deddy_intro": "Lapor Presiden! Gudang amunisi meledak! 1 tewas, 6 luka! SOP kedaluwarsa!",
+    "choices": [
+      { "label": "Audit Total Persenjataan, Naikkan Anggaran Perawatan", "effects": { "apbn": -10, "keamanan": 10, "popularitas": 5 } },
+      { "label": "Tutup Investigasi Internal Saja", "effects": { "popularitas": -8, "keamanan": -5, "apbn": 3 } },
+      { "label": "Copot Komandan Gudang, Jadikan Contoh", "effects": { "keamanan": 5, "popularitas": 3, "apbn": -3 } }
+    ],
+    "vp_advice": { "advice": "Ini soal nyawa prajurit dan kesiapan tempur, Pak. Audit terbuka, anggaran perawatan naik.", "recommends": 0 }
   }
 ]
