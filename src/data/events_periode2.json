@@ -209,41 +209,5 @@
       { "label": "Biar Saja, Pasar Akan Stabil Sendiri", "effects": { "apbn": 3, "popularitas": -15, "kesejahteraan": -8, "keamanan": -5 } }
     ],
     "vp_advice": { "advice": "Intervensi BI, Pak! Suntik dolar sekarang sebelum makin parah!", "recommends": 0 }
-  },
-  {
-    "id": 117,
-    "title": "Kenaikan BBM Pertamax",
-    "description": "Harga BBM Pertamax naik signifikan. Rakyat protes, biaya transportasi dan logistik melonjak.",
-    "deddy_intro": "Lapor Presiden! BBM Pertamax naik! Rakyat demo di SPBU! Biaya logistik ikut naik!",
-    "choices": [
-      { "label": "Subsidi BBM Agar Harga Kembali Normal", "effects": { "apbn": -15, "kesejahteraan": 8, "popularitas": 10 } },
-      { "label": "Pertahankan Kenaikan, Alihkan Subsidi ke Bantuan Langsung", "effects": { "apbn": 5, "kesejahteraan": 3, "popularitas": -8 } },
-      { "label": "Biarkan Harga Pasar, Rakyat Akan Beradaptasi", "effects": { "apbn": 10, "kesejahteraan": -10, "popularitas": -15, "keamanan": -5 } }
-    ],
-    "vp_advice": { "advice": "Subsidi BBM, Pak! Rakyat belum siap dengan harga segini!", "recommends": 0 }
-  },
-  {
-    "id": 118,
-    "title": "Program MBG Rp 335 Triliun Disorot",
-    "description": "Dengan alokasi anggaran jumbo sebesar Rp 335 triliun dari APBN, program Makan Bergizi Gratis mendapat pengawasan ketat dari masyarakat sipil. Koalisi sipil seperti MBG Watch menuntut transparansi penuh.",
-    "deddy_intro": "Lapor Presiden! Anggaran Rp 335 triliun untuk MBG! MBG Watch minta transparansi! Publik awas!",
-    "choices": [
-      { "label": "Audit Terbuka, Libatkan MBG Watch dalam Pengawasan", "effects": { "popularitas": 12, "kesejahteraan": 5, "apbn": -3, "keamanan": 8 } },
-      { "label": "Jalankan Program, Bantah Tuduhan Kurang Transparan", "effects": { "popularitas": -5, "kesejahteraan": 5, "apbn": -8, "keamanan": -3 } },
-      { "label": "Evaluasi Anggaran, Potong Pemborosan", "effects": { "apbn": 8, "popularitas": 5, "kesejahteraan": -3, "infrastruktur": 3 } }
-    ],
-    "vp_advice": { "advice": "Audit terbuka, Pak! Biar rakyat lihat kita tidak takut diawasi!", "recommends": 0 }
-  },
-  {
-    "id": 119,
-    "title": "Gelombang Demo Mahasiswa Meningkat",
-    "description": "Gelombang aksi unjuk rasa mahasiswa kembali meningkat sebagai respons langsung terhadap situasi ekonomi dan politik nasional yang dinilai sedang tidak stabil.",
-    "deddy_intro": "Lapor Presiden! Mahasiswa dari 50 kota turun ke jalan! Ekonomi dan politik tidak stabil kata mereka!",
-    "choices": [
-      { "label": "Temui Pimpinan BEM, Dengarkan Tuntutan", "effects": { "popularitas": 10, "keamanan": 5, "kesejahteraan": 3 } },
-      { "label": "Bubarkan dengan Aparat, Jaga Ketertiban", "effects": { "keamanan": 8, "popularitas": -12, "kesejahteraan": -5 } },
-      { "label": "Keluar Kebijakan Populis untuk Redam Kemarahan", "effects": { "popularitas": 5, "apbn": -8, "kesejahteraan": 5, "keamanan": 3 } }
-    ],
-    "vp_advice": { "advice": "Temui mahasiswa, Pak! Biarkan mereka bersuara! Daripada rusuh!", "recommends": 0 }
   }
 ]

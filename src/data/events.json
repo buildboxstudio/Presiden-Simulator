@@ -24,15 +24,7 @@
     "description": "Media menemukan mark-up anggaran bantuan sosial di daerah. Nama menterimu tercoreng.",
     "deddy_intro": "Lapor Presiden! Media ramai memberitakan mark-up bansos! Nama kita tercoreng!",
     "choices": [
-      { "label": "Bekukan Menteri dan Usut Tuntas", "effects": { "popularitas": 10, "keamanan": 5, "apbn": 5 } },  {
-   "label": "Tutup Mulut Media, Diamkan Kasus",
-   "effects": {
-    "popularitas": -10,
-    "keamanan": -10,
-    "kesejahteraan": -5
-   },
-   "followUp": { "eventId": 25, "delay": 2 }
-  },
+      { "label": "Bekukan Menteri dan Usut Tuntas", "effects": { "popularitas": 10, "keamanan": 5, "apbn": 5 } },      { "label": "Tutup Mulut Media, Diamkan Kasus", "effects": { "popularitas": -10, "keamanan": -10, "kesejahteraan": -5 } },
       { "label": "Bersihkan Seluruh Kabinet!", "effects": { "popularitas": 5, "keamanan": 10, "infrastruktur": -5 } }
     ],
     "vp_advice": { "advice": "Kita harus bertindak tegas. Usut tuntas dan bekukan menteri, Pak.", "recommends": 0 }
@@ -177,18 +169,6 @@
     "vp_advice": { "advice": "Jangan lockdown total! PSBB ketat dengan bansos, itu yang paling aman, Pak.", "recommends": 1 }
   },
   {
-    "id": 14,
-    "title": "Timnas Indonesia Lolos Piala Dunia",
-    "description": "Prestasi bersejarah! Timnas sepak bola masuk Piala Dunia. Publik euforia!",
-    "deddy_intro": "Lapor Presiden! Alhamdulillah! TIMNAS LOLOS PIALA DUNIA! Seluruh Indonesia bergembira!",
-    "choices": [
-      { "label": "Bonus Besar untuk Pemain dan PSSI", "effects": { "apbn": -5, "popularitas": 15, "kesejahteraan": 3 } },
-      { "label": "Gunakan Momen untuk Kampanye Anti-Korupsi", "effects": { "popularitas": 8, "keamanan": 3, "kesejahteraan": 2 } },
-      { "label": "Bangun Stadion Baru di Setiap Provinsi", "effects": { "apbn": -10, "infrastruktur": 8, "popularitas": 5 } }
-    ],
-    "vp_advice": { "advice": "Bonus pemain, Pak! Biar semangat! Ini sejarah!", "recommends": 0 }
-  },
-  {
     "id": 15,
     "title": "Resesi Global Mengancam",
     "description": "Ekonomi dunia goyah. Ekspor RI turun drastis. Pengusaha mulai PHK massal.",
@@ -321,18 +301,6 @@
       { "label": "Nasionalisasi HI-Bank, Jadikan BUMN", "effects": { "apbn": -10, "infrastruktur": 5, "popularitas": 3, "keamanan": 8 } }
     ],
     "vp_advice": { "advice": "Bailout, Pak! Kalau HI-Bank bangkrut, efeknya ke seluruh ekonomi!", "recommends": 0 }
-  },
-  {
-    "id": 25,
-    "title": "Isu Korupsi Bansos Tahap 2",
-    "description": "Kembali terungkap korupsi bansos! Kali ini melibatkan pejabat tinggi Istana.",
-    "deddy_intro": "Lapor Presiden! Korupsi bansos lagi! Kali ini nama orang Istana ikut disebut!",
-    "choices": [
-      { "label": "Usut Tuntas, Tangkap Siapa Pun", "effects": { "popularitas": 15, "keamanan": 10, "apbn": 5, "kesejahteraan": 3 } },
-      { "label": "Korbankan Bawahan, Selamatkan Istana", "effects": { "popularitas": -5, "keamanan": -5, "apbn": 3 } },
-      { "label": "Tutup Kasus, Bayar Hakim", "effects": { "popularitas": -15, "keamanan": -10, "apbn": -5, "kesejahteraan": -5 } }
-    ],
-    "vp_advice": { "advice": "Usut tuntas, Pak! Rakyat tahu semuanya, tidak bisa ditutupi!", "recommends": 0 }
   },
   {
     "id": 26,
