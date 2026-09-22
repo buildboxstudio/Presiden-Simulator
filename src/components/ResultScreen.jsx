@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { useGame } from '../context/GameContext'
 import useSound from '../hooks/useSound'
 import html2canvas from 'html2canvas'
+import { calcFinalScore, buildShareCaption } from '../utils/score'
 
 const STAT_CONFIG = [
   { key: 'apbn', label: 'APBN', color: '#b39c00' },
@@ -64,11 +65,12 @@ const ENDING_MESSAGES = {
 }
 
 export default function ResultScreen() {
-  const { ending, indicators, playerName, goToPeriod2Setup, vicePresident, resetGame, retryGame, retryCount, propores, reshuffleCount, delegateCount, oposisiScore, achievements, updateCareerStats, unlockScenario, scenario, quarter } = useGame()
+  const { ending, indicators, playerName, goToPeriod2Setup, vicePresident, resetGame, retryGame, retryCount, propores, reshuffleCount, delegateCount, oposisiScore, achievements, updateCareerStats, unlockScenario, scenario, quarter, saveLocalScore } = useGame()
   const msg = ENDING_MESSAGES[ending] || ENDING_MESSAGES.impeachment
   const sfx = useSound()
   const resultRef = useRef(null)
   const [capturing, setCapturing] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const downloadScreenshot = async () => {
     if (!resultRef.current) return
@@ -107,6 +109,17 @@ export default function ResultScreen() {
 
   const primaryType = presidenTypes[0]
 
+  const finalScore = calcFinalScore({ ending, indicators, quarter, achievements, reshuffleCount, oposisiScore })
+  const shareCaption = buildShareCaption({ playerName, typeLabel: primaryType?.label || 'Presiden', score: finalScore, endingTitle: msg.title, quarter })
+
+  const copyCaption = async () => {
+    try {
+      await navigator.clipboard.writeText(shareCaption)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (e) { console.error(e) }
+  }
+
   // Play result sound once on mount (not during render)
   useEffect(() => {
     const t = setTimeout(() => {
@@ -116,13 +129,14 @@ export default function ResultScreen() {
     return () => clearTimeout(t)
   }, [ending, sfx])
 
-  // Update career stats + unlock scenario on mount
+  // Update career stats + unlock scenario + save local leaderboard on mount
   const hasUpdated = useRef(false)
   useEffect(() => {
     if (hasUpdated.current) return
     hasUpdated.current = true
     const won = ending === 'menang_pemilu' || ending === 'lulus'
     updateCareerStats(won, quarter || 0)
+    saveLocalScore({ name: playerName || 'Tanpa Nama', score: finalScore, ending, type: primaryType?.label || 'Presiden', quarter: quarter || 0 })
     // Unlock next scenario based on current scenario
     if (scenario) {
       const unlockMap = {
@@ -133,7 +147,7 @@ export default function ResultScreen() {
       const toUnlock = unlockMap[scenario]
       if (toUnlock) unlockScenario(toUnlock)
     }
-  }, [ending, quarter, scenario, unlockScenario, updateCareerStats])
+  }, [ending, quarter, scenario, unlockScenario, updateCareerStats, finalScore, primaryType, playerName, saveLocalScore])
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-4 overflow-y-auto">
@@ -236,6 +250,17 @@ export default function ResultScreen() {
             <div className="text-[10px] text-retroLight/30 mt-3 pt-2 border-t border-retroGray/20">
               Reshuffle: {reshuffleCount || 0}x | Delegasi: {delegateCount || 0}x | Oposisi: {Math.round(oposisiScore || 0)}% | Pencapaian: {achievements?.length || 0}
             </div>
+          </div>
+
+          {/* Final score + share caption */}
+          <div className="bg-black/60 border-2 border-retroYellow p-4 mb-6 pixel-border">
+            <div className="text-sm text-retroYellow glow-text mb-1">SKOR AKHIR</div>
+            <div className="text-5xl font-bold text-retroLight glow-text mb-2">{finalScore}<span className="text-xl text-retroLight/50">/100</span></div>
+            <div className="text-[11px] text-retroLight/60 leading-relaxed mb-3 break-words">{shareCaption}</div>
+            <button onClick={copyCaption}
+              className="w-full py-2 border border-retroYellow bg-retroYellow/10 hover:bg-retroYellow/30 text-retroYellow text-xs transition-colors">
+              {copied ? 'CAPTION TERSALIN!' : 'SALIN CAPTION BUAT THREADS'}
+            </button>
           </div>
 
         {ending === 'menang_pemilu' && (

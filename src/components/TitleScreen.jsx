@@ -34,7 +34,7 @@ const faqData = [
 ]
 
 export default function TitleScreen() {
-  const { startGame, loadGame, hasSavedGame, qaSkip, getCareerStats, getUnlockedScenarios } = useGame()
+  const { startGame, loadGame, hasSavedGame, qaSkip, getCareerStats, getUnlockedScenarios, getLocalLeaderboard } = useGame()
   const [playerName, setPlayerName] = useState('')
   const [selectedBg, setSelectedBg] = useState(null)
   const [selectedParty, setSelectedParty] = useState(null)
@@ -50,6 +50,7 @@ export default function TitleScreen() {
   const [savedExists, setSavedExists] = useState(hasSavedGame())
   const careerStats = getCareerStats()
   const unlockedScenarios = getUnlockedScenarios()
+  const leaderboard = showCareer ? getLocalLeaderboard() : []
 
   if (step === 'title') {
     if (showFaq) {
@@ -185,6 +186,21 @@ export default function TitleScreen() {
                   </div>
                 </div>
               )}
+              <div className="mt-3 pt-3 border-t border-retroGray/30">
+                <div className="text-retroYellow/70 mb-1 text-center">🏆 PAPAN SKOR (PERANGKAT INI)</div>
+                {leaderboard.length === 0 ? (
+                  <div className="text-retroLight/40 text-center">Belum ada skor. Mainkan sampai hasil akhir.</div>
+                ) : (
+                  <div className="space-y-1">
+                    {leaderboard.map((e, i) => (
+                      <div key={i} className="flex justify-between border border-retroGray/30 px-2 py-1">
+                        <span className="text-retroLight truncate">{i + 1}. {e.name}</span>
+                        <span className="text-retroYellow font-bold shrink-0 ml-2">{e.score}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
               <button onClick={() => setShowCareer(false)}
                 className="w-full mt-3 py-1.5 border border-retroGray bg-black/40 hover:bg-retroGray/40 text-retroLight/70 text-xs transition-colors">TUTUP</button>
             </div>

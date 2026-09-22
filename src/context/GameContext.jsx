@@ -927,6 +927,24 @@ export function GameProvider({ children }) {
 
   const goToPeriod2Setup = useCallback(() => dispatch({ type: 'GO_TO_PERIOD2_SETUP' }), [])
 
+  // Local leaderboard (top-10, no backend needed)
+  const getLocalLeaderboard = useCallback(() => {
+    try {
+      const raw = localStorage.getItem('presiden_leaderboard')
+      const list = raw ? JSON.parse(raw) : []
+      return Array.isArray(list) ? list : []
+    } catch { return [] }
+  }, [])
+
+  const saveLocalScore = useCallback((entry) => {
+    const list = getLocalLeaderboard()
+    list.push({ ...entry, date: new Date().toISOString().slice(0, 10) })
+    list.sort((a, b) => (b.score - a.score) || ((b.quarter || 0) - (a.quarter || 0)))
+    const top = list.slice(0, 10)
+    try { localStorage.setItem('presiden_leaderboard', JSON.stringify(top)) } catch { /* ignore */ }
+    return top
+  }, [getLocalLeaderboard])
+
   return (
     <GameContext.Provider value={{
       ...state,
@@ -934,6 +952,7 @@ export function GameProvider({ children }) {
       setElectionStage, setElectionTrust, electionResult, fireVP, setVicePresident, setForeignControl,       doActivity, respondPartyDemand, respondDubiProposal, respondMinisterProposal, resetGame, retryGame,
       saveGame, loadGame, hasSavedGame, deleteSave,
       getCareerStats, updateCareerStats, getUnlockedScenarios, unlockScenario,
+      getLocalLeaderboard, saveLocalScore,
       dispatchShowReport, dispatchHideReport, confirmSetup, qaSkip, goToPeriod2Setup,
     }}>
       {children}
