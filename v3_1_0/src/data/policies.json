@@ -1,0 +1,62 @@
+[
+  {
+    "id": "pajak",
+    "name": "Pajak Penghasilan",
+    "description": "Tarif PPh untuk kelas menengah-atas",
+    "min": 0,
+    "max": 100,
+    "default": 30,
+    "unit": "%",
+    "effectsPer10": { "apbn": 2, "kesejahteraan": -1, "popularitas": -1 }
+  },
+  {
+    "id": "subsidi_bbm",
+    "name": "Subsidi BBM",
+    "description": "Anggaran subsidi bahan bakar minyak",
+    "min": 0,
+    "max": 100,
+    "default": 40,
+    "unit": "%",
+    "effectsPer10": { "apbn": -1, "kesejahteraan": 1, "popularitas": 1 }
+  },
+  {
+    "id": "anggaran_militer",
+    "name": "Anggaran Pertahanan",
+    "description": "Belanja militer dan polisi",
+    "min": 0,
+    "max": 100,
+    "default": 30,
+    "unit": "%",
+    "effectsPer10": { "apbn": -1, "keamanan": 2, "popularitas": 0 }
+  },
+  {
+    "id": "anggaran_kesehatan",
+    "name": "Anggaran Kesehatan",
+    "description": "Layanan kesehatan gratis, rumah sakit, vaksin",
+    "min": 0,
+    "max": 100,
+    "default": 25,
+    "unit": "%",
+    "effectsPer10": { "apbn": -2, "kesejahteraan": 2, "popularitas": 1 }
+  },
+  {
+    "id": "anggaran_infrastruktur",
+    "name": "Pembangunan Infrastruktur",
+    "description": "Jalan tol, jembatan, bandara, pelabuhan",
+    "min": 0,
+    "max": 100,
+    "default": 35,
+    "unit": "%",
+    "effectsPer10": { "apbn": -2, "infrastruktur": 2, "kesejahteraan": 1 }
+  },
+  {
+    "id": "subsidi_pangan",
+    "name": "Subsidi Pangan",
+    "description": "Bantuan pangan untuk masyarakat miskin",
+    "min": 0,
+    "max": 100,
+    "default": 20,
+    "unit": "%",
+    "effectsPer10": { "apbn": -1, "kesejahteraan": 2, "popularitas": 1 }
+  }
+]

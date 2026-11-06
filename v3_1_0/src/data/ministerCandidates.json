@@ -1,0 +1,54 @@
+[
+  {
+    "posisi": "menteri_keuangan",
+    "label": "Menteri Keuangan",
+    "icon": "💰",
+    "effect_stat": "apbn",
+    "candidates": [
+      { "name": "Srintil Mlempem", "skill": 85, "loyalty": 70, "desc": "Pernah di IMF cabang Solo, paham duit." },
+      { "name": "Rusdi Ramli Karbitan", "skill": 70, "loyalty": 60, "desc": "Ekonom pasar kaget." },
+      { "name": "Bambang Brojol Kusumo", "skill": 60, "loyalty": 95, "desc": "Orang partai, setia tapi goblok." },
+      { "name": "Chairul Tongos", "skill": 80, "loyalty": 50, "desc": "Punya 99 toko kelontong." },
+      { "name": "Faisal Basriwangi", "skill": 90, "loyalty": 40, "desc": "Suka kritik di TV, capek." }
+    ]
+  },
+  {
+    "posisi": "menteri_pertahanan",
+    "label": "Menteri Pertahanan",
+    "icon": "⚔",
+    "effect_stat": "keamanan",
+    "candidates": [
+      { "name": "Prawito Sucipto", "skill": 85, "loyalty": 60, "desc": "Gemar angkat barbel di Monas." },
+      { "name": "Susis Jamban Yudhowinong", "skill": 70, "loyalty": 80, "desc": "Pinter nari jaipong." },
+      { "name": "Gatot Kaca Nuswantoro", "skill": 75, "loyalty": 50, "desc": "Pernah nangis di depan TV." },
+      { "name": "Andika Perkoso", "skill": 80, "loyalty": 70, "desc": "Anak jenderal, pake kacamata item." },
+      { "name": "Moele", "skill": 65, "loyalty": 85, "desc": "Loyal ke siapapun yang bagi duit." }
+    ]
+  },
+  {
+    "posisi": "menteri_kesehatan",
+    "label": "Menteri Kesehatan",
+    "icon": "🏥",
+    "effect_stat": "kesejahteraan",
+    "candidates": [
+      { "name": "Budi Gunawan Sadelikin", "skill": 80, "loyalty": 70, "desc": "Eks penjual jamu, paham logistik." },
+      { "name": "Terawang Putrapilat", "skill": 60, "loyalty": 55, "desc": "Dokter suntik pake air mineral." },
+      { "name": "Nyonya Fita Muluk", "skill": 70, "loyalty": 80, "desc": "Istri mantan, baik hati." },
+      { "name": "Pandu Rionodonk", "skill": 90, "loyalty": 40, "desc": "Epidemiolog tapi reseh." },
+      { "name": "dr. Tirto Mangkudirjo", "skill": 65, "loyalty": 75, "desc": "Dokter TikTok, 10 juta follower." }
+    ]
+  },
+  {
+    "posisi": "menteri_pupr",
+    "label": "Menteri PUPR",
+    "icon": "🏗",
+    "effect_stat": "infrastruktur",
+    "candidates": [
+      { "name": "Basuki Modimuljono", "skill": 85, "loyalty": 80, "desc": "Orang proyek, fokus bangun jalan." },
+      { "name": "Erik Tohirun", "skill": 70, "loyalty": 60, "desc": "Punya BUMN, suka blusukan." },
+      { "name": "Ignasius Jomblo", "skill": 75, "loyalty": 65, "desc": "Tegas, disegani anak buah." },
+      { "name": "Dodit Hanggoro", "skill": 65, "loyalty": 90, "desc": "Orang partai, setia tapi cupu." },
+      { "name": "Mochtar Lubis", "skill": 90, "loyalty": 35, "desc": "Arsitek top males rapat." }
+    ]
+  }
+]
