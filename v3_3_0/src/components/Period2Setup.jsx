@@ -99,7 +99,7 @@ export default function Period2Setup() {
               menteri_pupr: getNewCandidates('menteri_pupr'),
             })}}
               className="flex-1 min-w-[200px] py-4 border-2 border-retroYellow bg-retroYellow/20 hover:bg-retroYellow/40 text-retroLight transition-colors text-lg tracking-wider">
-              🔄 RESHUFFLE ◄
+              RESHUFFLE ◄
             </button>
           </div>
         </div>

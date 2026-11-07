@@ -11,7 +11,7 @@ const DEBATE_QUESTIONS = [
     question: 'Jenderal Polri tertangkap lakukan penyadapan ilegal terhadap Presiden. Bagaimana respons Anda?',
     opponent: 'Presiden Anda ternyata diintip Jenderal Polri! Data pribadi dibaca semua! Di mana integritas negara?!',
     choices: [
-      { label: 'Proses hukum tegas, publikasikan laporan investigasi lengkap', trust: 8, counter: 'Bicara saja mudah! Bukti concrete dimana?' },
+      { label: 'Proses hukum tegas, publikasikan laporan investigasi lengkap', trust: 8, counter: 'Bicara saja mudah! Bukti konkretnya mana?' },
       { label: 'Internal affair, jangan ekspos. Ganti pimpinan Polri saja', trust: 3, counter: 'Ditutup-tutupin! Rakyat udah tahu!' },
       { label: 'Jenderal itu pengkhianat! Hukum mati mereka!', trust: -5, counter: 'Jangan dramatis! Proses hukum itu panjang!' },
     ],
@@ -63,23 +63,23 @@ const MENANG_IMG = 'https://ik.imagekit.io/dntonfire/image_2026-05-29_174230980.
 const LULUS_IMG = 'https://ik.imagekit.io/dntonfire/image_2026-05-29_150123216.png?updatedAt=1780041687679'
 
 const TEAM_OPTIONS = [
-  { id: 'juru_bicara', name: 'Juru Bicara Handal', icon: '🎙', desc: 'Menguasai retorika dan komunikasi publik.', cost: { apbn: -3 }, trustBonus: 3, debatBonus: true },
-  { id: 'ahli_strategi', name: 'Ahli Strategi Politik', icon: '🧠', desc: 'Membaca peta politik dan mengatur langkah.', cost: { apbn: -5 }, trustBonus: 5, debatBonus: false },
-  { id: 'fundraiser', name: 'Fundraiser Ulung', icon: '💰', desc: 'Mengumpulkan dana dari berbagai sumber.', cost: { popularitas: -3 }, trustBonus: 2, debatBonus: false, campaignFundingBonus: true },
-  { id: 'konsultan_media', name: 'Konsultan Media Massal', icon: '📺', desc: 'Mengelola citra di TV dan media sosial.', cost: { apbn: -4 }, trustBonus: 4, debatBonus: false },
-  { id: 'penghubung_tokoh', name: 'Penghubung Tokoh Daerah', icon: '🤝', desc: 'Jaringan kuat di daerah-daerah kunci.', cost: { apbn: -2 }, trustBonus: 2, debatBonus: false },
-  { id: 'ahli_debat', name: 'Ahli Debat Profesional', icon: '⚡', desc: 'Mempersiapkan argumentasi dan data debat.', cost: { popularitas: -5 }, trustBonus: 0, debatBonus: true, debatExtraPoint: true },
-  { id: 'dubi_arry', name: 'BUDEE ARIE (LOYALIS PRESIDEN)', icon: '🦅', desc: 'Kader LOYALIS PRESIDEN — otomatis tergabung jika popularitas >= 80.', cost: {}, trustBonus: 6, debatBonus: true, autoJoin: true },
+  { id: 'juru_bicara', name: 'Juru Bicara Handal', desc: 'Menguasai retorika dan komunikasi publik.', cost: { apbn: -3 }, trustBonus: 3, debatBonus: true },
+  { id: 'ahli_strategi', name: 'Ahli Strategi Politik', desc: 'Membaca peta politik dan mengatur langkah.', cost: { apbn: -5 }, trustBonus: 5, debatBonus: false },
+  { id: 'fundraiser', name: 'Fundraiser Ulung', desc: 'Mengumpulkan dana dari berbagai sumber.', cost: { popularitas: -3 }, trustBonus: 2, debatBonus: false, campaignFundingBonus: true },
+  { id: 'konsultan_media', name: 'Konsultan Media Massal', desc: 'Mengelola citra di TV dan media sosial.', cost: { apbn: -4 }, trustBonus: 4, debatBonus: false },
+  { id: 'penghubung_tokoh', name: 'Penghubung Tokoh Daerah', desc: 'Jaringan kuat di daerah-daerah kunci.', cost: { apbn: -2 }, trustBonus: 2, debatBonus: false },
+  { id: 'ahli_debat', name: 'Ahli Debat Profesional', desc: 'Mempersiapkan argumentasi dan data debat.', cost: { popularitas: -5 }, trustBonus: 0, debatBonus: true, debatExtraPoint: true },
+  { id: 'dubi_arry', name: 'BUDEE ARIE (LOYALIS PRESIDEN)', desc: 'Kader LOYALIS PRESIDEN — otomatis tergabung jika popularitas >= 80.', cost: {}, trustBonus: 6, debatBonus: true, autoJoin: true },
 ]
 
 const WEALTH_STYLES = {
-  kaya: { icon: '👑', label: 'KAYA RAYA', color: 'text-yellow-400', border: 'border-yellow-600' },
-  cukupan: { icon: '🍚', label: 'BERKECUKUPAN', color: 'text-retroGreen', border: 'border-retroGreen' },
-  miskin: { icon: '🌾', label: 'SEDERHANA', color: 'text-blue-300', border: 'border-blue-500' },
+  kaya: { label: 'KAYA RAYA', color: 'text-yellow-400', border: 'border-yellow-600' },
+  cukupan: { label: 'BERKECUKUPAN', color: 'text-retroGreen', border: 'border-retroGreen' },
+  miskin: { label: 'SEDERHANA', color: 'text-blue-300', border: 'border-blue-500' },
 }
 
 export default function DebatRoom() {
-  const { playerName, background, party, vicePresident, vpFired, indicators, electionStage, electionTrust, setElectionStage, setElectionTrust, electionResult, fireVP, setVicePresident, dubiArry, qaStage } = useGame()
+  const { playerName, background, party, vicePresident, vpFired, indicators, electionStage, electionTrust, electionOposisi, setElectionStage, setElectionTrust, electionResult, fireVP, setVicePresident, dubiArry, qaStage } = useGame()
   const [selectedPrograms, setSelectedPrograms] = useState([])
   const [showIntro, setShowIntro] = useState(true)
   const [debateStep, setDebateStep] = useState(0)
@@ -87,6 +87,8 @@ export default function DebatRoom() {
   const [currentParty, setCurrentParty] = useState(party)
   const [switchedParty, setSwitchedParty] = useState(false)
   const [showOpponentResponse, setShowOpponentResponse] = useState(null)
+  const [debateLog, setDebateLog] = useState([])
+  const [showDebateSummary, setShowDebateSummary] = useState(false)
   const [votePhase, setVotePhase] = useState(false)
   const [votes, setVotes] = useState({ player: 0, opponent1: 0, opponent2: 0, vp: 0 })
   const [voting, setVoting] = useState(false)
@@ -141,20 +143,20 @@ export default function DebatRoom() {
 
   const campaignOptions = {
     funding: [
-      { id: 'domestic', label: 'Dalam Negeri (APBN & Donasi)', desc: 'Aman. Dana terbatas tapi tidak ada campur tangan asing.', trust: 3, icon: '🇮🇩', risk: 'Downside: Dana terbatas' },
-      { id: 'foreign', label: 'Luar Negeri (Investor Asing)', desc: 'Dana besar. Tapi kontrol asing mengintai...', trust: 6, icon: '🌐', triggersForeignControl: true, risk: 'Downside: Kontrol asing meningkat' },
+      { id: 'domestic', label: 'Dalam Negeri (APBN & Donasi)', desc: 'Aman. Dana terbatas tapi tidak ada campur tangan asing.', trust: 3 },
+      { id: 'foreign', label: 'Luar Negeri (Investor Asing)', desc: 'Dana besar, tapi rakyat menilai Anda tidak nasionalis.', trustRoll: [25, 45], triggersForeignControl: true },
     ],
     locations: [
-      { id: 'jawa', label: 'Fokus Jawa', desc: 'Pulau dengan suara terbanyak.', trust: 5, icon: '🏝' },
-      { id: 'sumatera', label: 'Fokus Sumatera', desc: 'Lumbung suara alternatif.', trust: 3, icon: '🏔' },
-      { id: 'timur', label: 'Fokus Indonesia Timur', desc: 'Daerah tertinggal, butuh perhatian.', trust: 2, icon: '🌅' },
-      { id: 'merata', label: 'Kampanye Merata', desc: 'Semua daerah, biaya besar.', trust: 6, icon: '🗺' },
+      { id: 'jawa', label: 'Fokus Jawa', desc: 'Pulau dengan suara terbanyak.', trust: 5 },
+      { id: 'sumatera', label: 'Fokus Sumatera', desc: 'Lumbung suara alternatif.', trust: 3 },
+      { id: 'timur', label: 'Fokus Indonesia Timur', desc: 'Daerah tertinggal, butuh perhatian.', trust: 2 },
+      { id: 'merata', label: 'Kampanye Merata', desc: 'Semua daerah, biaya besar.', trust: 6 },
     ],
     methods: [
-      { id: 'blusukan', label: 'Blusukan Langsung', desc: 'Temu rakyat di pasar dan desa.', trust: 5, icon: '🚶' },
-      { id: 'iklan', label: 'Iklan TV & Radio Massal', desc: 'Jangkau luas, tapi mahal.', trust: 3, icon: '📺' },
-      { id: 'medsos', label: 'Media Sosial & Viral', desc: 'Efektif untuk pemilih muda.', trust: 4, icon: '📱' },
-      { id: 'debat_tematik', label: 'Debat Tematik', desc: 'Tunjukkan kapasitas di bidang tertentu.', trust: 6, icon: '🎤' },
+      { id: 'blusukan', label: 'Blusukan Langsung', desc: 'Temu rakyat di pasar dan desa.', trust: 5 },
+      { id: 'iklan', label: 'Iklan TV & Radio Massal', desc: 'Jangkau luas, tapi mahal.', trust: 3 },
+      { id: 'medsos', label: 'Media Sosial & Viral', desc: 'Efektif untuk pemilih muda.', trust: 4 },
+      { id: 'debat_tematik', label: 'Debat Tematik', desc: 'Tunjukkan kapasitas di bidang tertentu.', trust: 6 },
     ],
   }
   const sfx = useSound()
@@ -241,8 +243,18 @@ export default function DebatRoom() {
           <div className="text-sm text-retroLight/70 mb-6">Masa jabatan Anda telah berakhir! Rakyat akan memilih.</div>
           {vpBetrays && (
             <div className="mb-4 p-4 border-2 border-red-500 bg-red-900/20 shake">
-              <div className="text-red-400 text-sm font-bold mb-1">⚠ WAPRES BERKHIANAT! ⚠</div>
+              <div className="text-red-400 text-sm font-bold mb-1">! WAPRES BERKHIANAT! !</div>
               <div className="text-xs text-red-300/80">{vicePresident.name} mendeklarasikan diri sebagai calon presiden dari partai oposisi!</div>
+            </div>
+          )}
+          {electionOposisi && (
+            <div className="mb-4 p-3 border-2 border-red-800 bg-red-900/10 text-left">
+              <div className="text-red-400 text-sm font-bold mb-1">OPOSISI MEMOTONG ELEKTABILITAS</div>
+              <div className="text-xs text-retroLight/80">
+                {electionOposisi.cut > 0
+                  ? `Oposisi ${electionOposisi.oposisi}% memotong elektabilitas -${electionOposisi.cut} poin. Popularitas ${electionOposisi.before}% menjadi ${electionOposisi.after}%. Debat dimulai dari Trust ${electionOposisi.after}%.`
+                  : `Oposisi ${electionOposisi.oposisi}% — belum cukup kuat untuk memotong elektabilitas.`}
+              </div>
             </div>
           )}
           <div className="grid grid-cols-2 gap-4 mb-6">
@@ -272,14 +284,14 @@ export default function DebatRoom() {
             <div className="text-4xl mb-3">{background?.icon || '?'}</div>
             <div className="text-lg text-retroLight mb-2">{playerName}</div>
             <div className="text-sm text-retroYellow mb-4">{background?.name || '-'}</div>
-            <div className={`text-lg mb-3 ${wealth.color}`}>{wealth.icon} {wealth.label}</div>
+            <div className={`text-lg mb-3 ${wealth.color}`}>{wealth.label}</div>
             <div className="text-xs text-retroLight/70 leading-relaxed mb-4">{background?.wealth_desc || ''}</div>
             <div className={`border-t ${wealth.border} pt-3 mt-3`}>
               <div className="text-xs text-retroLight/50">Status Ekonomi:</div>
               <div className={`text-sm mt-1 ${wealth.color}`}>
-                {background?.wealth === 'kaya' ? '💰 Aset melimpah — dana kampanye besar, tapi rakyat curiga' :
-                 background?.wealth === 'miskin' ? '🌾 Hidup sederhana — dana terbatas, tapi rakyat percaya Anda tulus' :
-                 '📊 Hidup berkecukupan — dana cukup, tidak mencolok'}
+                {background?.wealth === 'kaya' ? 'Aset melimpah — dana kampanye besar, tapi rakyat curiga' :
+                 background?.wealth === 'miskin' ? 'Hidup sederhana — dana terbatas, tapi rakyat percaya Anda tulus' :
+                 'Hidup berkecukupan — dana cukup, tidak mencolok'}
               </div>
             </div>
           </div>
@@ -334,7 +346,7 @@ export default function DebatRoom() {
                 <div className="flex items-center gap-4">
                   <div className="w-20 h-20 md:w-24 md:h-24 bg-retroGray flex items-center justify-center overflow-hidden rounded-full border-2 border-retroGray/50 shrink-0">
                     <img src={vp.photo} alt={vp.name} className="w-full h-full object-cover pixelated"
-                      onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.textContent = '👤' }} />
+                      onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.textContent = '[FOTO]' }} />
                   </div>
                   <div className="min-w-0">
                     <div className="text-sm text-retroLight break-words">{vp.name}</div>
@@ -383,7 +395,6 @@ export default function DebatRoom() {
                           : 'border-retroGray bg-black/20 text-retroLight/30'
                   }`}>
                   <div className="flex items-center gap-3">
-                    <span className="text-lg">{t.icon}</span>
                     <div className="flex-1">
                       <div className={`text-sm ${isAutoJoin ? 'text-retroGreen' : 'text-retroLight'}`}>
                         {t.name}
@@ -441,11 +452,16 @@ export default function DebatRoom() {
             <div className="text-sm text-retroLight/60 mb-2">
               Partai: {currentParty?.name} ({currentParty?.ideology}) {switchedParty && <span className="text-yellow-400">(Pindah Partai!)</span>}
             </div>
+            <div className="text-xs text-red-400 mb-0">
+              {electionOposisi && (electionOposisi.cut > 0
+                ? `Oposisi ${electionOposisi.oposisi}% memotong elektabilitas -${electionOposisi.cut} poin (${electionOposisi.before} → ${electionOposisi.after}).`
+                : `Oposisi ${electionOposisi.oposisi}% — belum memotong elektabilitas.`)}
+            </div>
           </div>
           {!showPartySwitch && !switchedParty && (
             <button onClick={() => { sfx.click(); setShowPartySwitch(true) }}
               className="w-full py-2 mb-4 border-2 border-yellow-600 bg-yellow-900/20 hover:bg-yellow-900/40 text-yellow-400 text-sm transition-colors">
-              🔄 PINDAH PARTAI? (Trust -15)</button>
+              PINDAH PARTAI? (Trust -15)</button>
           )}
           {showPartySwitch && (
             <div className="mb-4 p-4 border-2 border-yellow-600 bg-yellow-900/10">
@@ -493,6 +509,33 @@ export default function DebatRoom() {
     }
 
     if (electionStage === 1) {
+      if (showDebateSummary) {
+        return (
+          <div className="flex-1 flex flex-col p-4 max-w-2xl mx-auto w-full overflow-y-auto">
+            <div className="text-center mb-4">
+              <div className="text-xl text-retroYellow glow-text mb-2">HASIL DEBAT</div>
+              <div className="text-sm text-retroLight/70">Trust akhir: {electionTrust}%</div>
+            </div>
+            <div className="bg-black/60 border-2 border-retroGray p-4 mb-4 space-y-3">
+              {debateLog.map((entry, i) => (
+                <div key={i} className="border-b border-retroGray/40 pb-2 last:border-0">
+                  <div className="text-xs text-retroLight/60">Soal {i + 1}</div>
+                  <div className="text-sm text-retroLight/90 mb-1">{entry.question}</div>
+                  <div className={`text-xs ${entry.delta >= 0 ? 'text-retroGreen' : 'text-red-400'}`}>
+                    Trust {entry.delta >= 0 ? '+' : ''}{entry.delta}%
+                  </div>
+                  {entry.vision && <div className="text-xs text-retroLight/60 mt-1">{entry.vision}</div>}
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => { sfx.click(); setShowDebateSummary(false); setCampaignPhase(true); setElectionStage(2) }}
+              className="w-full py-3 border-2 border-retroYellow bg-retroYellow/20 hover:bg-retroYellow/40 text-retroLight transition-colors">
+              ► LANJUT KE KAMPANYE ◄
+            </button>
+          </div>
+        )
+      }
       const currentDebate = DEBATE_QUESTIONS[debateStep]
       if (!currentDebate) {
         setCampaignPhase(true)
@@ -509,20 +552,20 @@ export default function DebatRoom() {
         pajak_adil: 'apbn', pemberantasan_korupsi: 'keamanan',
       }
       let programBonus = 0
-      let programNote = ''
+      const programNotes = []
       matchedPrograms.forEach((pid) => {
         const stat = programMap[pid]
         const val = indicators[stat] || 0
+        const name = campaignData.find((p) => p.id === pid)?.title || pid
         if (val >= 40) {
           programBonus += 2
-          const name = campaignData.find((p) => p.id === pid)?.title || pid
-          programNote = `✅ Visi "${name}" berhasil! Trust +2`
+          programNotes.push(`Visi "${name}" selaras: Trust +2`)
         } else {
           programBonus -= 3
-          const name = campaignData.find((p) => p.id === pid)?.title || pid
-          programNote = `⚠ Janji "${name}" ditagih! Capaian masih rendah! Trust -3`
+          programNotes.push(`Janji "${name}" belum terpenuhi: Trust -3`)
         }
       })
+      const lastResult = debateLog[debateLog.length - 1]
 
       return (
         <div className="flex-1 flex flex-col p-4 max-w-2xl mx-auto w-full overflow-y-auto">
@@ -533,7 +576,7 @@ export default function DebatRoom() {
             <div className="text-xs text-retroLight/50 mt-1">Trust Score: {electionTrust}%</div>
           </div>
           <div className="bg-red-900/20 border border-red-800 p-3 mb-4 fade-in">
-            <div className="text-xs text-red-400 mb-1">🗣 {kandidats[0].name} (Oposisi):</div>
+            <div className="text-xs text-red-400 mb-1">{kandidats[0].name} (Oposisi):</div>
             <div className="text-sm text-red-300/90 italic">"{currentDebate.opponent}"</div>
           </div>
           <div className="bg-black/60 border-2 border-retroGray p-6 mb-6">
@@ -541,12 +584,22 @@ export default function DebatRoom() {
             <div className="text-base text-retroLight glow-text mb-4">{currentDebate.question}</div>
             {showOpponentResponse !== null ? (
               <div className="fade-in">
-                <div className="bg-yellow-900/20 border border-yellow-700 p-3 mb-4">
-                  <div className="text-xs text-yellow-400 mb-1">🗣 {kandidats[0].name} (Sanggahan):</div>
+                <div className="bg-yellow-900/20 border border-yellow-700 p-3 mb-3">
+                  <div className="text-xs text-yellow-400 mb-1">{kandidats[0].name} (Sanggahan):</div>
                   <div className="text-sm text-yellow-300/80 italic">"{currentDebate.choices[showOpponentResponse].counter}"</div>
                 </div>
+                {lastResult && (
+                  <div className="bg-black/40 border border-retroGray p-3 mb-4 text-left">
+                    <div className={`text-sm font-bold ${lastResult.delta >= 0 ? 'text-retroGreen' : 'text-red-400'}`}>
+                      Trust {lastResult.delta >= 0 ? '+' : ''}{lastResult.delta}% (sekarang {electionTrust}%)
+                    </div>
+                    <div className="text-xs text-retroLight/70 mt-1">
+                      {lastResult.vision || 'Tidak ada visi terkait yang dipakai.'}
+                    </div>
+                  </div>
+                )}
                 <button onClick={() => { setShowOpponentResponse(null);
-                  if (debateStep < DEBATE_QUESTIONS.length - 1) setDebateStep(debateStep + 1); else { setCampaignPhase(true); setElectionStage(2) }; sfx.click() }}
+                  if (debateStep < DEBATE_QUESTIONS.length - 1) setDebateStep(debateStep + 1); else setShowDebateSummary(true); sfx.click() }}
                   className="w-full py-2 border border-retroYellow bg-retroYellow/20 hover:bg-retroYellow/40 text-retroLight text-sm transition-colors">► LANJUT ◄</button>
               </div>
               ) : (
@@ -555,7 +608,14 @@ export default function DebatRoom() {
                     const extraTrust = selectedTeam.find((t) => t.debatBonus) ? 2 : 0
                     const totalTrust = choice.trust + extraTrust + programBonus
                     return (
-                    <button key={i} onClick={() => { sfx.select(); setElectionTrust(totalTrust); setShowOpponentResponse(i); if (electionTrust + totalTrust <= 0) setTimeout(() => electionResult(), 1500) }}
+                    <button key={i} onClick={() => {
+                      sfx.select()
+                      const applied = Math.max(0, Math.min(100, electionTrust + totalTrust)) - electionTrust
+                      setElectionTrust(totalTrust)
+                      setDebateLog((log) => [...log, { question: currentDebate.question, delta: applied, vision: programNotes.join(' ') }])
+                      setShowOpponentResponse(i)
+                      if (electionTrust + totalTrust <= 0) setTimeout(() => electionResult(), 1500)
+                    }}
                       className="w-full text-left px-4 py-3 border-2 border-retroLight/20 hover:border-retroYellow/50 bg-black/40 hover:bg-retroYellow/10 transition-colors text-sm">
                       <div>{choice.label}</div>
                     </button>
@@ -572,7 +632,6 @@ export default function DebatRoom() {
     if (campaignPhase && electionStage === 2) {
       const currentOptions = campaignStep === 0 ? campaignOptions.funding : campaignStep === 1 ? campaignOptions.locations : campaignOptions.methods
       const currentLabel = campaignStep === 0 ? 'Sumber Dana Kampanye' : campaignStep === 1 ? 'Lokasi Kampanye' : 'Metode Kampanye'
-      const currentIcon = campaignStep === 0 ? '💰' : campaignStep === 1 ? '🗺' : '📣'
       const currentSelection = campaignStep === 0 ? campaignFunding : campaignStep === 1 ? campaignLocation : campaignMethod
 
       const handleSelect = (opt) => {
@@ -590,11 +649,13 @@ export default function DebatRoom() {
       const handleNext = () => {
         if (!currentSelection) return
         sfx.click()
-        setElectionTrust(currentSelection.trust)
+        const delta = currentSelection.trustRoll
+          ? -(currentSelection.trustRoll[0] + Math.floor(Math.random() * (currentSelection.trustRoll[1] - currentSelection.trustRoll[0] + 1)))
+          : currentSelection.trust
+        setElectionTrust(delta)
         if (campaignStep < 2) {
           setCampaignStep(campaignStep + 1)
         } else {
-          // All campaign steps done, proceed to voting
           setCampaignPhase(false)
           setVotePhase(true)
         }
@@ -604,12 +665,12 @@ export default function DebatRoom() {
         <div className="flex-1 flex flex-col items-center justify-center p-4">
           <div className="max-w-lg w-full fade-in">
             <div className="text-center mb-6">
-              <div className="text-xl text-retroYellow glow-text mb-2">{currentIcon} BABAK 3: KAMPANYE {currentIcon}</div>
+              <div className="text-xl text-retroYellow glow-text mb-2">BABAK 3: KAMPANYE</div>
               <div className="text-sm text-retroLight/60">Langkah {campaignStep + 1} dari 3 — {currentLabel}</div>
               <div className="mt-2 w-full bg-retroGray h-2"><div className="bg-retroYellow h-2" style={{ width: `${Math.max(0, electionTrust)}%` }} /></div>
               <div className="text-xs text-retroLight/50 mt-1">Trust Score: {electionTrust}%</div>
               {foreignControl && (
-                <div className="mt-2 text-xs text-red-400 animate-pulse">⚠ Dana asing terdeteksi! Kontrol asing meningkat!</div>
+                <div className="mt-2 text-xs text-red-400 animate-pulse">! Dana asing terdeteksi! Kontrol asing meningkat!</div>
               )}
             </div>
             <div className="space-y-2 mb-6">
@@ -620,13 +681,9 @@ export default function DebatRoom() {
                       ? 'border-retroYellow bg-retroYellow/20'
                       : 'border-retroGray bg-black/40 hover:border-retroLight/40'
                   }`}>
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg">{opt.icon}</span>
-                    <div className="flex-1">
-                      <div className="text-sm text-retroLight">{opt.label}</div>
-                      <div className="text-xs text-retroLight/50">{opt.desc}</div>
-                    </div>
-                    <span className="text-xs text-retroGreen">+{opt.trust} trust</span>
+                  <div className="flex flex-col gap-1">
+                    <div className="text-sm text-retroLight">{opt.label}</div>
+                    <div className="text-xs text-retroLight/50">{opt.desc}</div>
                   </div>
                 </button>
               ))}
@@ -737,7 +794,7 @@ export default function DebatRoom() {
             <div key={n}>
               <div className="flex justify-between text-xs mb-1">
                 <span className={`truncate max-w-[60%] ${isWinner ? 'text-retroYellow glow-text' : 'text-retroLight'}`}>
-                  {isWinner ? '🏆 ' : ''}{initials[n]}
+                  {isWinner ? '[MENANG] ' : ''}{initials[n]}
                 </span>
                 <span className="text-retroYellow shrink-0">{Math.round(pct)}% ({votes[n]})</span>
               </div>
@@ -754,7 +811,7 @@ export default function DebatRoom() {
         <div className="mt-4 flex flex-col items-center gap-2">
           <button onClick={downloadScreenshot} disabled={capturing}
             className="px-6 py-2 border-2 border-retroGray bg-black/40 hover:bg-retroGray/40 text-retroLight/70 hover:text-retroLight text-xs transition-colors">
-            {capturing ? '📸 MEMPROSES...' : '📸 SIMPAN SEBAGAI GAMBAR'}
+            {capturing ? '[FOTO] MEMPROSES...' : '[FOTO] SIMPAN SEBAGAI GAMBAR'}
           </button>
           <div className="text-xs text-retroLight/40">Mengalihkan ke hasil akhir...</div>
         </div>

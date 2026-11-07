@@ -7,6 +7,28 @@ dan project ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ---
 
+## [3.3.1] - 2026-11-07
+
+### Fixed (P0)
+- **Oposisi berpengaruh ke pemilu:** elektabilitas dipotong `Popularitas x Oposisi%` (minimum 20) sebelum debat; penalti ganda -15 di hasil pemilu dihapus.
+- **Amandemen 3 periode:** hanya ditawarkan sekali per periode; semua biaya diungkap sebelum memilih; laporan kuartal tidak lagi menutup fase Aksi.
+- **Bangkrut tak terlihat:** opsi krisis dan kartu aktivitas yang membuat APBN <= 0 diberi label `BANGKRUT!`.
+
+### Improved (P1)
+- Laporan kuartal selalu memuat delta statistik, hasil krisis, dan berita utama.
+- Aktivitas menampilkan efek aktual setelah penalti duplikat.
+- Debat: delta Trust per soal, ringkasan hasil debat sebelum kampanye, banner potongan oposisi.
+- Kampanye: angka Trust pada pilihan disembunyikan; dana luar negeri menurunkan Trust 25-45 poin.
+- Tab Kebijakan menampilkan preview efek per kuartal.
+
+### Changed (UI)
+- Slider retro (track/thumb kotak), `#root` memakai `100dvh`, font mobile 16px.
+- Judul memakai `h1`, teks "Klik untuk Mulai" dihapus, kontras footer/about dinaikkan.
+- Gelar game over hanya tipe negatif saat gagal; `GAME BARU` menghapus save.
+- Emoji hardcoded di komponen diganti label teks; ikon data tetap.
+
+---
+
 ## [3.3.0] - 2026-11-07
 
 ### Added

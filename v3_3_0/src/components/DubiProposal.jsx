@@ -13,7 +13,7 @@ export default function DubiProposal() {
         <div className="text-2xl text-retroYellow glow-text mb-4">{dubiProposal.title}</div>
 
         <div className="w-24 h-24 mx-auto mb-4 bg-retroGray rounded-full flex items-center justify-center overflow-hidden border-2 border-retroYellow">
-          <span className="text-4xl">🦅</span>
+          <span className="text-2xl text-retroYellow">[BA]</span>
         </div>
 
         <div className="text-sm text-retroLight/80 mb-4 leading-relaxed italic border-l-4 border-retroYellow pl-4 text-left">
@@ -28,11 +28,14 @@ export default function DubiProposal() {
             className="w-full py-3 border-2 border-red-500 bg-red-900/20 hover:bg-red-900/40 text-red-300 transition-colors text-sm">
             SETUJU — 3 PERIODE
           </button>
-          <div className="text-[10px] text-red-400/60 text-center -mt-2">⚠ Oposisi +50%, 3 kuartal susah dapat popularitas</div>
+          <div className="text-[10px] text-red-400/80 text-center border border-red-800 bg-red-900/10 p-2 leading-relaxed">
+            Biaya penuh: Keamanan, Kesejahteraan, Infrastruktur, dan Popularitas turun ke 20%. Oposisi +50%. Selama 3 kuartal, kenaikan Popularitas dari aksi hanya 30%.
+          </div>
           <button onClick={() => { sfx.select(); respondDubiProposal(false) }}
             className="w-full py-3 border-2 border-retroGreen bg-retroGreen/20 hover:bg-retroGreen/40 text-retroLight transition-colors text-sm">
-            ✋ TOLAK — Cukup 2 Periode
+            TOLAK — Cukup 2 Periode
           </button>
+          <div className="text-[10px] text-retroLight/60 text-center">Menolak menaikkan semua indikator +5% (hanya sekali per periode).</div>
         </div>
       </div>
     </div>

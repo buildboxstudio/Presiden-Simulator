@@ -29,10 +29,10 @@ export default function MinisterProposal() {
         <div className="text-2xl text-blue-400 glow-text mb-4">USULAN MENTERI</div>
 
         <div className="w-20 h-20 mx-auto mb-4 bg-retroGray rounded-full flex items-center justify-center border-2 border-blue-500">
-          <span className="text-3xl">
-            {ministerProposal.posisi === 'menteri_keuangan' ? '💰' :
-             ministerProposal.posisi === 'menteri_pertahanan' ? '⚔' :
-             ministerProposal.posisi === 'menteri_kesehatan' ? '🏥' : '🏗'}
+          <span className="text-xl text-blue-300">
+            {ministerProposal.posisi === 'menteri_keuangan' ? '[KEU]' :
+             ministerProposal.posisi === 'menteri_pertahanan' ? '[HAN]' :
+             ministerProposal.posisi === 'menteri_kesehatan' ? '[KES]' : '[PU]'}
           </span>
         </div>
 

@@ -29,7 +29,7 @@ export default function VPSelect({ onSelect, onBack }) {
                     src={vp.photo}
                     alt={vp.name}
                     className="w-full h-full object-cover pixelated"
-                    onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.textContent = vp.id === 'vp_loyal' ? '🤝' : vp.id === 'vp_ambisius' ? '🧠' : '🎭' }}
+                    onError={(e) => { e.target.style.display = 'none'; e.target.parentNode.textContent = '[FOTO]' }}
                   />
                 </div>
                 <div className="min-w-0">

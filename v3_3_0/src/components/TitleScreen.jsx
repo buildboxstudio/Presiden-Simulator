@@ -5,16 +5,16 @@ import PartySelect from './PartySelect'
 import VPSelect from './VPSelect'
 import MinisterSelect from './MinisterSelect'
 
-const APP_VERSION = 'v3.3.0'
+const APP_VERSION = 'v3.3.1'
 
 const SCENARIOS = [
-  { id: 'stabil', name: '🇮🇩 Kondisi Stabil', desc: 'Negara dalam keadaan normal. Tantangan standar.', icon: '✅' },
-  { id: 'krisis_ekonomi', name: '💸 Krisis Ekonomi', desc: 'APBN jeblok, kesejahteraan rendah. Ekonomi negara diambang kehancuran!', icon: '📉' },
-  { id: 'konflik', name: '⚔ Konflik Berkepanjangan', desc: 'Keamanan nasional terganggu. Wilayah timur tidak stabil.', icon: '🔫' },
-  { id: 'bencana', name: '🌊 Bencana Alam Melanda', desc: 'Infrastruktur hancur. Dana negara terkuras untuk rekonstruksi.', icon: '🌋' },
-  { id: 'super_krisis', name: '💀 Super Krisis', desc: 'Semua sektor runtuh! Hanya presiden terbaik yang bisa bertahan!', icon: '☠️', unlockRequirement: 'Selesaikan skenario Krisis Ekonomi' },
-  { id: 'perang_total', name: '⚔ Perang Total', desc: 'Konflik militer di seluruh Indonesia. Keamanan turun drastis!', icon: '💣', unlockRequirement: 'Selesaikan skenario Konflik' },
-  { id: 'bumi_hangus', name: '🌋 Bumi Hangus', desc: 'Bencana alam bertubi-tubi. Infrastruktur hancur total!', icon: '🔥', unlockRequirement: 'Selesaikan skenario Bencana' },
+  { id: 'stabil', name: 'Kondisi Stabil', desc: 'Negara dalam keadaan normal. Tantangan standar.' },
+  { id: 'krisis_ekonomi', name: 'Krisis Ekonomi', desc: 'APBN jeblok, kesejahteraan rendah. Ekonomi negara diambang kehancuran!' },
+  { id: 'konflik', name: 'Konflik Berkepanjangan', desc: 'Keamanan nasional terganggu. Wilayah timur tidak stabil.' },
+  { id: 'bencana', name: 'Bencana Alam Melanda', desc: 'Infrastruktur hancur. Dana negara terkuras untuk rekonstruksi.' },
+  { id: 'super_krisis', name: 'Super Krisis', desc: 'Semua sektor runtuh! Hanya presiden terbaik yang bisa bertahan!', unlockRequirement: 'Selesaikan skenario Krisis Ekonomi' },
+  { id: 'perang_total', name: 'Perang Total', desc: 'Konflik militer di seluruh Indonesia. Keamanan turun drastis!', unlockRequirement: 'Selesaikan skenario Konflik' },
+  { id: 'bumi_hangus', name: 'Bumi Hangus', desc: 'Bencana alam bertubi-tubi. Infrastruktur hancur total!', unlockRequirement: 'Selesaikan skenario Bencana' },
 ]
 
 const faqData = [
@@ -23,7 +23,7 @@ const faqData = [
   { q: 'Apa yang terjadi jika indikator mencapai 0?', a: 'Game Over! APBN 0 = krisis anggaran, Keamanan 0 = kudeta, Kesejahteraan 0 = revolusi, Infrastruktur 0 = kehancuran, Popularitas 0 = impeachment.' },
   { q: 'Apa itu skenario?', a: 'Skenario menentukan kondisi awal negara. Krisis Ekonomi, Konflik, atau Bencana membuat permainan lebih sulit.' },
   { q: 'Apa fungsi menteri?', a: 'Menteri dengan skill & loyalitas tinggi memberikan bonus indikator tiap kuartal. Loyalitas rendah bisa picu skandal korupsi!' },
-  { q: 'Apa itu Oposisi Score?', a: 'Setiap kali popularitas turun, oposisi menguat. Jika >70%, oposisi menang telak di pemilu!' },
+  { q: 'Apa itu Oposisi Score?', a: 'Setiap kali popularitas turun, oposisi menguat. Saat pemilu, elektabilitas dipotong sebesar Popularitas x Oposisi%. Contoh: Popularitas 98% dengan Oposisi 29% menjadi ~70%.' },
   { q: 'Apa itu trust score?', a: 'Trust score adalah kepercayaan rakyat saat debat pemilu. Jika mencapai 0, Anda kalah pemilu.' },
 ]
 
@@ -91,8 +91,8 @@ export default function TitleScreen() {
                 <div>realita politik Indonesia.</div>
               </div>
             </div>
-              <div className="text-xs text-retroLight/30 mb-6">
-                Pembaruan terakhir: {APP_VERSION} — Perbaikan P0/P1 audit: log delta stat, debat tanpa bocor jawaban, timer krisis dengan pesan, ulangi 2 kuartal, cooldown aksi, pause krisis, slider volume, dan musik latar di layar judul.
+              <div className="text-xs text-retroLight/60 mb-6">
+                Pembaruan terakhir: {APP_VERSION} — Perbaikan P0/P1 audit: oposisi memotong elektabilitas (Popularitas x Oposisi%), amandemen sekali per periode, peringatan bangkrut, laporan kuartal lengkap, hasil debat per soal, dan pembersihan UI.
               </div>
             <button onClick={() => setShowAbout(false)}
               className="w-full py-3 border-2 border-retroYellow bg-retroYellow/20 hover:bg-retroYellow/40 text-retroLight transition-colors">◄ KEMBALI ◄</button>
@@ -113,17 +113,18 @@ export default function TitleScreen() {
         <div className="max-w-lg w-full fade-in relative z-10">
           <img
             src="https://ik.imagekit.io/dntonfire/image_2026-05-29_112902025.png"
-            alt="Garuda"
+            alt="Presiden"
             className="w-32 h-32 mx-auto mb-4 pixelated"
             style={{ imageRendering: 'pixelated' }}
           />
-          <div className="text-5xl font-bold text-retroLight glow-text mb-2 tracking-wider">PRESIDEN</div>
-          <div className="text-5xl font-bold text-retroYellow glow-text mb-6 tracking-wider">SIMULATOR</div>
-          <div className="text-sm text-retroLight/50 mb-6">
+          <h1 className="mb-8">
+            <span className="block text-5xl font-bold text-retroLight glow-text mb-2 tracking-wider">PRESIDEN</span>
+            <span className="block text-5xl font-bold text-retroYellow glow-text tracking-wider">SIMULATOR</span>
+          </h1>
+          <div className="text-sm text-retroLight/80 mb-8">
             Pimpin Indonesia menuju kejayaan atau kehancuran.
             <br />Setiap keputusan menentukan nasib negara.
           </div>
-          <div className="text-retroYellow text-sm mb-8">Klik untuk Mulai</div>
           <button onClick={() => setStep('customize')}
             className="w-full px-8 py-3 border-2 border-retroYellow bg-retroYellow/20 hover:bg-retroYellow/40 text-retroLight transition-colors mb-3"
           >► MULAI ◄</button>
@@ -170,9 +171,9 @@ export default function TitleScreen() {
                   <div className="flex flex-wrap gap-1 justify-center">
                     {unlockedScenarios.map((s) => (
                       <span key={s} className="border border-retroGreen/40 px-2 py-0.5 text-retroGreen text-[10px]">
-                        {s === 'super_krisis' ? '💀 Super Krisis' :
-                         s === 'perang_total' ? '⚔ Perang Total' :
-                         s === 'bumi_hangus' ? '🌋 Bumi Hangus' : s}
+                        {s === 'super_krisis' ? 'Super Krisis' :
+                         s === 'perang_total' ? 'Perang Total' :
+                         s === 'bumi_hangus' ? 'Bumi Hangus' : s}
                       </span>
                     ))}
                   </div>
@@ -206,7 +207,7 @@ export default function TitleScreen() {
 
           {playerName.toLowerCase() === 'hidupjokowi' && (
             <div className="mb-6 p-3 border-2 border-red-500 bg-red-900/10">
-              <div className="text-xs text-red-400 font-bold mb-2">☣ QA TEST MODE ☣</div>
+              <div className="text-xs text-red-400 font-bold mb-2">[QA] QA TEST MODE [QA]</div>
               <div className="grid grid-cols-2 gap-2">
                 <button onClick={() => { const bg = backgrounds[0]; const p = { id: 'nasionalis', name: 'Garuda Perkasa', logo: '', ideology: 'Nasionalis' }; startGame(playerName, bg, p, null, {}, 1) }}
                   className="text-xs py-1 px-2 border border-red-500 bg-red-900/20 hover:bg-red-900/40 text-red-300 transition-colors">GAME</button>
@@ -288,7 +289,7 @@ export default function TitleScreen() {
                       ? 'border-retroYellow bg-retroYellow/10'
                       : 'border-retroGray bg-black/40 hover:border-retroLight/40'
                 }`}>
-                <div className="text-sm mb-1">{s.icon} {isLocked && '🔒 '}{s.name}</div>
+                <div className="text-sm mb-1">{isLocked && '[TERKUNCI] '}{s.name}</div>
                 <div className="text-xs text-retroLight/50">{isLocked ? s.unlockRequirement : s.desc}</div>
               </button>
               )

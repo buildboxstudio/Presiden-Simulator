@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
 import { useGame } from '../context/GameContext'
 import useSound from '../hooks/useSound'
+import { wouldBankrupt } from '../utils/effects'
 
 const DEDDY_IMG = 'https://ik.imagekit.io/dntonfire/image_2026-05-29_083324899.png'
 const DEADLINE_SECONDS = 20
@@ -15,7 +16,7 @@ function shuffle(arr) {
 }
 
 export default function EventCard() {
-  const { currentEvent, vicePresident, ministers, resolveEvent, dubiArry } = useGame()
+  const { currentEvent, vicePresident, ministers, resolveEvent, dubiArry, indicators } = useGame()
   const [showChoices, setShowChoices] = useState(false)
   const [imgError, setImgError] = useState(false)
   const [timeLeft, setTimeLeft] = useState(null)
@@ -47,7 +48,6 @@ export default function EventCard() {
     return ministers[posisi] || null
   }, [currentEvent, ministers, shuffledChoices])
 
-  // Deadline timer
   useEffect(() => {
     if (!showChoices || deadlinePassed || paused) return
     setTimeLeft(DEADLINE_SECONDS)
@@ -84,12 +84,12 @@ export default function EventCard() {
     return (
       <div className="fade-in fixed inset-0 flex items-start justify-center bg-black/90 z-50 p-4 pt-8 overflow-y-auto">
         <div className="bg-retroGray border-4 border-retroLight max-w-lg w-full p-6 pixel-border text-center my-auto">
-          <div className="text-lg text-retroYellow mb-3 tracking-wider">🗣 SEKRETARIS KABINET</div>
+          <div className="text-lg text-retroYellow mb-3 tracking-wider">SEKRETARIS KABINET</div>
           <div className="w-20 h-20 mx-auto mb-4 bg-black border-2 border-retroLight flex items-center justify-center overflow-hidden">
             {!imgError ? (
               <img src={DEDDY_IMG} alt="Deddy" className="w-full h-full object-cover" onError={() => setImgError(true)} />
             ) : (
-              <span className="text-3xl">👨‍💼</span>
+              <span className="text-3xl">[SK]</span>
             )}
           </div>
           <div className="text-sm text-retroLight/80 mb-6 leading-relaxed italic px-2">
@@ -115,15 +115,15 @@ export default function EventCard() {
           <div className="flex items-center gap-2">
             {timeLeft !== null && (
               <div className={`text-sm font-bold ${timeLeft <= 5 ? 'text-red-400 animate-pulse' : 'text-retroYellow'}`}>
-                ⏱ {timeLeft}s
+                {timeLeft}s
               </div>
             )}
-            {showChoices && <button onClick={() => { sfx.click(); setPaused(!paused) }} className="text-xs px-2 py-1 border border-retroYellow bg-retroYellow/20 text-retroLight">{paused ? '▶ LANJUT' : '⏸ PAUSE'}</button>}
+            {showChoices && <button onClick={() => { sfx.click(); setPaused(!paused) }} className="text-xs px-2 py-1 border border-retroYellow bg-retroYellow/20 text-retroLight">{paused ? 'LANJUT' : 'PAUSE'}</button>}
           </div>
         </div>
         {deadlinePassed && !autoSelected && (
           <div className="mb-4 p-3 border-2 border-red-500 bg-red-900/20 shake text-center">
-            <div className="text-red-400 text-sm font-bold">⏰ WAKTU HABIS!</div>
+            <div className="text-red-400 text-sm font-bold">WAKTU HABIS!</div>
             <div className="text-xs text-red-300/70 mt-1">Pilihan acak: {shuffledChoices[Math.floor(Math.random() * shuffledChoices.length)]?.label || 'default'}</div>
           </div>
         )}
@@ -132,14 +132,14 @@ export default function EventCard() {
 
         {vpHint && (
           <div className="mb-4 p-3 border border-retroGreen bg-retroGreen/10">
-            <div className="text-xs text-retroYellow mb-1">💬 Wakil Presiden {vicePresident.name}:</div>
+            <div className="text-xs text-retroYellow mb-1">Wakil Presiden {vicePresident.name}:</div>
             <div className="text-sm italic text-retroLight/80">"{vpHint.advice}"</div>
           </div>
         )}
 
         {dubiArry && (
           <div className="mb-4 p-3 border border-red-800 bg-red-900/10">
-            <div className="text-xs text-red-400 mb-1">🦅 BUDEE ARIE (LOYALIS PRESIDEN):</div>
+            <div className="text-xs text-red-400 mb-1">BUDEE ARIE (LOYALIS PRESIDEN):</div>
             <div className="text-sm italic text-red-300/70">"Pak Presiden, lupakan menteri dan wapres! Rakyat ingin aksi tegas! Ambil risiko, buktikan Anda pemimpin sejati!"</div>
           </div>
         )}
@@ -173,6 +173,9 @@ export default function EventCard() {
             >
               <span className="text-retroYellow mr-2">[{idx + 1}]</span>
               {choice.label}
+              {wouldBankrupt(indicators, choice.effects) && (
+                <span className="block text-xs text-red-400 mt-1">APBN {choice.effects.apbn} — BANGKRUT!</span>
+              )}
             </button>
           ))}
 
@@ -208,7 +211,6 @@ export default function EventCard() {
                 }}
                 className="w-full text-left px-4 py-3 border-2 border-blue-500/50 bg-blue-900/20 hover:bg-blue-900/40 hover:border-blue-400 transition-colors text-sm"
               >
-                <span className="text-blue-300"></span>
                 Delegasikan ke <span className="text-retroYellow">{relevantMinister.name}</span>
                 <span className="text-xs text-retroLight/40 ml-2">
                   (skill {relevantMinister.skill}, loyal {relevantMinister.loyalty})

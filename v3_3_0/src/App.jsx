@@ -45,12 +45,12 @@ export default function App() {
       </div>
 
       {phase !== 'result' && (
-        <div className="text-center text-xs lg:text-sm text-retroLight/20 py-2 border-t border-retroGray/20 flex items-center justify-between px-4">
+        <div className="text-center text-xs lg:text-sm text-retroLight/60 py-2 border-t border-retroGray/40 flex items-center justify-between px-4">
           <div>PRESIDEN SIMULATOR — Buildbox Studio 2026</div>
           {bgmPlaying && (
             <div className="flex items-center gap-2 text-xs">
-              <span>🔊</span>
-              <input type="range" min="0" max="100" value={volume * 100} onChange={(e) => setVolume(e.target.value / 100)} className="w-20 h-1 bg-retroGray rounded cursor-pointer" />
+              <span>BGM</span>
+              <input type="range" min="0" max="100" value={volume * 100} onChange={(e) => setVolume(e.target.value / 100)} aria-label="Volume musik" className="w-20 cursor-pointer" />
             </div>
           )}
         </div>

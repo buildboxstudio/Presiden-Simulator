@@ -11,6 +11,7 @@ import policiesData from '../data/policies.json'
 import ministerData from '../data/ministerCandidates.json'
 import useSound from '../hooks/useSound'
 import { useAudio } from '../context/AudioContext'
+import { effectsText } from '../utils/effects'
 
 const IDEOLOGY_COLORS = {
   Nasionalis: '#961313', Agamis: '#1a7a1a', Demokrat: '#2a6a9a',
@@ -28,7 +29,6 @@ export default function Dashboard() {
   const sfx = useSound()
   const { bgmPlaying, toggleBGM } = useAudio()
 
-  // Autosave setiap kali laporan kuartal muncul
   useEffect(() => {
     if (showQuarterReport) {
       saveGame()
@@ -40,7 +40,6 @@ export default function Dashboard() {
     toggleBGM()
   }
 
-  // When report is dismissed and no event, trigger activity
   useEffect(() => {
     if (pendingActivity && !currentEvent) {
       setShowActivity(true)
@@ -76,10 +75,10 @@ export default function Dashboard() {
   ]
 
   const statMap = {
-    menteri_keuangan: { label: 'Menteri Keuangan', icon: '💰', effect: 'apbn' },
-    menteri_pertahanan: { label: 'Menteri Pertahanan', icon: '⚔', effect: 'keamanan' },
-    menteri_kesehatan: { label: 'Menteri Kesehatan', icon: '🏥', effect: 'kesejahteraan' },
-    menteri_pupr: { label: 'Menteri PUPR', icon: '🏗', effect: 'infrastruktur' },
+    menteri_keuangan: { label: 'Menteri Keuangan', icon: '[AP]', effect: 'apbn' },
+    menteri_pertahanan: { label: 'Menteri Pertahanan', icon: '[KM]', effect: 'keamanan' },
+    menteri_kesehatan: { label: 'Menteri Kesehatan', icon: '[KS]', effect: 'kesejahteraan' },
+    menteri_pupr: { label: 'Menteri PUPR', icon: '[IN]', effect: 'infrastruktur' },
   }
 
   return (
@@ -93,18 +92,18 @@ export default function Dashboard() {
         <NewsTicker />
 
       {/* Header */}
-      <div className="bg-gradient-to-b from-black/80 to-transparent px-2 md:px-4 pt-3 pb-2 text-center border-b border-retroGray/30">
+      <div className="bg-black/80 px-2 md:px-4 pt-3 pb-2 text-center border-b border-retroGray/30">
         <div className="text-[10px] md:text-xs lg:text-sm text-retroYellow/60 uppercase tracking-widest flex items-center justify-center gap-1 md:gap-3 flex-wrap">
           <span>P{period}</span>
           <span>•</span>
           <span>T{year} K{quarter}/{maxQuarter}</span>
           <button onClick={() => { sfx.click(); saveGame() }}
             className="text-[10px] md:text-xs lg:text-sm text-retroLight/40 hover:text-retroYellow border border-retroGray/40 px-1.5 md:px-2 py-0.5 transition-colors"
-          >💾 SIMPAN</button>
+          >SIMPAN</button>
           <button onClick={handleMusicToggle}
             className="text-[10px] md:text-xs lg:text-sm border border-retroGray/40 px-1.5 md:px-2 py-0.5 transition-colors whitespace-nowrap"
             style={{ color: bgmPlaying ? '#b39c00' : '#961313' }}
-          >{bgmPlaying ? '🔊 MUSIK' : '🔇 MUTE'}</button>
+          >{bgmPlaying ? 'MUSIK' : 'MUTE'}</button>
         </div>
         <h1 className="text-lg md:text-2xl lg:text-3xl text-retroLight glow-text mt-1 tracking-wider break-words">
           PRESIDEN {playerName.toUpperCase()}
@@ -115,7 +114,7 @@ export default function Dashboard() {
           <span>|</span>
           <span className="truncate max-w-[80px] md:max-w-none">{background?.name || '-'}</span>
           {vicePresident && <><span>|</span><span className="truncate max-w-[80px] md:max-w-none">W: {vicePresident.name}</span></>}
-          {period === 2 && <span className="text-retroYellow blink ml-2">★ P2</span>}
+          {period === 2 && <span className="text-retroYellow blink ml-2">P2</span>}
         </div>
         {/* Step Indicator */}
         {(showQuarterReport || currentEvent || showActivity) && (
@@ -159,19 +158,20 @@ export default function Dashboard() {
             {/* Oposisi Score Meter */}
             <div className="mb-4 bg-black/40 border-2 border-retroGray p-3">
               <div className="flex justify-between text-xs mb-1">
-                <span className="text-red-400">⚡ Oposisi</span>
+                <span className="text-red-400">Oposisi</span>
                 <span className={oposisiScore >= 60 ? 'text-red-400 blink' : 'text-retroLight/60'}>{Math.round(oposisiScore)}%</span>
               </div>
               <div className="w-full bg-retroGray h-2 border border-retroGray/50">
                 <div className="h-full transition-all duration-500" style={{ width: `${Math.min(100, oposisiScore)}%`, background: oposisiScore >= 60 ? '#961313' : oposisiScore >= 40 ? '#b39c00' : '#666' }} />
               </div>
-              {oposisiScore >= 70 && <div className="text-xs text-red-400 mt-1 blink">Bahaya! Oposisi bisa menang telak!</div>}
+              <div className="text-xs text-retroLight/60 mt-1">Oposisi memotong elektabilitas saat pemilu (rumus: Popularitas x Oposisi%).</div>
+              {oposisiScore >= 70 && <div className="text-xs text-red-400 mt-1 blink">Bahaya! Potongan elektabilitas akan sangat besar.</div>}
             </div>
 
             {/* History Mini Chart */}
             {historyIndicators.length > 0 && (
               <div className="mb-4 bg-black/40 border-2 border-retroGray p-3">
-                <div className="text-xs text-retroLight/60 mb-2">📈 Tren 10 Kuartal Terakhir</div>
+                <div className="text-xs text-retroLight/60 mb-2">Tren 10 Kuartal Terakhir</div>
                 <div className="flex items-end gap-0.5" style={{ height: '80px' }}>
                   {historyIndicators.map((h, i) => (
                     <div key={i} className="flex-1 flex flex-col justify-end relative" style={{ height: '100%' }}>
@@ -217,7 +217,13 @@ export default function Dashboard() {
 
         {activeTab === 'kebijakan' && (
           <div className="fade-in space-y-4">
-            {policiesData.map((policy) => (
+            {policiesData.map((policy) => {
+              const val = policies[policy.id] || 0
+              const delta = {}
+              Object.entries(policy.effectsPer10).forEach(([stat, per10]) => {
+                delta[stat] = Math.round(((val - policy.default) / 10) * per10 * 10) / 10
+              })
+              return (
               <div key={policy.id} className="bg-black/40 border-2 border-retroGray p-3 md:p-4 pixel-border-light">
                 <div className="flex justify-between items-start mb-2 gap-2">
                   <div className="min-w-0 flex-1">
@@ -225,14 +231,18 @@ export default function Dashboard() {
                     <div className="text-xs text-retroLight/50 break-words">{policy.description}</div>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="text-sm text-retroYellow">{policies[policy.id]}{policy.unit}</div>
+                    <div className="text-sm text-retroYellow">{val}{policy.unit}</div>
                   </div>
                 </div>
-                <input type="range" min={policy.min} max={policy.max} value={policies[policy.id] || 0}
+                <input type="range" min={policy.min} max={policy.max} value={val}
                   onChange={(e) => updatePolicy(policy.id, parseInt(e.target.value))}
-                  className="w-full h-2 bg-retroGray appearance-none cursor-pointer" style={{ accentColor: '#b39c00' }} />
+                  className="w-full cursor-pointer" aria-label={`Tingkat ${policy.name}`} />
+                <div className="text-xs text-retroLight/60 mt-1">
+                  Default {policy.default}{policy.unit} — efek per kuartal: {effectsText(delta) || 'tidak ada perubahan'}
+                </div>
               </div>
-            ))}
+              )
+            })}
             <div className="text-xs text-retroLight/40 text-center mt-2">Kebijakan berlaku otomatis setiap kuartal</div>
           </div>
         )}
@@ -257,7 +267,7 @@ export default function Dashboard() {
                 <div className="border-t border-retroGray pt-4 mt-2">
                   <div className="text-xs text-retroLight/50 mb-3">Wakil Presiden: {vicePresident?.name || 'Kosong'}</div>
                   <button onClick={() => { sfx.click(); setReshuffleMode(true) }}
-                    className="w-full py-2 border border-retroYellow bg-retroYellow/10 hover:bg-retroYellow/30 text-retroYellow text-sm transition-colors">🔄 RESHUFFLE KABINET</button>
+                    className="w-full py-2 border border-retroYellow bg-retroYellow/10 hover:bg-retroYellow/30 text-retroYellow text-sm transition-colors">RESHUFFLE KABINET</button>
                 </div>
               </div>
             ) : (

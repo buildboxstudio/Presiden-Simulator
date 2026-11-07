@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useGame } from '../context/GameContext'
 import useSound from '../hooks/useSound'
+import { wouldBankrupt } from '../utils/effects'
 
 const activities = [
   {
     id: 'blusukan',
     label: 'Blusukan ke Daerah',
-    icon: '🚶',
+    icon: '[JLN]',
     desc: 'Turun langsung ke lapangan, dengarkan aspirasi rakyat kecil.',
     effects: { popularitas: 5, kesejahteraan: 3, apbn: -3, infrastruktur: -2 },
     detail: '+ popularitas, + kesejahteraan, - APBN',
@@ -14,7 +15,7 @@ const activities = [
   {
     id: 'kunjungan_luar_negeri',
     label: 'Kunjungan Luar Negeri',
-    icon: '✈',
+    icon: '[LN]',
     desc: 'Perkuat hubungan diplomatik dan tarik investasi asing.',
     effects: { popularitas: 3, keamanan: 4, apbn: -5, infrastruktur: 2 },
     detail: '+ popularitas, + keamanan, + infrastruktur, - APBN',
@@ -22,7 +23,7 @@ const activities = [
   {
     id: 'rapat_kabinet',
     label: 'Rapat Kabinet Khusus',
-    icon: '📋',
+    icon: '[RPT]',
     desc: 'Evaluasi menyeluruh program kerja dan koreksi kebijakan.',
     effects: { apbn: 3, keamanan: 2, kesejahteraan: 2, infrastruktur: 2, popularitas: -2 },
     detail: '+ semua indikator (kecuali popularitas -)',
@@ -30,7 +31,7 @@ const activities = [
   {
     id: 'pidato_kenegaraan',
     label: 'Pidato Kenegaraan',
-    icon: '🎤',
+    icon: '[PID]',
     desc: 'Tenangkan rakyat dengan pidato di televisi nasional.',
     effects: { popularitas: 8, apbn: -2 },
     detail: '+ popularitas besar, - APBN kecil',
@@ -38,15 +39,15 @@ const activities = [
   {
     id: 'sidang_kabinet',
     label: 'Sidak Dadakan ke Kementerian',
-    icon: '🔍',
+    icon: '[SDK]',
     desc: 'Periksa langsung kinerja kementerian. Efektif cegah korupsi.',
     effects: { popularitas: 2, keamanan: 2, apbn: 2, kesejahteraan: 1 },
     detail: '+ kecil semua indikator',
   },
   {
     id: 'pinjam_rotschild',
-    label: 'Pinjam Bank Rotschild',
-    icon: '🏦',
+    label: 'Pinjam Bank Rothschild',
+    icon: '[BNK]',
     desc: 'Pinjam dana besar dari bank internasional. APBN naik drastis tapi oposisi menguat.',
     effects: { apbn: 50, popularitas: -25, infrastruktur: 10, kesejahteraan: 5 },
     detail: '+50 APBN, -25 popularitas, +10 infrastruktur, +5 kesejahteraan',
@@ -55,7 +56,7 @@ const activities = [
   {
     id: 'makanan_bergizi',
     label: 'Pemberian Makanan Bergizi Gretongan',
-    icon: '🍱',
+    icon: '[MBG]',
     desc: 'Program gizi gratis untuk jutaan anak sekolah di seluruh Indonesia.',
     effects: { kesejahteraan: 35, popularitas: -10, infrastruktur: 25, apbn: -15 },
     detail: '+35 kesejahteraan, +25 infrastruktur, -10 popularitas, -15 APBN',
@@ -66,7 +67,7 @@ const badActivities = [
   {
     id: 'skandal_istana',
     label: 'Isu Skandal Istana',
-    icon: '🔥',
+    icon: '[SKL]',
     desc: 'Ada isu miring beredar di media sosial. Rakyat mulai resah.',
     effects: { popularitas: -5 },
     detail: '- popularitas',
@@ -74,7 +75,7 @@ const badActivities = [
   {
     id: 'demo_mahasiswa',
     label: 'Demo Mahasiswa Besar',
-    icon: '📢',
+    icon: '[DMO]',
     desc: 'Mahasiswa turun ke jalan menolak kebijakan Anda. Media ramai.',
     effects: { popularitas: -3, keamanan: -3 },
     detail: '- popularitas, - keamanan',
@@ -82,7 +83,7 @@ const badActivities = [
 ]
 
 export default function ActivityCard({ onClose, activityNum, maxActivities }) {
-  const { doActivity } = useGame()
+  const { doActivity, indicators } = useGame()
   const [selected, setSelected] = useState(null)
   const [showResult, setShowResult] = useState(false)
   const [badEvent, setBadEvent] = useState(null)
@@ -157,11 +158,14 @@ export default function ActivityCard({ onClose, activityNum, maxActivities }) {
                   : 'border-retroGray bg-black/40 hover:border-retroLight/40'
               }`}>
               <div className="flex items-start gap-2 sm:gap-3">
-                <span className="text-base sm:text-lg mt-0.5">{act.icon}</span>
+                <span className="text-[10px] sm:text-xs text-retroYellow mt-0.5 shrink-0">{act.icon}</span>
                 <div className="flex-1 min-w-0">
                   <div className="text-xs sm:text-sm text-retroLight leading-tight break-words">{act.label}</div>
                   <div className="text-[10px] sm:text-xs text-retroLight/50 leading-tight mt-0.5 hidden sm:block">{act.desc}</div>
                   <div className="text-[10px] sm:hidden text-retroGreen leading-tight mt-0.5">{act.detail}</div>
+                  {wouldBankrupt(indicators, { apbn: (act.effects.apbn || 0) + (badEvent?.effects.apbn || 0) }) && (
+                    <div className="text-[10px] text-red-400 mt-0.5">APBN {act.effects.apbn} — BANGKRUT!</div>
+                  )}
                 </div>
                 <div className="text-[10px] sm:text-xs text-retroGreen whitespace-nowrap hidden sm:block shrink-0">{act.detail}</div>
               </div>

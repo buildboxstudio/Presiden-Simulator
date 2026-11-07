@@ -64,7 +64,7 @@ const ENDING_MESSAGES = {
 }
 
 export default function ResultScreen() {
-  const { ending, indicators, playerName, period, goToPeriod2Setup, background, party, vicePresident, ministers, resetGame, retryGame, continueGamePeriod2, retryCount, propores, dubiArry, reshuffleCount, delegateCount, oposisiScore, achievements, updateCareerStats, unlockScenario, scenario, quarter } = useGame()
+  const { ending, indicators, playerName, period, goToPeriod2Setup, background, party, vicePresident, ministers, resetGame, retryGame, continueGamePeriod2, retryCount, propores, dubiArry, reshuffleCount, delegateCount, oposisiScore, achievements, updateCareerStats, unlockScenario, scenario, quarter, deleteSave } = useGame()
   const msg = ENDING_MESSAGES[ending] || ENDING_MESSAGES.impeachment
   const sfx = useSound()
   const resultRef = useRef(null)
@@ -85,7 +85,6 @@ export default function ResultScreen() {
     setCapturing(false)
   }
 
-  // Analisis tipe presiden
   const avgIndicators = Object.values(indicators).reduce((a, b) => a + b, 0) / 5
   const highestStat = Object.entries(indicators).sort((a, b) => b[1] - a[1])[0]
   const lowestStat = Object.entries(indicators).sort((a, b) => a[1] - b[1])[0]
@@ -93,21 +92,28 @@ export default function ResultScreen() {
   const isDelegator = (delegateCount || 0) >= 5
 
   const presidenTypes = []
-  if (indicators.kesejahteraan >= 70 && indicators.popularitas >= 60) presidenTypes.push({ icon: '❤️', label: 'Presiden Rakyat', desc: 'Mengutamakan kesejahteraan dan cinta rakyat.' })
-  if (indicators.infrastruktur >= 70) presidenTypes.push({ icon: '🏗️', label: 'Presiden Pembangunan', desc: 'Fokus pada infrastruktur dan konektivitas.' })
-  if (indicators.keamanan >= 70) presidenTypes.push({ icon: '⚔️', label: 'Presiden Keamanan', desc: 'Negara aman dan stabil di bawah komando Anda.' })
-  if (indicators.apbn >= 70) presidenTypes.push({ icon: '💰', label: 'Presiden Bendahara', desc: 'APBN surplus — Anda jago mengelola keuangan.' })
-  if (avgIndicators <= 25) presidenTypes.push({ icon: '💀', label: 'Presiden Gagal', desc: 'Semua sektor runtuh. Kepemimpinan Anda dipertanyakan.' })
-  if (isCorrupt) presidenTypes.push({ icon: '🦊', label: 'Presiden Korup', desc: 'Kabinet Anda sibuk reshuffle — tanda ketidakstabilan.' })
-  if (isDelegator) presidenTypes.push({ icon: '📋', label: 'Presiden Delegator', desc: 'Terlalu banyak melimpahkan wewenang ke menteri.' })
-  if (indicators.popularitas >= 80) presidenTypes.push({ icon: '⭐', label: 'Presiden Karismatik', desc: 'Rakyat mencintai Anda. Popularitas luar biasa.' })
-  if (oposisiScore >= 60) presidenTypes.push({ icon: '👥', label: 'Presiden Tertekan', desc: 'Oposisi kuat — pemerintahan Anda penuh perlawanan.' })
-  if (propores) presidenTypes.push({ icon: '🦅', label: 'Presiden LOYALIS PRESIDEN', desc: 'Didukung penuh oleh kelompok loyalis.' })
-  if (vicePresident?.will_betray && ending?.includes('kalah')) presidenTypes.push({ icon: '🔪', label: 'Presiden Dikhianati', desc: 'Wakil Anda sendiri menusuk dari belakang.' })
-  if (ending === 'lulus') presidenTypes.push({ icon: '🏆', label: 'Presiden Legenda', desc: 'Dua periode penuh! Nama Anda di buku sejarah.' })
-  if (presidenTypes.length === 0) presidenTypes.push({ icon: '🤷', label: 'Presiden Biasa', desc: 'Tidak menonjol di bidang apapun, tapi tetap memimpin.' })
+  if (indicators.kesejahteraan >= 70 && indicators.popularitas >= 60) presidenTypes.push({ label: 'Presiden Rakyat', desc: 'Mengutamakan kesejahteraan dan cinta rakyat.' })
+  if (indicators.infrastruktur >= 70) presidenTypes.push({ label: 'Presiden Pembangunan', desc: 'Fokus pada infrastruktur dan konektivitas.' })
+  if (indicators.keamanan >= 70) presidenTypes.push({ label: 'Presiden Keamanan', desc: 'Negara aman dan stabil di bawah komando Anda.' })
+  if (indicators.apbn >= 70) presidenTypes.push({ label: 'Presiden Bendahara', desc: 'APBN surplus — Anda jago mengelola keuangan.' })
+  if (avgIndicators <= 25) presidenTypes.push({ label: 'Presiden Gagal', desc: 'Semua sektor runtuh. Kepemimpinan Anda dipertanyakan.' })
+  if (isCorrupt) presidenTypes.push({ label: 'Presiden Korup', desc: 'Kabinet Anda sibuk reshuffle — tanda ketidakstabilan.' })
+  if (isDelegator) presidenTypes.push({ label: 'Presiden Delegator', desc: 'Terlalu banyak melimpahkan wewenang ke menteri.' })
+  if (indicators.popularitas >= 80) presidenTypes.push({ label: 'Presiden Karismatik', desc: 'Rakyat mencintai Anda. Popularitas luar biasa.' })
+  if (oposisiScore >= 60) presidenTypes.push({ label: 'Presiden Tertekan', desc: 'Oposisi kuat — pemerintahan Anda penuh perlawanan.' })
+  if (propores) presidenTypes.push({ label: 'Presiden LOYALIS PRESIDEN', desc: 'Didukung penuh oleh kelompok loyalis.' })
+  if (vicePresident?.will_betray && ending?.includes('kalah')) presidenTypes.push({ label: 'Presiden Dikhianati', desc: 'Wakil Anda sendiri menusuk dari belakang.' })
+  if (ending === 'lulus') presidenTypes.push({ label: 'Presiden Legenda', desc: 'Dua periode penuh! Nama Anda di buku sejarah.' })
 
-  const primaryType = presidenTypes[0]
+  const NEGATIVE_TYPES = ['Presiden Gagal', 'Presiden Korup', 'Presiden Tertekan', 'Presiden Dikhianati']
+  const rankedTypes = msg.gagal ? presidenTypes.filter((t) => NEGATIVE_TYPES.includes(t.label)) : presidenTypes
+  const finalTypes = rankedTypes.length > 0
+    ? rankedTypes
+    : msg.gagal
+      ? [{ label: 'Presiden Gagal', desc: 'Kepemimpinan Anda berakhir dengan kegagalan.' }]
+      : [{ label: 'Presiden Biasa', desc: 'Tidak menonjol di bidang apapun, tapi tetap memimpin.' }]
+
+  const primaryType = finalTypes[0]
 
   setTimeout(() => {
     if (ending === 'menang_pemilu' || ending === 'lulus') sfx.victory()
@@ -215,23 +221,22 @@ export default function ResultScreen() {
           <div className="bg-black/60 border-2 border-retroGray p-4 md:p-6 mb-6 pixel-border">
             <div className="text-sm text-retroYellow glow-text mb-3">RESUME: TIPE PRESIDEN</div>
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-3xl">{primaryType.icon}</span>
               <div className="text-left">
                 <div className="text-base text-retroLight">{primaryType.label}</div>
                 <div className="text-xs text-retroLight/60">{primaryType.desc}</div>
               </div>
             </div>
-            {presidenTypes.length > 1 && (
-              <div className="text-xs text-retroLight/40 mt-3 pt-3 border-t border-retroGray/30">
+            {finalTypes.length > 1 && (
+              <div className="text-xs text-retroLight/60 mt-3 pt-3 border-t border-retroGray/30">
                 Juga dikenal sebagai:
                 <div className="flex flex-wrap gap-1 mt-1">
-                  {presidenTypes.slice(1).map((t, i) => (
-                    <span key={i} className="border border-retroGray/40 px-2 py-0.5 text-retroYellow/70">{t.icon} {t.label}</span>
+                  {finalTypes.slice(1).map((t, i) => (
+                    <span key={i} className="border border-retroGray/40 px-2 py-0.5 text-retroYellow/70">{t.label}</span>
                   ))}
                 </div>
               </div>
             )}
-            <div className="text-[10px] text-retroLight/30 mt-3 pt-2 border-t border-retroGray/20">
+            <div className="text-[10px] text-retroLight/60 mt-3 pt-2 border-t border-retroGray/20">
               Reshuffle: {reshuffleCount || 0}x | Delegasi: {delegateCount || 0}x | Oposisi: {Math.round(oposisiScore || 0)}% | Pencapaian: {achievements?.length || 0}
             </div>
           </div>
@@ -260,14 +265,14 @@ export default function ResultScreen() {
 
         <button onClick={downloadScreenshot} disabled={capturing}
           className="w-full mb-3 py-2 border border-retroGray bg-black/40 hover:bg-retroGray/40 text-retroLight/70 hover:text-retroLight text-xs transition-colors">
-          {capturing ? '📸 MEMPROSES...' : '📸 SIMPAN SEBAGAI GAMBAR'}
+          {capturing ? '[FOTO] MEMPROSES...' : '[FOTO] SIMPAN SEBAGAI GAMBAR'}
         </button>
 
         {ending === 'menang_pemilu' ? (
           <div className="flex gap-3">
-            <button onClick={() => resetGame()}
+            <button onClick={() => { deleteSave(); resetGame() }}
               className="flex-1 py-3 border-2 border-retroLight bg-retroLight/10 hover:bg-retroLight/30 text-retroLight transition-colors text-sm">
-              🆕 GAME BARU
+              GAME BARU
             </button>
             <button onClick={() => continueGamePeriod2()}
               className="flex-1 py-3 border-2 border-retroYellow bg-retroYellow/20 hover:bg-retroYellow/40 text-retroLight transition-colors text-sm">
@@ -275,13 +280,13 @@ export default function ResultScreen() {
             </button>
           </div>
         ) : (
-          <button onClick={() => resetGame()}
+          <button onClick={() => { deleteSave(); resetGame() }}
             className="w-full py-3 border-2 border-retroLight bg-retroLight/10 hover:bg-retroLight/30 text-retroLight transition-colors">
-            ► MAIN LAGI ◄
+            ► GAME BARU ◄
           </button>
         )}
 
-        <div className="mt-8 text-xs text-retroLight/20">PRESIDEN SIMULATOR — Buildbox Studio 2026</div>
+        <div className="mt-8 text-xs text-retroLight/60">PRESIDEN SIMULATOR — Buildbox Studio 2026</div>
       </div>
     </div>
   )
