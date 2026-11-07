@@ -9,6 +9,9 @@ dan project ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [3.3.0] - 2026-11-07
 
+### Added
+- **Title-screen BGM:** `music/title.mp3` plays from the menu through policy setup, then switches to `music/bgm.mp3` when the game starts. Volume slider in the footer now controls it.
+
 ### Fixed (P0 hotfix)
 - **Debate pre-marked answers:** Program bonus no longer shows before choice click.
 - **Crisis timer silent fail:** Timeout now displays selected choice label.

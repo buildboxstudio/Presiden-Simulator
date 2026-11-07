@@ -5,7 +5,7 @@ import PartySelect from './PartySelect'
 import VPSelect from './VPSelect'
 import MinisterSelect from './MinisterSelect'
 
-const APP_VERSION = 'v3.0.3'
+const APP_VERSION = 'v3.3.0'
 
 const SCENARIOS = [
   { id: 'stabil', name: '🇮🇩 Kondisi Stabil', desc: 'Negara dalam keadaan normal. Tantangan standar.', icon: '✅' },
@@ -92,7 +92,7 @@ export default function TitleScreen() {
               </div>
             </div>
               <div className="text-xs text-retroLight/30 mb-6">
-                Pembaruan terakhir: {APP_VERSION} — Multi-Step Quarter (2 aksi), event selalu muncul + skenario filter, 20+ event baru, proposal menteri, karir statistik + unlockable skenario, autosave tiap kuartal.
+                Pembaruan terakhir: {APP_VERSION} — Perbaikan P0/P1 audit: log delta stat, debat tanpa bocor jawaban, timer krisis dengan pesan, ulangi 2 kuartal, cooldown aksi, pause krisis, slider volume, dan musik latar di layar judul.
               </div>
             <button onClick={() => setShowAbout(false)}
               className="w-full py-3 border-2 border-retroYellow bg-retroYellow/20 hover:bg-retroYellow/40 text-retroLight transition-colors">◄ KEMBALI ◄</button>

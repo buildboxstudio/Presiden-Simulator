@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useGame } from '../context/GameContext'
 import StatBar from './StatBar'
 import EventCard from './EventCard'
@@ -10,7 +10,7 @@ import NewsTicker from './NewsTicker'
 import policiesData from '../data/policies.json'
 import ministerData from '../data/ministerCandidates.json'
 import useSound from '../hooks/useSound'
-import useBackgroundMusic from '../hooks/useBackgroundMusic'
+import { useAudio } from '../context/AudioContext'
 
 const IDEOLOGY_COLORS = {
   Nasionalis: '#961313', Agamis: '#1a7a1a', Demokrat: '#2a6a9a',
@@ -26,20 +26,7 @@ export default function Dashboard() {
   const [pendingActivity, setPendingActivity] = useState(false)
   const [activitiesDone, setActivitiesDone] = useState(0)
   const sfx = useSound()
-  const music = useBackgroundMusic()
-  const [musicOn, setMusicOn] = useState(true)
-
-  useEffect(() => {
-    music.startMusic()
-    const handler = () => {
-      if (!music.isPlaying()) music.startMusic()
-    }
-    document.addEventListener('click', handler, { once: true })
-    return () => {
-      document.removeEventListener('click', handler)
-      music.stopMusic()
-    }
-  }, [])
+  const { bgmPlaying, toggleBGM } = useAudio()
 
   // Autosave setiap kali laporan kuartal muncul
   useEffect(() => {
@@ -49,8 +36,8 @@ export default function Dashboard() {
   }, [showQuarterReport])
 
   const handleMusicToggle = () => {
-    music.toggleMusic()
-    setMusicOn(!musicOn)
+    sfx.click()
+    toggleBGM()
   }
 
   // When report is dismissed and no event, trigger activity
@@ -116,8 +103,8 @@ export default function Dashboard() {
           >💾 SIMPAN</button>
           <button onClick={handleMusicToggle}
             className="text-[10px] md:text-xs lg:text-sm border border-retroGray/40 px-1.5 md:px-2 py-0.5 transition-colors whitespace-nowrap"
-            style={{ color: musicOn ? '#b39c00' : '#961313' }}
-          >{musicOn ? '🔊 MUSIK' : '🔇 MUTE'}</button>
+            style={{ color: bgmPlaying ? '#b39c00' : '#961313' }}
+          >{bgmPlaying ? '🔊 MUSIK' : '🔇 MUTE'}</button>
         </div>
         <h1 className="text-lg md:text-2xl lg:text-3xl text-retroLight glow-text mt-1 tracking-wider break-words">
           PRESIDEN {playerName.toUpperCase()}

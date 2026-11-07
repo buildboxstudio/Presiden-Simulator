@@ -1,41 +1,55 @@
-import { createContext, useContext, useState, useRef, useEffect } from 'react'
+import { createContext, useContext, useState, useRef, useEffect, useCallback } from 'react'
 
 const AudioContext = createContext()
 
 export function AudioProvider({ children }) {
   const [volume, setVolume] = useState(0.5)
   const bgmRef = useRef(null)
+  const trackRef = useRef(null)
   const [bgmPlaying, setBgmPlaying] = useState(false)
+
+  const getAudio = () => {
+    if (!bgmRef.current) {
+      bgmRef.current = new Audio()
+      bgmRef.current.loop = true
+    }
+    return bgmRef.current
+  }
+
+  const playBGM = useCallback((track) => {
+    const audio = getAudio()
+    const base = import.meta.env.BASE_URL || '/'
+    if (trackRef.current !== track) {
+      audio.src = base + 'music/' + track
+      trackRef.current = track
+    }
+    audio.volume = volume
+    audio.play().then(() => setBgmPlaying(true)).catch(() => setBgmPlaying(false))
+  }, [volume])
+
+  const stopBGM = useCallback(() => {
+    if (!bgmRef.current) return
+    bgmRef.current.pause()
+    setBgmPlaying(false)
+  }, [])
+
+  const toggleBGM = useCallback(() => {
+    const audio = bgmRef.current
+    if (!audio) return
+    if (audio.paused) {
+      audio.play().then(() => setBgmPlaying(true)).catch(() => setBgmPlaying(false))
+    } else {
+      audio.pause()
+      setBgmPlaying(false)
+    }
+  }, [])
 
   useEffect(() => {
     if (bgmRef.current) bgmRef.current.volume = volume
   }, [volume])
 
-  const playBGM = (url) => {
-    if (!bgmRef.current) {
-      bgmRef.current = new Audio(url)
-      bgmRef.current.loop = true
-      bgmRef.current.volume = volume
-    }
-    if (bgmRef.current.src !== url) {
-      bgmRef.current.src = url
-    }
-    if (!bgmPlaying) {
-      bgmRef.current.play().catch(() => {})
-      setBgmPlaying(true)
-    }
-  }
-
-  const stopBGM = () => {
-    if (bgmRef.current) {
-      bgmRef.current.pause()
-      bgmRef.current.currentTime = 0
-      setBgmPlaying(false)
-    }
-  }
-
   return (
-    <AudioContext.Provider value={{ volume, setVolume, playBGM, stopBGM, bgmPlaying }}>
+    <AudioContext.Provider value={{ volume, setVolume, playBGM, stopBGM, toggleBGM, bgmPlaying }}>
       {children}
     </AudioContext.Provider>
   )

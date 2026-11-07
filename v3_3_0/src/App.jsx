@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useGame } from './context/GameContext'
 import { useAudio } from './context/AudioContext'
 import TitleScreen from './components/TitleScreen'
@@ -9,7 +10,28 @@ import Period2Setup from './components/Period2Setup'
 
 export default function App() {
   const { phase } = useGame()
-  const { volume, setVolume, bgmPlaying } = useAudio()
+  const { volume, setVolume, playBGM, stopBGM, bgmPlaying } = useAudio()
+  const isTitle = phase === 'menu' || phase === 'setup'
+  const track = isTitle ? 'title.mp3' : 'bgm.mp3'
+
+  useEffect(() => {
+    if (phase === 'result') {
+      stopBGM()
+      return
+    }
+    playBGM(track)
+  }, [phase, track, playBGM, stopBGM])
+
+  useEffect(() => {
+    if (bgmPlaying || phase === 'result') return
+    const unlock = () => playBGM(track)
+    window.addEventListener('pointerdown', unlock)
+    window.addEventListener('keydown', unlock)
+    return () => {
+      window.removeEventListener('pointerdown', unlock)
+      window.removeEventListener('keydown', unlock)
+    }
+  }, [bgmPlaying, phase, track, playBGM])
 
   return (
     <div className="flex-1 flex flex-col min-h-screen bg-black font-retro">
