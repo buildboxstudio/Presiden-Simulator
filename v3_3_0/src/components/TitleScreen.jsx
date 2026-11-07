@@ -5,7 +5,7 @@ import PartySelect from './PartySelect'
 import VPSelect from './VPSelect'
 import MinisterSelect from './MinisterSelect'
 
-const APP_VERSION = 'v3.3.1'
+const APP_VERSION = 'v3.3.2'
 
 const SCENARIOS = [
   { id: 'stabil', name: 'Kondisi Stabil', desc: 'Negara dalam keadaan normal. Tantangan standar.' },
@@ -144,6 +144,10 @@ export default function TitleScreen() {
               className="flex-1 py-2 border border-retroGray bg-black/40 hover:bg-retroGray/40 text-retroLight/70 hover:text-retroLight text-sm transition-colors"
             >ABOUT</button>
           </div>
+          <a href="https://buymeacoffee.com/buildboxstudio" target="_blank" rel="noopener noreferrer"
+            className="inline-block mt-4 text-xs text-retroLight/60 hover:text-retroYellow border border-retroGray bg-black/40 hover:bg-retroGray/40 px-3 py-1.5 transition-colors">
+            DUKUNG PROYEK — BUY ME A COFFEE
+          </a>
           {showCareer && (
             <div className="mt-4 p-4 border-2 border-retroGray bg-black/60 text-xs text-left">
               <div className="text-retroYellow glow-text mb-3 text-center text-sm">STATISTIK KARIR</div>

@@ -7,6 +7,13 @@ dan project ini mengikuti [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ---
 
+## [3.3.2] - 2026-11-07
+
+### Added
+- Tombol `DUKUNG PROYEK — BUY ME A COFFEE` di layar judul, menuju `buymeacoffee.com/buildboxstudio`.
+
+---
+
 ## [3.3.1] - 2026-11-07
 
 ### Fixed (P0)
